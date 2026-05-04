@@ -689,13 +689,54 @@ def install_config(dest: Path, *, dry_run: bool, force: bool) -> None:
         print(f"Instalado {cfg} (gen_config_toml a partir do example).")
 
 
-def chmod_tree_templates(root: Path) -> None:
-    t = root / "templates"
-    if not t.is_dir():
-        return
-    for p in t.rglob("*"):
+def ensure_install_tree_permissions(root: Path, *, gid: int) -> None:
+    """Permissões determinísticas para o módulo usado pelo ForceCommand."""
+    # /opt/runv precisa ser atravessável para o utilizador entre chegar ao módulo.
+    parent = root.parent
+    if parent.exists():
+        try:
+            parent.chmod(0o755)
+        except OSError:
+            pass
+
+    for dirpath, dirs, files in os.walk(root, followlinks=False):
+        current = Path(dirpath)
+        try:
+            os.chown(current, 0, gid)
+            current.chmod(0o750)
+        except OSError:
+            pass
+
+        for name in dirs:
+            p = current / name
+            try:
+                os.chown(p, 0, gid, follow_symlinks=False)
+                p.chmod(0o750)
+            except OSError:
+                pass
+
+        for name in files:
+            p = current / name
+            try:
+                os.chown(p, 0, gid, follow_symlinks=False)
+                p.chmod(0o640)
+            except OSError:
+                pass
+
+    # O ForceCommand executa /usr/bin/python3 entre_app.py; Python precisa ler este ficheiro,
+    # e os módulos/templates adjacentes também precisam ser legíveis pelo utilizador entre.
+    for name in (
+        "entre_app.py",
+        "entre_core.py",
+        "closed_app.py",
+        "close_entre.py",
+        "gen_config_toml.py",
+        "config.toml",
+        "config.example.toml",
+    ):
+        p = root / name
         if p.is_file():
-            p.chmod(0o644)
+            p.chmod(0o640)
 
 
 def print_final_instructions(
@@ -895,8 +936,6 @@ def main() -> int:
             ):
                 force_cfg = True
         install_config(ir, dry_run=args.dry_run, force=force_cfg)
-        if not args.dry_run:
-            chmod_tree_templates(ir)
 
     if not args.dry_run:
         LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -928,18 +967,7 @@ def main() -> int:
         log_path.chmod(0o640)
 
         if ir.exists():
-            for root, dirs, files in os.walk(ir, followlinks=False):
-                for name in dirs + files:
-                    p = Path(root) / name
-                    try:
-                        os.chown(p, uid, gid, follow_symlinks=False)
-                    except OSError:
-                        pass
-            try:
-                os.chown(ir, uid, gid)
-            except OSError:
-                pass
-            ir.chmod(0o750)
+            ensure_install_tree_permissions(ir, gid=gid)
     else:
         print("[dry-run] utilizador entre, fila, log e .ssh seriam garantidos (sem alterar sistema).")
         if args.auth_mode == AUTH_EMPTY:
