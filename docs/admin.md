@@ -424,19 +424,19 @@ sudo sh REPO/email/scripts/send_test_mail.sh
 Aplicar/reaplicar a configuração IRC em todos os usuários:
 
 ```bash
-sudo python3 REPO/patches/patch_irc.py --all-users
+sudo python3 REPO/patches/patch_irc.py --all-users --force
 ```
 
 Aplicar a um único usuário:
 
 ```bash
-sudo python3 REPO/patches/patch_irc.py --user USER
+sudo python3 REPO/patches/patch_irc.py --user USER --force
 ```
 
 Simular:
 
 ```bash
-sudo python3 REPO/patches/patch_irc.py --all-users --dry-run --verbose
+sudo python3 REPO/patches/patch_irc.py --all-users --force --dry-run --verbose
 ```
 
 Padrão atual:
@@ -548,7 +548,7 @@ sudo python3 REPO/site/genlanding.py --sync-public-only \
 ### Corrigir IRC de todos os usuários
 
 ```bash
-sudo python3 REPO/patches/patch_irc.py --all-users
+sudo python3 REPO/patches/patch_irc.py --all-users --force
 ```
 
 ### Banir tecnicamente uma conta

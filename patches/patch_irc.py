@@ -718,7 +718,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     )
     p.add_argument("--dry-run", action="store_true", help="só mostrar o plano")
     p.add_argument("--verbose", action="store_true", help="log detalhado")
-    p.add_argument("--force", action="store_true", help="reconfigurar mesmo se existir servidor divergente")
+    p.add_argument("--force", action="store_true", help="recriar o servidor runv mesmo se já parecer conforme")
     p.add_argument("--skip-launcher", action="store_true", help="não instalar /usr/local/bin/chat")
     p.add_argument("--skip-backfill", action="store_true", help="não aplicar config por utilizador")
     p.add_argument("--users-json", type=Path, default=DEFAULT_USERS_JSON, metavar="PATH")

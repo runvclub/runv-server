@@ -507,7 +507,7 @@ def apply_irc_patch(
         log.error("%s", msg)
         return
 
-    cmd = [sys.executable, str(PATCH_IRC_PATH), "--all-users"]
+    cmd = [sys.executable, str(PATCH_IRC_PATH), "--all-users", "--force"]
     if dry_run:
         log.info("[dry-run] %s", " ".join(cmd))
         summary.copied.append(f"patch IRC (simulado): {' '.join(cmd)}")
@@ -522,7 +522,7 @@ def apply_irc_patch(
         log.error("%s", msg)
         return
 
-    summary.copied.append("patch IRC aplicado a todos os utilizadores")
+    summary.copied.append("patch IRC aplicado a todos os utilizadores (--force)")
     if r.stdout.strip():
         log.info("patch IRC: %s", r.stdout.strip().splitlines()[-1])
 
