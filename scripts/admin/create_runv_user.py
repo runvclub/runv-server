@@ -14,11 +14,9 @@ Contrato de provisionamento (ordem garantida após validação):
 5. **Skel Debian** — copiado no passo 1; o skel runv (``tools.py``) **não** inclui ``README.md`` por
    política. Opcionalmente ``--with-readme`` cria ``~/README.md`` (``--force-readme`` substitui se existir).
 6. **Aplicar permissões** — ``apply_runv_permissions``: home, ``.ssh``, sites públicos e, se existir,
-   ``README.md``, antes da **jail** (grupo ``runv-jailed``, Jailkit, bind, fstab), quota e verificação final.
-7. **Jail SSH** — por omissão: ``usermod -aG runv-jailed``, ``/srv/jail/<user>``, ``jk_init``
-   com perfil ``extendedshell`` (se ``bin/`` ainda não existir), bind de ``/home/<user>`` em
-   ``/srv/jail/<user>/home/<user>``, fstab. Exclui ``entre`` e
-   ``pmurad-admin``. ``--no-jail`` desliga.
+   ``README.md``, antes de quota e verificação final.
+7. **Jail SSH** — legado/opt-in: use ``--with-jail`` para ``runv-jailed`` + ``/srv/jail/<user>``.
+   Por omissão, membros entram sem chroot para poderem usar os comandos globais do servidor.
 
 Quota ext4, metadados JSON e logging seguem após estes passos.
 
@@ -442,8 +440,8 @@ def process_all_pending_requests(args: argparse.Namespace) -> int:
         passthrough_flags.append("--with-readme")
     if args.force_readme:
         passthrough_flags.append("--force-readme")
-    if args.no_jail:
-        passthrough_flags.append("--no-jail")
+    if getattr(args, "with_jail", False):
+        passthrough_flags.append("--with-jail")
     if args.force_gopher:
         passthrough_flags.append("--force-gopher")
     if args.force_gemini:
@@ -1419,15 +1417,18 @@ def interactive_fill(args: argparse.Namespace) -> None:
             )
         else:
             args.force_readme = False
-        args.no_jail = prompt_yes_no(
-            "Omitir jail SSH (runv-jailed /srv/jail) (--no-jail)?",
+        args.with_jail = prompt_yes_no(
+            "Criar jail SSH legada (runv-jailed /srv/jail) (--with-jail)?",
             default_no=True,
         )
+        args.no_jail = not args.with_jail
     else:
         args.force_index = False
         args.force_gopher = False
         args.force_gemini = False
         args.force_readme = False
+        args.with_jail = False
+        args.no_jail = True
 
     args.verbose = prompt_yes_no("Log verboso no terminal?", default_no=True)
 
@@ -1778,7 +1779,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument(
         "--no-jail",
         action="store_true",
-        help="não adicionar a runv-jailed nem criar jail em /srv/jail",
+        help="compatibilidade: não adicionar a runv-jailed nem criar jail em /srv/jail (padrão atual)",
+    )
+    p.add_argument(
+        "--with-jail",
+        action="store_true",
+        help="legado/opt-in: adicionar a runv-jailed e criar jail em /srv/jail",
     )
     p.add_argument(
         "--force-gopher",
@@ -1917,6 +1923,7 @@ def main(argv: list[str] | None = None) -> int:
         argv = ["--interactive"]
 
     args = parse_args(argv)
+    args.no_jail = not getattr(args, "with_jail", False)
     if args.interactive:
         try:
             interactive_fill(args)
@@ -2040,10 +2047,13 @@ def main(argv: list[str] | None = None) -> int:
         print(
             "  ações: (1) adduser + skel  (2) authorized_keys  (3) public_html  "
             "(4) public_gopher + public_gemini + bind Gemini  (5) README só com --with-readme  "
-            "(6) permissões  (7) jail runv-jailed salvo --no-jail  "
+            "(6) permissões  (7) jail SSH só com --with-jail  "
             "(8) quota  (9) verificação + patch IRC (chat)  (10) metadados JSON"
         )
-        print(f"  with-readme: {getattr(args, 'with_readme', False)}  no-jail: {getattr(args, 'no_jail', False)}")
+        print(
+            f"  with-readme: {getattr(args, 'with_readme', False)}  "
+            f"with-jail: {getattr(args, 'with_jail', False)}"
+        )
         if args.no_quota:
             print("  quota:        desativada (--no-quota)")
         else:
@@ -2093,7 +2103,7 @@ def main(argv: list[str] | None = None) -> int:
         log.info("=== fase 5: permissões consolidadas (home, .ssh, sites públicos, README se existir)")
         apply_runv_permissions(home, uid, gid)
 
-        log.info("=== fase 6: jail SSH (runv-jailed) salvo --no-jail")
+        log.info("=== fase 6: jail SSH legada (só com --with-jail)")
         try:
             runv_jail.ensure_runv_jail_for_user(
                 user,
@@ -2210,7 +2220,7 @@ def main(argv: list[str] | None = None) -> int:
         else:
             print("  README.md:         omitido (use --with-readme para criar)")
         if args.no_jail:
-            print("  jail SSH:          omitido (--no-jail)")
+            print("  jail SSH:          omitido (padrão; use --with-jail para legado)")
         else:
             print("  jail SSH:          runv-jailed + /srv/jail/<user> (bind home)")
         print(f"  URL prevista:      {args.base_url.rstrip('/')}/~{user}/")

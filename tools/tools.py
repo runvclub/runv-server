@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-runv.club — ferramentas globais, MOTD, Jailkit/SSH runv-jailed, comandos em /usr/local/bin e /etc/skel.
+runv.club — ferramentas globais, MOTD, comandos em /usr/local/bin e /etc/skel.
 
 Debian 13 · Python 3 stdlib apenas · sem shell=True.
 Execute como root. Ver docs/05-tools-and-system-experience.md no repositório.
@@ -34,7 +34,6 @@ _APT_PACKAGE_ALIASES: dict[str, str] = {
 BIN_DIR: Path = TOOL_ROOT / "bin"
 MOTD_SRC: Path = TOOL_ROOT / "motd" / "60-runv"
 SKEL_DIR: Path = TOOL_ROOT / "skel"
-SSHD_DROPIN_SRC: Path = TOOL_ROOT / "sshd" / "90-runv-jailed.conf"
 SUDOERS_ADMIN_SRC: Path = TOOL_ROOT / "sudoers" / "90-runv-pmurad-admin"
 
 DEST_BIN_DIR: Path = Path("/usr/local/bin")
@@ -43,7 +42,7 @@ DEST_SKEL: Path = Path("/etc/skel")
 DEST_SSHD_DROPIN: Path = Path("/etc/ssh/sshd_config.d/90-runv-jailed.conf")
 DEST_SUDOERS_ADMIN: Path = Path("/etc/sudoers.d/90-runv-pmurad-admin")
 PATCH_IRC_PATH: Path = TOOL_ROOT.parent / "patches" / "patch_irc.py"
-PERM1_PATH: Path = TOOL_ROOT.parent / "scripts" / "admin" / "perm1.py"
+REMOVE_JAILS_PATH: Path = TOOL_ROOT.parent / "scripts" / "admin" / "remove_runv_jails.py"
 
 
 @dataclass
@@ -303,50 +302,29 @@ def remove_obsolete_skel_readme(
         log.error("Não foi possível remover %s: %s", stale, e)
 
 
-def ensure_jailkit_ssh_baseline(
+def remove_jail_ssh_baseline(
     *,
-    force: bool,
     dry_run: bool,
     log: logging.Logger,
     summary: RunSummary,
 ) -> None:
-    if dry_run:
-        log.info("[dry-run] groupadd -f runv-jailed; gpasswd -d pmurad-admin; sshd drop-in; reload ssh")
+    """Remove o drop-in antigo de ChrootDirectory para membros runv."""
+    if not DEST_SSHD_DROPIN.exists():
+        log.info("Drop-in SSH runv-jailed ausente: %s", DEST_SSHD_DROPIN)
+        summary.skipped.append(str(DEST_SSHD_DROPIN))
         return
-    r = subprocess.run(
-        ["groupadd", "-f", "runv-jailed"],
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
-    if r.returncode != 0:
-        err = (r.stderr or r.stdout or "").strip()
-        msg = f"groupadd -f runv-jailed falhou: {err}"
+    if dry_run:
+        log.info("[dry-run] removeria %s; testaria sshd -t; recarregaria ssh", DEST_SSHD_DROPIN)
+        summary.copied.append(f"remover {DEST_SSHD_DROPIN} (simulado)")
+        return
+    try:
+        DEST_SSHD_DROPIN.unlink()
+    except OSError as e:
+        msg = f"remover {DEST_SSHD_DROPIN}: {e}"
         summary.errors.append(msg)
         log.error("%s", msg)
         return
-    log.info("Grupo runv-jailed garantido")
-
-    r = subprocess.run(
-        ["gpasswd", "-d", "pmurad-admin", "runv-jailed"],
-        capture_output=True,
-        text=True,
-        timeout=60,
-    )
-    if r.returncode != 0:
-        log.debug("gpasswd -d pmurad-admin (esperado se não estava no grupo): %s", (r.stderr or "").strip())
-
-    copy_one(
-        SSHD_DROPIN_SRC,
-        DEST_SSHD_DROPIN,
-        0o644,
-        force=force,
-        dry_run=False,
-        log=log,
-        summary=summary,
-    )
-    if summary.errors:
-        return
+    summary.copied.append(f"removido {DEST_SSHD_DROPIN}")
 
     test = subprocess.run(
         ["sshd", "-t"],
@@ -356,7 +334,7 @@ def ensure_jailkit_ssh_baseline(
     )
     if test.returncode != 0:
         err = (test.stderr or test.stdout or "").strip()
-        msg = f"sshd -t falhou após instalar drop-in: {err}"
+        msg = f"sshd -t falhou após remover drop-in runv-jailed: {err}"
         summary.errors.append(msg)
         log.error("%s", msg)
         return
@@ -527,19 +505,19 @@ def apply_irc_patch(
         log.info("patch IRC: %s", r.stdout.strip().splitlines()[-1])
 
 
-def apply_jail_backfill(
+def remove_existing_jails(
     *,
     dry_run: bool,
     log: logging.Logger,
     summary: RunSummary,
 ) -> None:
-    if not PERM1_PATH.is_file():
-        msg = f"perm1.py não encontrado: {PERM1_PATH}"
+    if not REMOVE_JAILS_PATH.is_file():
+        msg = f"remove_runv_jails.py não encontrado: {REMOVE_JAILS_PATH}"
         summary.errors.append(msg)
         log.error("%s", msg)
         return
 
-    cmd = [sys.executable, str(PERM1_PATH)]
+    cmd = [sys.executable, str(REMOVE_JAILS_PATH)]
     if dry_run:
         cmd.append("--dry-run")
     if log.isEnabledFor(logging.DEBUG):
@@ -547,20 +525,20 @@ def apply_jail_backfill(
 
     r = run_subprocess(cmd, dry_run=False if not dry_run else True, log=log)
     if dry_run:
-        summary.copied.append(f"jail backfill (simulado): {' '.join(cmd)}")
+        summary.copied.append(f"remoção de jails existentes (simulado): {' '.join(cmd)}")
         return
 
     assert r is not None
     if r.returncode != 0:
         err = (r.stderr or r.stdout or "").strip()
-        msg = f"perm1.py falhou (código {r.returncode})" + (f": {err}" if err else "")
+        msg = f"remove_runv_jails.py falhou (código {r.returncode})" + (f": {err}" if err else "")
         summary.errors.append(msg)
         log.error("%s", msg)
         return
 
-    summary.copied.append("jail SSH aplicado/verificado para utilizadores existentes")
+    summary.copied.append("jails SSH removidas de utilizadores existentes")
     if r.stdout.strip():
-        log.info("perm1.py: %s", r.stdout.strip().splitlines()[-1])
+        log.info("remove_runv_jails.py: %s", r.stdout.strip().splitlines()[-1])
 
 
 def print_summary(summary: RunSummary, log: logging.Logger) -> None:
@@ -617,7 +595,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     p.add_argument(
         "--reconcile-existing-users",
         action="store_true",
-        help="reaplica/verifica jail SSH e patch IRC em utilizadores já existentes",
+        help="reaplica/verifica patch IRC em utilizadores já existentes",
+    )
+    p.add_argument(
+        "--remove-existing-jails",
+        action="store_true",
+        help="remove runv-jailed, binds/fstab e /srv/jail de membros existentes",
     )
     return p.parse_args(argv)
 
@@ -656,9 +639,8 @@ def main(argv: list[str] | None = None) -> int:
         summary=summary,
     )
 
-    log.info("Jailkit / SSH runv-jailed (grupo, drop-in, reload)")
-    ensure_jailkit_ssh_baseline(
-        force=args.force,
+    log.info("Removendo baseline antigo de SSH runv-jailed (sem jail por padrão)")
+    remove_jail_ssh_baseline(
         dry_run=args.dry_run,
         log=log,
         summary=summary,
@@ -667,11 +649,11 @@ def main(argv: list[str] | None = None) -> int:
     log.info("Sincronizando skel em %s", DEST_SKEL)
     install_skel(force=args.force, dry_run=args.dry_run, log=log, summary=summary)
 
-    if args.reconcile_existing_users:
-        log.info("Aplicando/verificando jail SSH para utilizadores existentes")
-        apply_jail_backfill(dry_run=args.dry_run, log=log, summary=summary)
+    if args.remove_existing_jails:
+        log.info("Removendo jails SSH de utilizadores existentes")
+        remove_existing_jails(dry_run=args.dry_run, log=log, summary=summary)
     else:
-        log.info("Utilizadores existentes não serão alterados (sem --reconcile-existing-users).")
+        log.info("Jails existentes não serão removidas (sem --remove-existing-jails).")
 
     if args.reconcile_existing_users:
         log.info("Aplicando patch IRC (chat / WeeChat) aos utilizadores existentes")

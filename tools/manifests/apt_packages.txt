@@ -4,9 +4,6 @@
 
 # Debian 13+ (Trixie): o binário /usr/bin/last vem de wtmpdb, não de util-linux.
 wtmpdb
-# Chroot SSH por utilizador (jk_init, etc.)
-jailkit
-
 byobu
 tmux
 lynx
