@@ -106,6 +106,7 @@ def main(argv: list[str] | None = None) -> int:
 
     users = [args.user.strip()] if args.user else group_members()
     users = [u for u in users if u and not runv_jail.jail_skip_username(u)]
+    failures = 0
     if not users:
         log.info("nenhum membro em %s", runv_jail.RUNV_JAILED_GROUP)
     for username in users:
@@ -115,12 +116,17 @@ def main(argv: list[str] | None = None) -> int:
             log.warning("%s não existe em passwd; ignorado", username)
             continue
         log.info("--- removendo jail de %s", username)
-        runv_jail.teardown_runv_jail_for_user(
-            username,
-            Path(pw.pw_dir),
-            log,
-            dry_run=bool(args.dry_run),
-        )
+        try:
+            runv_jail.teardown_runv_jail_for_user(
+                username,
+                Path(pw.pw_dir),
+                log,
+                dry_run=bool(args.dry_run),
+            )
+        except Exception as e:
+            failures += 1
+            log.error("%s: falha ao remover jail: %s", username, e)
+            continue
 
     if not args.keep_sshd_dropin:
         try:
@@ -129,6 +135,9 @@ def main(argv: list[str] | None = None) -> int:
             log.error("%s", e)
             return 1
 
+    if failures:
+        log.error("concluído com %d falha(s)", failures)
+        return 1
     log.info("concluído")
     return 0
 

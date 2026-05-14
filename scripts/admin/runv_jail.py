@@ -22,6 +22,18 @@ def _run(cmd: list[str], *, log: logging.Logger) -> subprocess.CompletedProcess[
     return subprocess.run(cmd, capture_output=True, text=True, timeout=600)
 
 
+def is_mounted(path: Path, log: logging.Logger) -> bool:
+    """Detecta mountpoint usando findmnt quando disponível; fallback para os.path.ismount."""
+    p = str(path.resolve())
+    if shutil.which("findmnt") is not None:
+        r = _run(["findmnt", "-R", "--target", p], log=log)
+        if r.returncode == 0 and (r.stdout or "").strip():
+            return True
+        if r.returncode not in (0, 1):
+            log.debug("findmnt %s: %s", p, (r.stderr or r.stdout or "").strip())
+    return os.path.ismount(path)
+
+
 def ensure_runv_jailed_group(log: logging.Logger) -> None:
     r = _run(["groupadd", "-f", RUNV_JAILED_GROUP], log=log)
     if r.returncode != 0:
@@ -146,13 +158,19 @@ def remove_user_from_jailed_group(username: str, log: logging.Logger) -> None:
 
 def unbind_jail_home(jail_home: Path, log: logging.Logger) -> None:
     """Desmonta o bind em ``jail_home`` se estiver montado."""
-    if not os.path.ismount(jail_home):
+    if not is_mounted(jail_home, log):
         log.debug("jail: %s não está montado", jail_home)
         return
     r = _run(["umount", str(jail_home.resolve())], log=log)
     if r.returncode != 0:
         err = (r.stderr or r.stdout or "").strip()
-        raise RuntimeError(f"umount {jail_home}: {err}")
+        log.warning("umount %s falhou (%s); tentando lazy umount", jail_home, err)
+        lazy = _run(["umount", "-l", str(jail_home.resolve())], log=log)
+        if lazy.returncode != 0:
+            lazy_err = (lazy.stderr or lazy.stdout or "").strip()
+            raise RuntimeError(f"umount {jail_home}: {err}; umount -l: {lazy_err}")
+        log.info("jail: lazy umount em %s", jail_home)
+        return
     log.info("jail: desmontado bind em %s", jail_home)
 
 
@@ -274,6 +292,7 @@ def teardown_runv_jail_for_user(
     remove_fstab_bind(real_home, jail_home, log)
     remove_user_from_jailed_group(username, log)
     if jail_root.is_dir():
+        unbind_jail_home(jail_home, log)
         shutil.rmtree(jail_root, ignore_errors=False)
         log.info("jail: removido %s", jail_root)
     elif jail_root.exists():
