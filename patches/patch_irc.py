@@ -56,6 +56,7 @@ DEFAULT_HOST: Final[str] = "irc.tilde.chat"
 DEFAULT_PORT_TLS: Final[int] = 6697
 DEFAULT_SERVER_NAME: Final[str] = "runv"
 DEFAULT_AUTOJOIN: Final[str] = "#runv"
+NICKLIST_CONDITIONS: Final[str] = "${nicklist}"
 
 MIN_UID_USER: Final[int] = 1000
 
@@ -400,7 +401,33 @@ def config_matches(
         log=log,
     ):
         return False
+    if not nicklist_visible(irc_conf.parent / "weechat.conf", log):
+        return False
     return non_primary_servers_autoconnect_all_off(text, server, log)
+
+
+def nicklist_visible(weechat_conf: Path, log: logging.Logger) -> bool:
+    """Confirma que a barra lateral de nicks aparece nos buffers com nicklist."""
+    if not weechat_conf.is_file():
+        log.debug("weechat.conf ausente: %s", weechat_conf)
+        return False
+    try:
+        config_text = weechat_conf.read_text(encoding="utf-8", errors="replace")
+    except OSError as e:
+        log.debug("ler %s: %s", weechat_conf, e)
+        return False
+    m = re.search(
+        r"(?m)^(?:weechat\.bar\.)?nicklist\.conditions\s*=\s*(?P<value>.+?)\s*$",
+        config_text,
+    )
+    if not m:
+        log.debug("nicklist.conditions ausente")
+        return False
+    value = m.group("value").strip().strip('"')
+    if value == NICKLIST_CONDITIONS or NICKLIST_CONDITIONS in value:
+        return True
+    log.debug("nicklist.conditions %r não inclui %r", value, NICKLIST_CONDITIONS)
+    return False
 
 
 def build_disable_other_autoconnect_chain(irc_conf_text: str, primary: str) -> str:
@@ -443,12 +470,25 @@ def build_apply_command_chain(
         parts.append(f'/set irc.server.{server}.autojoin ""')
     parts.append("/set irc.look.buffer_switch_join on")
     parts.append("/set irc.look.server_buffer independent")
+    parts.append("/bar show nicklist")
+    parts.append(f'/set weechat.bar.nicklist.conditions "{NICKLIST_CONDITIONS}"')
     parts.append(
         '/set buflist.look.display_conditions "${buffer.plugin} == irc && ${type} == channel"'
     )
     parts.append("/save")
     parts.append("/quit")
     return " ; ".join(parts)
+
+
+def build_nicklist_ui_chain() -> str:
+    return " ; ".join(
+        (
+            "/bar show nicklist",
+            f'/set weechat.bar.nicklist.conditions "{NICKLIST_CONDITIONS}"',
+            "/save",
+            "/quit",
+        )
+    )
 
 
 def chain_with_save_quit(prefix_chain: str) -> str:
@@ -568,6 +608,7 @@ def patch_user(
         return False
 
     irc_conf = weechat_config_dir(home) / "irc.conf"
+    weechat_conf = weechat_config_dir(home) / "weechat.conf"
     conf_text = ""
     if irc_conf.is_file():
         try:
@@ -599,12 +640,33 @@ def patch_user(
         log=log,
     )
     others_ok = non_primary_servers_autoconnect_all_off(conf_text, server, log)
+    nicklist_ok = nicklist_visible(weechat_conf, log)
 
-    disable_others = build_disable_other_autoconnect_chain(conf_text, server)
+    if not force and runv_ok and others_ok and not nicklist_ok:
+        log.info("%s: só configurar nicklist visível", username)
+        ok = run_weechat_script(
+            username=username,
+            home=home,
+            weechat_bin=weechat_bin,
+            command_chain=build_nicklist_ui_chain(),
+            dry_run=dry_run,
+            log=log,
+        )
+        if ok and not dry_run and weechat_conf.is_file():
+            try:
+                os.chown(weechat_conf, uid, gid)
+            except OSError:
+                pass
+        return ok
 
     if not force and runv_ok and not others_ok:
-        log.info("%s: só desligar autoconnect noutros servidores", username)
-        chain = chain_with_save_quit(disable_others)
+        disable_others = build_disable_other_autoconnect_chain(conf_text, server)
+        if nicklist_ok:
+            log.info("%s: só desligar autoconnect noutros servidores", username)
+            chain = chain_with_save_quit(disable_others)
+        else:
+            log.info("%s: desligar autoconnect noutros servidores e configurar nicklist", username)
+            chain = merge_command_chains(disable_others, build_nicklist_ui_chain())
         ok = run_weechat_script(
             username=username,
             home=home,
@@ -616,6 +678,11 @@ def patch_user(
         if ok and not dry_run and irc_conf.is_file():
             try:
                 os.chown(irc_conf, uid, gid)
+            except OSError:
+                pass
+        if ok and not dry_run and weechat_conf.is_file():
+            try:
+                os.chown(weechat_conf, uid, gid)
             except OSError:
                 pass
         return ok
@@ -642,7 +709,6 @@ def patch_user(
                 conf_text = irc_conf.read_text(encoding="utf-8", errors="replace")
             except OSError:
                 conf_text = ""
-        disable_others = build_disable_other_autoconnect_chain(conf_text, server)
 
     apply_chain = build_apply_command_chain(
         server=server,
@@ -653,7 +719,10 @@ def patch_user(
         autojoin=autojoin,
     )
     # apply_chain já termina em /save;/quit — prefixar desligar outros antes do /server add.
-    full_chain = merge_command_chains(disable_others, apply_chain)
+    full_chain = merge_command_chains(
+        build_disable_other_autoconnect_chain(conf_text, server),
+        apply_chain,
+    )
     log.info("%s: aplicar configuração IRC — servidor «%s» (weechat-headless)", username, server)
     ok = run_weechat_script(
         username=username,
@@ -668,6 +737,11 @@ def patch_user(
     if not dry_run and irc_conf.is_file():
         try:
             os.chown(irc_conf, uid, gid)
+        except OSError:
+            pass
+    if not dry_run and weechat_conf.is_file():
+        try:
+            os.chown(weechat_conf, uid, gid)
         except OSError:
             pass
     return True
@@ -694,9 +768,16 @@ def validate_post(
     except KeyError:
         return
     irc_conf = weechat_config_dir(Path(pw.pw_dir)) / "irc.conf"
+    weechat_conf = weechat_config_dir(Path(pw.pw_dir)) / "weechat.conf"
     if not irc_conf.is_file():
         log.warning("validação: %s sem %s", sample_user, irc_conf)
         return
+    if not nicklist_visible(weechat_conf, log):
+        log.warning(
+            "validação: %s sem nicklist lateral visível; reaplique patch_irc.py --user %s --force",
+            sample_user,
+            sample_user,
+        )
     if config_matches(
         irc_conf,
         server=server,
@@ -707,7 +788,14 @@ def validate_post(
         autojoin=autojoin,
         log=log,
     ):
-        log.info("validação: %s — runv=%s/%s TLS=%s autoconnect+autojoin OK; outros sem autoconnect", sample_user, host, port, tls)
+        log.info(
+            "validação: %s — runv=%s/%s TLS=%s autoconnect+autojoin OK; "
+            "nicklist visível; outros sem autoconnect",
+            sample_user,
+            host,
+            port,
+            tls,
+        )
         return
     log.warning("validação: %s — config não passa em todas as verificações (ver patch / irc.conf)", sample_user)
 

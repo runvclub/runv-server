@@ -446,6 +446,8 @@ Padrão atual:
 - TLS ligado
 - canal `#runv`
 - comando de uso do membro: `chat`
+- ao correr `chat`, o membro entra automaticamente no `#runv`
+- a lista lateral de nicks do WeeChat fica visível quando o terminal tiver espaço utilizável
 
 ## Moderação da comunidade e square
 
