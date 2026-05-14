@@ -46,4 +46,4 @@ Pelo e-mail oficial: admin@runv.club
 Na wiki oficial do runv.club, especialmente nos arquivos de regras da comunidade, moderação, privacidade e acesso.
 
 16. Onde peço ajuda no IRC?
-No canal #runv, em irc.tilde.chat na porta 6697 com TLS/SSL. É um bom lugar para conversa e dúvidas rápidas; para questões de conta ou dados sensíveis, use admin@runv.club.
+Depois de entrar por SSH, rode chat. O WeeChat abre a rede da casa, entra automaticamente no canal #runv e mostra a lista lateral de nicks quando o terminal tiver espaço. Para clientes IRC externos, o backend continua em irc.tilde.chat na porta 6697 com TLS/SSL. Para questões de conta ou dados sensíveis, use admin@runv.club.

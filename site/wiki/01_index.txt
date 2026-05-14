@@ -21,7 +21,7 @@ Se você precisa de uma resposta curta:
 
 - para entrar, veja a página “Junte-se” no site;
 - para suporte ou questões sensíveis, use admin@runv.club;
-- para conversa e dúvidas rápidas, entre no canal #runv em irc.tilde.chat, porta 6697, com TLS/SSL.
+- para conversa e dúvidas rápidas, entre por SSH e rode chat; ele abre o WeeChat direto no canal #runv.
 
 OBJETIVO DESTA WIKI
 

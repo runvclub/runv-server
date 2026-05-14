@@ -3,7 +3,7 @@
 #
 # RUNV em verde (ANSI); tagline e rodapé — alinhado a site/public/index.html
 # e terminal/entre_app.py (RUNV_ASCII_ART / ASCII_TAGLINE).
-# Estatísticas gerais: runv-status (só pmurad-admin); aqui: lista de comandos + últimas sessões.
+# Estatísticas gerais: runv-status (só pmurad-admin); aqui: lista de comandos + acessos recentes.
 #
 # Cores: printf %b com literais \033 (POSIX). Sem echo -e.
 
@@ -27,7 +27,8 @@ print_runv_art() {
 RUNV_ART
 }
 
-# MOTD: "Últimos usuários online" — até 9 nomes únicos (last(1)) → grelha 3×3
+# MOTD: "Últimos acessos recentes" — até 9 nomes únicos (last(1)) → grelha 3×3
+# Isto é histórico de sessões, não presença em tempo real; runv-status usa who(1).
 # Cada nome aparece só uma vez: ordem = mais recente primeiro (primeira ocorrência em last).
 # update-motd.d costuma ter PATH mínimo: tentar /usr/bin/last e /bin/last.
 print_last_sessions_3x3() {
@@ -62,7 +63,7 @@ print_last_sessions_3x3() {
     return
   fi
 
-  printf '\n%bÚltimos usuários online%b\n' "${B}" "${R}"
+  printf '\n%bÚltimos acessos recentes%b\n' "${B}" "${R}"
   row=1
   while [ "$row" -le 3 ]; do
     read -r c1 || c1=''
