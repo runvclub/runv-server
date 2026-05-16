@@ -563,6 +563,8 @@ sudo python3 REPO/scripts/admin/repair_user.py --all-users --dry-run --verbose
 sudo python3 REPO/scripts/admin/repair_user.py --all-users
 ```
 
+Procedimento completo: [docs/16-repair-users.md](16-repair-users.md).
+
 ### Corrigir IRC de todos os usuários
 
 ```bash

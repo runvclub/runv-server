@@ -23,7 +23,7 @@ sudo python3 REPO/scripts/admin/repair_user.py --user USER --dry-run --verbose
 sudo python3 REPO/scripts/admin/repair_user.py --user USER
 ```
 
-- O reparador também corrige `~` para `755`, cria `.ssh`, `public_html`, `public_gopher`, `public_gemini` se faltarem, e cria modelos ausentes de `index.html`, `gophermap` e `index.gmi`.
+- O reparador também corrige `~` para `755`, cria `.ssh`, `public_html`, `public_gopher`, `public_gemini` se faltarem, e cria modelos ausentes de `index.html`, `gophermap` e `index.gmi`. Ver [16-repair-users.md](16-repair-users.md).
 
 ## Email não envia (entre / Mailgun)
 

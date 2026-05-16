@@ -19,7 +19,8 @@
 13. [Segurança e privacidade](12-security-and-privacy.md)
 14. [Resolução de problemas](13-troubleshooting.md)
 15. [Smoke tests](14-smoke-tests-and-validation.md)
-16. [Glossário e referência](15-glossary-and-reference.md)
+16. [Reparar usuários](16-repair-users.md)
+17. [Glossário e referência](15-glossary-and-reference.md)
 
 ## Mapa rápido
 
@@ -31,6 +32,7 @@
 | Lista de bolhas / `members.json` | [07-public-members-directory.md](07-public-members-directory.md) |
 | Pedidos SSH `entre` | [09-terminal-entre.md](09-terminal-entre.md) |
 | Criar conta membro | [10-user-provisioning-and-admin-ops.md](10-user-provisioning-and-admin-ops.md) |
+| Reparar home incompleta / `Index of /~USER` | [16-repair-users.md](16-repair-users.md) |
 | Email Mailgun / legado | [08-email.md](08-email.md) |
 
 ## Diagramas (Mermaid)
