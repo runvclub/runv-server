@@ -13,6 +13,18 @@
 - `users.json` inexistente → `build_directory.py` assume `[]` com aviso em stderr.
 - JSON inválido → script termina com erro.
 
+## Página `Index of /~USER`
+
+- O Apache mostra listagem quando `~/public_html/` existe mas falta `~/public_html/index.html`.
+- Repare sem sobrescrever conteúdo existente:
+
+```bash
+sudo python3 REPO/scripts/admin/repair_user.py --user USER --dry-run --verbose
+sudo python3 REPO/scripts/admin/repair_user.py --user USER
+```
+
+- O reparador também corrige `~` para `755`, cria `.ssh`, `public_html`, `public_gopher`, `public_gemini` se faltarem, e cria modelos ausentes de `index.html`, `gophermap` e `index.gmi`.
+
 ## Email não envia (entre / Mailgun)
 
 - Verificar `/etc/runv-email.json`, segredos, `admin_email`, `email_package_root` / `RUNV_EMAIL_ROOT`.

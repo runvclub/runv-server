@@ -7,6 +7,7 @@ venv/
 .env
 .env.local
 guide.md
+how.md
 
 # config do módulo entre: gerar com terminal/gen_config_toml.py (não versionar)
 terminal/config.toml

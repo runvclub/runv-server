@@ -547,6 +547,22 @@ sudo python3 REPO/site/genlanding.py --sync-public-only \
   --members-users-json /var/lib/runv/users.json
 ```
 
+### Reparar artefatos ausentes de um membro
+
+Se uma home ficou incompleta após um provisionamento interrompido ou após a remoção de jail, use o reparador conservador. Ele cria apenas artefatos ausentes e corrige dono/modo esperados; não sobrescreve páginas existentes.
+
+```bash
+sudo python3 REPO/scripts/admin/repair_user.py --user USER --dry-run --verbose
+sudo python3 REPO/scripts/admin/repair_user.py --user USER
+```
+
+Para varrer todos os candidatos em `users.json` e `/home`:
+
+```bash
+sudo python3 REPO/scripts/admin/repair_user.py --all-users --dry-run --verbose
+sudo python3 REPO/scripts/admin/repair_user.py --all-users
+```
+
 ### Corrigir IRC de todos os usuários
 
 ```bash
