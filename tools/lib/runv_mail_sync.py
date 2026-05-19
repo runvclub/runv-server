@@ -148,6 +148,8 @@ def mysql_sync_options(cfg: dict[str, Any]) -> dict[str, str]:
         goto_col = goto_col or inferred_goto
     managed_col = str(block.get("managed_column", "")).strip()
     managed_val = str(block.get("managed_value", "runv-email-alias")).strip()
+    active_col = str(block.get("active_column", "")).strip()
+    active_val = str(block.get("active_value", "1")).strip()
     return {
         "map_file": map_file,
         "parsed": parsed,  # type: ignore[dict-item]
@@ -156,6 +158,8 @@ def mysql_sync_options(cfg: dict[str, Any]) -> dict[str, str]:
         "goto_column": goto_col,
         "managed_column": managed_col,
         "managed_value": managed_val,
+        "active_column": active_col,
+        "active_value": active_val,
     }
 
 
@@ -269,6 +273,8 @@ def sync_postfix_mysql(*, dry_run: bool = False, cfg: dict[str, Any] | None = No
     goto_col = opts["goto_column"]
     managed_col = opts["managed_column"]
     managed_val = opts["managed_value"]
+    active_col = opts["active_column"]
+    active_val = opts["active_value"]
 
     rows = active_forwarding_rows()
     active_addresses = {alias for alias, _ in rows}
@@ -289,6 +295,10 @@ def sync_postfix_mysql(*, dry_run: bool = False, cfg: dict[str, Any] | None = No
             cols.append(f"`{managed_col}`")
             vals.append(sql_literal(managed_val))
             updates.append(f"`{managed_col}` = {sql_literal(managed_val)}")
+        if active_col:
+            cols.append(f"`{active_col}`")
+            vals.append(active_val)
+            updates.append(f"`{active_col}` = {active_val}")
         upsert = (
             f"INSERT INTO `{table}` ({', '.join(cols)}) VALUES ({', '.join(vals)}) "
             f"ON DUPLICATE KEY UPDATE {', '.join(updates)};"

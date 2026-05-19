@@ -93,8 +93,8 @@ def main() -> int:
         f'    "table": "{table}",\n'
         f'    "address_column": "{addr_col or "address"}",\n'
         f'    "goto_column": "{dest_col or "goto"}",\n'
-        '    "managed_column": "comment",\n'
-        '    "managed_value": "runv-email-alias"\n'
+        '    "active_column": "active",\n'
+        '    "active_value": "1"\n'
         "  },\n"
         '  "reload_postfix": true,\n'
         '  "auto_sync_on_approve": true\n'

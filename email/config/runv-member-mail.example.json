@@ -1,13 +1,13 @@
 {
-  "enabled": false,
+  "enabled": true,
   "backend": "postfix-mysql",
   "mysql_map_file": "/etc/postfix/mysql-virtual-alias-maps.cf",
   "mysql": {
-    "table": "",
-    "address_column": "",
-    "goto_column": "",
-    "managed_column": "comment",
-    "managed_value": "runv-email-alias"
+    "table": "virtual_aliases",
+    "address_column": "source",
+    "goto_column": "destination",
+    "active_column": "active",
+    "active_value": "1"
   },
   "reload_postfix": true,
   "reload_command": ["systemctl", "reload", "postfix"],
