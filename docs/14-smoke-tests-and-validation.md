@@ -38,6 +38,33 @@ Vários scripts importam `fcntl` ou `grp` — **não executáveis** em Windows t
 
 Em **Debian:** correr os `--help` acima e guardar a saída para operadores. Confirmar que `site/genlanding.py --help` lista **`--sync-public-only`**.
 
+## Aliases de email para membros (Linux)
+
+Revisão estática (qualquer OS):
+
+```bash
+python3 -m compileall -q tools scripts/admin/setup_email_aliases.py scripts/admin/smoke_test_email_aliases.py
+python3 tools/bin/runv-email-alias --help
+python3 tools/bin/runv-admin-email-alias --help
+```
+
+Smoke test integrado (VPS ou WSL; usa diretório temporário por defeito):
+
+```bash
+cd REPO
+sudo python3 scripts/admin/smoke_test_email_aliases.py --user MEMBRO_TESTE
+```
+
+Setup + instalação em produção (antes do smoke com paths reais):
+
+```bash
+sudo python3 scripts/admin/setup_email_aliases.py --verbose
+sudo python3 scripts/admin/setup_email_aliases.py --add-existing-users
+cd tools && sudo python3 tools.py --verbose
+```
+
+Ver também [08-email.md](08-email.md) e [17-community-commands.md](17-community-commands.md). Registo de revisão: [review-email-aliases-signoff.md](review-email-aliases-signoff.md).
+
 ## O que **não** existe no repo (facto)
 
 - **Sem** workflows `.github/workflows` na raiz do projecto runv (verificado por ausência de `.github/` no clone típico).

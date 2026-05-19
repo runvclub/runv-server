@@ -20,7 +20,8 @@
 14. [Resolução de problemas](13-troubleshooting.md)
 15. [Smoke tests](14-smoke-tests-and-validation.md)
 16. [Reparar usuários](16-repair-users.md)
-17. [Glossário e referência](15-glossary-and-reference.md)
+17. [Comandos comunitários](17-community-commands.md)
+18. [Glossário e referência](15-glossary-and-reference.md)
 
 ## Mapa rápido
 
@@ -33,7 +34,9 @@
 | Pedidos SSH `entre` | [09-terminal-entre.md](09-terminal-entre.md) |
 | Criar conta membro | [10-user-provisioning-and-admin-ops.md](10-user-provisioning-and-admin-ops.md) |
 | Reparar home incompleta / `Index of /~USER` | [16-repair-users.md](16-repair-users.md) |
+| Usar comandos sociais pubnix (`runv-who`, `runv-finger`, mural) | [17-community-commands.md](17-community-commands.md) |
 | Email Mailgun / legado | [08-email.md](08-email.md) |
+| Solicitar alias `usuario@runv.club` | [08-email.md](08-email.md), [17-community-commands.md](17-community-commands.md) |
 
 ## Diagramas (Mermaid)
 

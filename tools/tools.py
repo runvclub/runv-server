@@ -32,11 +32,13 @@ _APT_PACKAGE_ALIASES: dict[str, str] = {
     "chat": "weechat",
 }
 BIN_DIR: Path = TOOL_ROOT / "bin"
+LIB_DIR: Path = TOOL_ROOT / "lib"
 MOTD_SRC: Path = TOOL_ROOT / "motd" / "60-runv"
 SKEL_DIR: Path = TOOL_ROOT / "skel"
 SUDOERS_ADMIN_SRC: Path = TOOL_ROOT / "sudoers" / "90-runv-pmurad-admin"
 
 DEST_BIN_DIR: Path = Path("/usr/local/bin")
+DEST_COMMUNITY_LIB_DIR: Path = Path("/usr/local/share/runv/lib")
 DEST_MOTD: Path = Path("/etc/update-motd.d/60-runv")
 DEST_SKEL: Path = Path("/etc/skel")
 DEST_SSHD_DROPIN: Path = Path("/etc/ssh/sshd_config.d/90-runv-jailed.conf")
@@ -217,11 +219,46 @@ def install_bin_scripts(
 ) -> None:
     if not dry_run:
         DEST_BIN_DIR.mkdir(parents=True, exist_ok=True)
-    for name in ("runv-help", "runv-links", "runv-status", "runv-games", "runvers", "chat"):
+    for name in (
+        "runv-help",
+        "runv-links",
+        "runv-status",
+        "runv-games",
+        "runvers",
+        "chat",
+        "runv-profile",
+        "runv-finger",
+        "runv-who",
+        "runv-bulletin",
+        "runv-email-alias",
+        "runv-admin-email-alias",
+    ):
         copy_one(
             BIN_DIR / name,
             DEST_BIN_DIR / name,
             0o755,
+            force=force,
+            dry_run=dry_run,
+            log=log,
+            summary=summary,
+        )
+
+
+def install_community_lib(
+    *,
+    force: bool,
+    dry_run: bool,
+    log: logging.Logger,
+    summary: RunSummary,
+) -> None:
+    """Copia bibliotecas partilhadas para /usr/local/share/runv/lib/."""
+    if not dry_run:
+        DEST_COMMUNITY_LIB_DIR.mkdir(parents=True, exist_ok=True)
+    for src in sorted(LIB_DIR.glob("*.py")):
+        copy_one(
+            src,
+            DEST_COMMUNITY_LIB_DIR / src.name,
+            0o644,
             force=force,
             dry_run=dry_run,
             log=log,
@@ -373,9 +410,37 @@ def install_skel(
 
     skel_files: list[tuple[Path, Path, int]] = [
         (SKEL_DIR / ".bash_aliases", DEST_SKEL / ".bash_aliases", 0o644),
+        (SKEL_DIR / ".plan", DEST_SKEL / ".plan", 0o644),
+        (SKEL_DIR / ".project", DEST_SKEL / ".project", 0o644),
     ]
     for src, dst, mode in skel_files:
         copy_one(src, dst, mode, force=force, dry_run=dry_run, log=log, summary=summary)
+
+    runv_skel_dir = DEST_SKEL / ".runv"
+    profile_src = SKEL_DIR / ".runv" / "profile.json"
+    profile_dst = runv_skel_dir / "profile.json"
+    if not profile_src.is_file():
+        summary.errors.append(f"origem inexistente: {profile_src}")
+        log.error("Origem inexistente: %s", profile_src)
+    else:
+        if not dry_run:
+            runv_skel_dir.mkdir(parents=True, exist_ok=True)
+            os.chmod(runv_skel_dir, 0o755)
+            try:
+                os.chown(runv_skel_dir, 0, 0)
+            except OSError as e:
+                log.warning("chown em %s: %s", runv_skel_dir, e)
+        elif not runv_skel_dir.exists():
+            log.info("[dry-run] criaria diretório %s (755)", runv_skel_dir)
+        copy_one(
+            profile_src,
+            profile_dst,
+            0o644,
+            force=force,
+            dry_run=dry_run,
+            log=log,
+            summary=summary,
+        )
 
     pub_dir = DEST_SKEL / "public_html"
     index_src = SKEL_DIR / "public_html" / "index.html"
@@ -627,6 +692,9 @@ def main(argv: list[str] | None = None) -> int:
 
     log.info("Instalando scripts em %s", DEST_BIN_DIR)
     install_bin_scripts(force=args.force, dry_run=args.dry_run, log=log, summary=summary)
+
+    log.info("Instalando biblioteca comunitária em %s", DEST_COMMUNITY_LIB_DIR)
+    install_community_lib(force=args.force, dry_run=args.dry_run, log=log, summary=summary)
 
     log.info("Instalando MOTD em %s", DEST_MOTD)
     install_motd(force=args.force, dry_run=args.dry_run, log=log, summary=summary)

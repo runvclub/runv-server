@@ -1,0 +1,181 @@
+#!/usr/bin/env python3
+"""Gerencia o perfil local público do utilizador (runv.club)."""
+
+from __future__ import annotations
+
+import argparse
+import os
+import sys
+from pathlib import Path
+
+sys.tracebacklimit = 0
+
+
+def _bootstrap() -> None:
+    from pathlib import Path
+
+    installed = Path("/usr/local/share/runv/lib")
+    candidates = [installed]
+    script = Path(__file__).resolve()
+    if script.parent.name == "bin":
+        candidates.insert(0, script.parent.parent / "lib")
+    for c in candidates:
+        if (c / "runv_community.py").is_file() and str(c) not in sys.path:
+            sys.path.insert(0, str(c))
+            return
+
+
+_bootstrap()
+import runv_community as rc  # noqa: E402
+
+PLAN_INITIAL = "Ainda estou escrevendo meu .plan.\n"
+PROJECT_INITIAL = "Explorando a runv.club.\n"
+
+
+def local_paths() -> dict[str, Path]:
+    home = Path.home()
+    return {
+        "runv_dir": home / ".runv",
+        "profile": home / ".runv" / "profile.json",
+        "plan": home / ".plan",
+        "project": home / ".project",
+    }
+
+
+def cmd_init() -> int:
+    paths = local_paths()
+    created: list[str] = []
+    existed: list[str] = []
+
+    if not paths["runv_dir"].exists():
+        paths["runv_dir"].mkdir(parents=True, exist_ok=True)
+        os.chmod(paths["runv_dir"], 0o755)
+        created.append(str(paths["runv_dir"]))
+    else:
+        os.chmod(paths["runv_dir"], 0o755)
+        existed.append(str(paths["runv_dir"]))
+
+    targets: list[tuple[Path, str]] = [
+        (paths["profile"], rc.profile_json_default_text()),
+        (paths["plan"], PLAN_INITIAL),
+        (paths["project"], PROJECT_INITIAL),
+    ]
+    for path, content in targets:
+        if path.exists():
+            existed.append(str(path))
+            continue
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+        os.chmod(path, 0o644)
+        created.append(str(path))
+
+    print("Perfil runv inicializado.\n")
+    if created:
+        print("criado:")
+        for p in created:
+            print(f"  {p}")
+    if existed:
+        print("\njá existia:")
+        for p in existed:
+            print(f"  {p}")
+    if not created and not existed:
+        print("(nada a fazer)")
+    return 0
+
+
+def cmd_show() -> int:
+    paths = local_paths()
+    print("Perfil runv\n")
+    print("Arquivo:")
+    print(f"  {paths['profile']}\n")
+
+    if not paths["profile"].is_file():
+        print("Perfil ainda não existe.")
+        print("Rode: runv-profile init\n")
+    else:
+        text = rc.read_text_limited(paths["profile"])
+        profile, warn = rc.parse_profile_json(text)
+        if warn:
+            print(warn)
+        if profile:
+            print(f"Nome:\n  {profile.get('display_name') or '(vazio)'}\n")
+            print(f"Bio:\n  {profile.get('bio') or '(vazio)'}\n")
+            print(f"Local:\n  {profile.get('location') or '(vazio)'}\n")
+            links = profile.get("links") or []
+            print("Links:")
+            if links:
+                for link in links:
+                    print(f"  {link}")
+            else:
+                print("  (vazio)")
+            print()
+            interests = profile.get("interests") or []
+            print("Interesses:")
+            if interests:
+                for item in interests:
+                    print(f"  {item}")
+            else:
+                print("  (vazio)")
+            print()
+
+    plan_text = rc.read_text_limited(paths["plan"])
+    project_text = rc.read_text_limited(paths["project"])
+    print(".project:")
+    if project_text and project_text.strip():
+        for line in project_text.strip().splitlines():
+            print(f"  {line}")
+    else:
+        print("  (vazio)")
+    print()
+    print(".plan:")
+    if plan_text and plan_text.strip():
+        for line in plan_text.strip().splitlines():
+            print(f"  {line}")
+    else:
+        print("  (vazio)")
+    return 0
+
+
+def cmd_path() -> int:
+    paths = local_paths()
+    print(f"profile: {paths['profile']}")
+    print(f"plan:    {paths['plan']}")
+    print(f"project: {paths['project']}")
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="runv-profile",
+        description="Gerencia o perfil local público (~/.runv/profile.json, .plan, .project).",
+    )
+    sub = p.add_subparsers(dest="command")
+
+    sub.add_parser("init", help="cria ficheiros de perfil se ainda não existirem")
+    sub.add_parser("show", help="mostra o perfil local")
+    sub.add_parser("path", help="mostra caminhos dos ficheiros de perfil")
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    try:
+        args = build_parser().parse_args(argv)
+        if args.command == "init":
+            return cmd_init()
+        if args.command == "show":
+            return cmd_show()
+        if args.command == "path":
+            return cmd_path()
+        build_parser().print_help()
+        return 1
+    except KeyboardInterrupt:
+        print("\nInterrompido.", file=sys.stderr)
+        return 130
+    except SystemExit:
+        raise
+    except Exception as e:
+        rc.friendly_exit(f"erro: {e}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

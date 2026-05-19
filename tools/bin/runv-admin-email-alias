@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""Administração de pedidos e aliases de email runv.club."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.tracebacklimit = 0
+
+
+def _bootstrap() -> None:
+    installed = Path("/usr/local/share/runv/lib")
+    candidates = [installed]
+    script = Path(__file__).resolve()
+    if script.parent.name == "bin":
+        candidates.insert(0, script.parent.parent / "lib")
+    for c in candidates:
+        if (c / "runv_email_aliases.py").is_file() and str(c) not in sys.path:
+            sys.path.insert(0, str(c))
+            return
+
+
+_bootstrap()
+import runv_email_aliases as ea  # noqa: E402
+
+
+def cmd_pending() -> int:
+    pending = ea.iter_pending_requests()
+    if not pending:
+        print("Nenhum pedido pendente.")
+        return 0
+    print("Pedidos pendentes de alias\n")
+    for req in pending:
+        user = req.get("username", "?")
+        print(user)
+        print(f"  alias: {req.get('alias', '?')}")
+        print(f"  destino: {req.get('destination', '?')}")
+        print(f"  criado: {req.get('created_at', '?')}")
+        print()
+    return 0
+
+
+def cmd_list() -> int:
+    rows = ea.list_active_aliases()
+    if not rows:
+        print("Nenhum alias ativo.")
+        return 0
+    print("Aliases ativos\n")
+    for _user, alias, dest in rows:
+        print(f"{alias} -> {dest}")
+    return 0
+
+
+def cmd_approve(username: str) -> int:
+    user = ea.validate_alias_username(username)
+    operator = ea.admin_operator()
+    entry = ea.approve_pending(user, operator)
+    print("Alias aprovado localmente.\n")
+    print("Alias:")
+    print(f"  {entry.get('alias')}\n")
+    print("Destino:")
+    print(f"  {entry.get('destination')}\n")
+    print("Próximo passo manual:")
+    print(
+        "  criar/atualizar o encaminhamento real no provedor de email:\n"
+        f"  {entry.get('alias')} -> {entry.get('destination')}"
+    )
+    return 0
+
+
+def cmd_reject(username: str, reason: str) -> int:
+    if not reason.strip():
+        ea.rc.friendly_exit("motivo da rejeição obrigatório (--reason).")
+    user = ea.validate_alias_username(username)
+    operator = ea.admin_operator()
+    ea.reject_pending(user, operator, reason.strip())
+    print("Pedido rejeitado.\n")
+    print("Usuário:")
+    print(f"  {user}\n")
+    print("Motivo:")
+    print(f"  {reason}")
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="runv-admin-email-alias",
+        description="Aprovar ou rejeitar pedidos de alias de email (requer root).",
+    )
+    sub = p.add_subparsers(dest="command", required=True)
+    sub.add_parser("pending", help="listar pedidos pendentes")
+    sub.add_parser("list", help="listar aliases activos")
+    appr = sub.add_parser("approve", help="aprovar pedido pendente mais recente")
+    appr.add_argument("user", metavar="USER", help="nome de utilizador Unix")
+    rej = sub.add_parser("reject", help="rejeitar pedido pendente")
+    rej.add_argument("user", metavar="USER", help="nome de utilizador Unix")
+    rej.add_argument(
+        "--reason",
+        required=True,
+        help='motivo da rejeição (obrigatório)',
+    )
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    try:
+        args = build_parser().parse_args(argv)
+        ea.require_root()
+        if args.command == "pending":
+            return cmd_pending()
+        if args.command == "list":
+            return cmd_list()
+        if args.command == "approve":
+            return cmd_approve(args.user)
+        if args.command == "reject":
+            return cmd_reject(args.user, args.reason)
+        return 1
+    except KeyboardInterrupt:
+        print("\nInterrompido.", file=sys.stderr)
+        return 130
+    except SystemExit:
+        raise
+    except Exception as e:
+        ea.rc.friendly_exit(f"erro: {e}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

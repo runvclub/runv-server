@@ -1,0 +1,205 @@
+#!/usr/bin/env python3
+"""Mural comunitário simples da runv.club."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import secrets
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+sys.tracebacklimit = 0
+
+
+def _bootstrap() -> None:
+    installed = Path("/usr/local/share/runv/lib")
+    candidates = [installed]
+    script = Path(__file__).resolve()
+    if script.parent.name == "bin":
+        candidates.insert(0, script.parent.parent / "lib")
+    for c in candidates:
+        if (c / "runv_community.py").is_file() and str(c) not in sys.path:
+            sys.path.insert(0, str(c))
+            return
+
+
+_bootstrap()
+import runv_community as rc  # noqa: E402
+
+DEFAULT_BULLETIN_PATH = Path("/var/lib/runv/bulletin/posts.ndjson")
+MAX_BODY_LEN = 500
+DEFAULT_LIST_LIMIT = 20
+
+
+def bulletin_paths() -> tuple[Path, Path]:
+    raw = os.environ.get("RUNV_BULLETIN_PATH", "").strip()
+    ndjson = Path(raw) if raw else DEFAULT_BULLETIN_PATH
+    lock = ndjson.parent / "posts.lock"
+    return ndjson, lock
+
+
+def current_username() -> str:
+    import pwd
+
+    try:
+        name = pwd.getpwuid(os.getuid()).pw_name
+    except (KeyError, OSError) as e:
+        rc.friendly_exit(f"não foi possível determinar o utilizador: {e}")
+    return rc.validate_username(name)
+
+
+def new_post_id(username: str) -> str:
+    ts = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    suffix = secrets.token_hex(3)
+    return f"{ts}-{username}-{suffix}"
+
+
+def append_post(body: str) -> dict[str, Any]:
+    username = current_username()
+    clean = body.strip()
+    if not clean:
+        rc.friendly_exit("mensagem obrigatória.")
+    if "\x00" in clean:
+        rc.friendly_exit("mensagem inválida (caracter NUL).")
+    if len(clean) > MAX_BODY_LEN:
+        rc.friendly_exit(f"mensagem demasiado longa (máximo {MAX_BODY_LEN} caracteres).")
+
+    post = {
+        "id": new_post_id(username),
+        "username": username,
+        "created_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "body": clean,
+    }
+    line = json.dumps(post, ensure_ascii=False) + "\n"
+
+    ndjson_path, lock_path = bulletin_paths()
+    try:
+        ndjson_path.parent.mkdir(parents=True, exist_ok=True)
+    except OSError as e:
+        rc.friendly_exit(f"não foi possível criar o diretório do mural: {e}")
+
+    try:
+        import fcntl
+
+        lock_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(lock_path, "a+", encoding="utf-8") as lock_f:
+            fcntl.flock(lock_f.fileno(), fcntl.LOCK_EX)
+            try:
+                with open(ndjson_path, "a", encoding="utf-8") as out:
+                    out.write(line)
+            finally:
+                fcntl.flock(lock_f.fileno(), fcntl.LOCK_UN)
+    except PermissionError:
+        rc.friendly_exit(
+            f"sem permissão para escrever em {ndjson_path}\n"
+            "peça ao admin para criar o diretório com permissões de grupo para membros"
+        )
+    except OSError as e:
+        rc.friendly_exit(f"erro ao escrever no mural: {e}")
+
+    return post
+
+
+def read_posts(limit: int) -> list[dict[str, Any]]:
+    ndjson_path, _lock_path = bulletin_paths()
+    if not ndjson_path.is_file():
+        return []
+    try:
+        raw = ndjson_path.read_text(encoding="utf-8")
+    except OSError:
+        return []
+    posts: list[dict[str, Any]] = []
+    for line in raw.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            item = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(item, dict) and isinstance(item.get("id"), str):
+            posts.append(item)
+    return posts[-limit:]
+
+
+def format_post_line(post: dict[str, Any]) -> str:
+    created = post.get("created_at", "")
+    display_time = created
+    try:
+        if isinstance(created, str) and created:
+            dt = datetime.fromisoformat(created.replace("Z", "+00:00"))
+            display_time = dt.astimezone().strftime("%Y-%m-%d %H:%M")
+    except ValueError:
+        pass
+    user = post.get("username", "?")
+    body = post.get("body", "")
+    return f"[{display_time}] {user}\n  {body}"
+
+
+def cmd_list(limit: int, as_json: bool) -> int:
+    posts = read_posts(limit)
+    if as_json:
+        print(json.dumps(posts, ensure_ascii=False, indent=2))
+        return 0
+    if not posts:
+        print("mural vazio ainda.")
+        return 0
+    print("Mural runv.club\n")
+    for post in posts:
+        print()
+        print(format_post_line(post))
+    print()
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="runv-bulletin",
+        description="Mural comunitário simples em terminal.",
+    )
+    p.add_argument("--json", action="store_true", help="saída em JSON (list)")
+    p.add_argument(
+        "--limit",
+        type=int,
+        default=None,
+        metavar="N",
+        help=f"últimos N posts (padrão {DEFAULT_LIST_LIMIT} em list)",
+    )
+    sub = p.add_subparsers(dest="command")
+    sub.add_parser("list", help="listar posts recentes")
+    post_p = sub.add_parser("post", help="publicar mensagem")
+    post_p.add_argument("message", help="texto do post")
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    try:
+        args = build_parser().parse_args(argv)
+        if args.command is None:
+            args.command = "list"
+
+        limit = args.limit if args.limit is not None else DEFAULT_LIST_LIMIT
+        if limit < 1:
+            rc.friendly_exit("--limit deve ser um inteiro positivo.")
+
+        if args.command == "post":
+            append_post(args.message)
+            print("post publicado.")
+            return 0
+
+        return cmd_list(limit, bool(args.json))
+    except KeyboardInterrupt:
+        print("\nInterrompido.", file=sys.stderr)
+        return 130
+    except SystemExit:
+        raise
+    except Exception as e:
+        rc.friendly_exit(f"erro: {e}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -1,0 +1,130 @@
+#!/usr/bin/env python3
+"""Pedidos de alias de email runv.club para membros (username@runv.club)."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+sys.tracebacklimit = 0
+
+
+def _bootstrap() -> None:
+    installed = Path("/usr/local/share/runv/lib")
+    candidates = [installed]
+    script = Path(__file__).resolve()
+    if script.parent.name == "bin":
+        candidates.insert(0, script.parent.parent / "lib")
+    for c in candidates:
+        if (c / "runv_email_aliases.py").is_file() and str(c) not in sys.path:
+            sys.path.insert(0, str(c))
+            return
+
+
+_bootstrap()
+import runv_email_aliases as ea  # noqa: E402
+
+
+def cmd_request(destination: str) -> int:
+    username = ea.current_username()
+    dest = ea.validate_destination_email(destination)
+    active = ea.get_active_alias(username)
+    if active is not None:
+        print(
+            "Aviso: já tem alias activo; este pedido altera o destino após aprovação admin.\n"
+        )
+    payload = ea.create_pending_request(username, dest)
+    print("Pedido de alias criado.\n")
+    print("Alias:")
+    print(f"  {payload['alias']}\n")
+    print("Destino:")
+    print(f"  {payload['destination']}\n")
+    print("Status:")
+    print("  pending\n")
+    print("Um admin precisa aprovar antes de ativar.")
+    return 0
+
+
+def cmd_status() -> int:
+    username = ea.current_username()
+    active = ea.get_active_alias(username)
+    pending = ea.find_pending_for_user(username)
+
+    if active is None and pending is None:
+        print("Você ainda não tem alias de email.\n")
+        print("Para solicitar:")
+        print("  runv-email-alias request seu-email@exemplo.com")
+        return 0
+
+    if active is None and pending is not None:
+        print("Alias:")
+        print(f"  {pending.get('alias', ea.alias_address(username))}\n")
+        print("Destino solicitado:")
+        print(f"  {pending.get('destination', '?')}\n")
+        print("Status:")
+        print("  pending")
+        return 0
+
+    if active is not None and pending is None:
+        print("Alias:")
+        print(f"  {active.get('alias', ea.alias_address(username))}\n")
+        print("Destino:")
+        print(f"  {active.get('destination', '?')}\n")
+        print("Status:")
+        print("  active")
+        return 0
+
+    print("Alias ativo:")
+    print(f"  {active.get('alias')} -> {active.get('destination')}\n")
+    print("Alteração pendente:")
+    print(f"  {pending.get('alias')} -> {pending.get('destination')}\n")
+    print("Status:")
+    print("  pending")
+    return 0
+
+
+def cmd_cancel() -> int:
+    username = ea.current_username()
+    cancelled = ea.cancel_latest_pending(username)
+    if cancelled is None:
+        print("nenhum pedido pendente para cancelar.")
+        return 1
+    print("Pedido cancelado.")
+    return 0
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(
+        prog="runv-email-alias",
+        description="Solicitar alias username@runv.club que encaminha para o seu email externo.",
+    )
+    sub = p.add_subparsers(dest="command", required=True)
+    req = sub.add_parser("request", help="pedir alias (só informa o email de destino)")
+    req.add_argument("destination", help="email externo de destino")
+    sub.add_parser("status", help="ver alias activo e pedidos pendentes")
+    sub.add_parser("cancel", help="cancelar pedido pendente mais recente")
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    try:
+        args = build_parser().parse_args(argv)
+        if args.command == "request":
+            return cmd_request(args.destination)
+        if args.command == "status":
+            return cmd_status()
+        if args.command == "cancel":
+            return cmd_cancel()
+        return 1
+    except KeyboardInterrupt:
+        print("\nInterrompido.", file=sys.stderr)
+        return 130
+    except SystemExit:
+        raise
+    except Exception as e:
+        ea.rc.friendly_exit(f"erro: {e}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

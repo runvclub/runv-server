@@ -1,0 +1,118 @@
+#!/usr/bin/env python3
+"""Mostra o perfil público de um membro runv.club (estilo finger)."""
+
+from __future__ import annotations
+
+import argparse
+import sys
+
+sys.tracebacklimit = 0
+
+
+def _bootstrap() -> None:
+    from pathlib import Path
+
+    installed = Path("/usr/local/share/runv/lib")
+    candidates = [installed]
+    script = Path(__file__).resolve()
+    if script.parent.name == "bin":
+        candidates.insert(0, script.parent.parent / "lib")
+    for c in candidates:
+        if (c / "runv_community.py").is_file() and str(c) not in sys.path:
+            sys.path.insert(0, str(c))
+            return
+
+
+_bootstrap()
+import runv_community as rc  # noqa: E402
+
+
+def cmd_finger(username: str) -> int:
+    user = rc.validate_username(username)
+    paths = rc.home_paths(user)
+    if not paths["home"].is_dir():
+        rc.friendly_exit(f"usuário não encontrado: {user}")
+
+    print(f"{user} @ runv.club\n")
+
+    profile_text = rc.read_text_limited(paths["profile"])
+    profile, warn = rc.parse_profile_json(profile_text)
+    if warn:
+        print(warn)
+
+    def field(label: str, value: str | None) -> None:
+        print(f"{label}: {value if value and value.strip() else 'não informado'}")
+
+    if profile:
+        field("Nome", profile.get("display_name", ""))
+        field("Bio", profile.get("bio", ""))
+        field("Local", profile.get("location", ""))
+    else:
+        field("Nome", None)
+        field("Bio", None)
+        field("Local", None)
+
+    if paths["public_index"].is_file():
+        print(f"Home: /~{user}/")
+        mtime = rc.format_mtime_local(paths["public_index"])
+        if mtime:
+            print(f"Home atualizada: {mtime}")
+    else:
+        print("Home: não informado")
+
+    project_text = rc.read_text_limited(paths["project"])
+    plan_text = rc.read_text_limited(paths["plan"])
+
+    print("\nProjeto:")
+    if project_text and project_text.strip():
+        for line in project_text.strip().splitlines():
+            print(f"  {line}")
+    else:
+        print("  não informado")
+
+    print("\n.plan:")
+    if plan_text and plan_text.strip():
+        for line in plan_text.strip().splitlines():
+            print(f"  {line}")
+    else:
+        print("  não informado")
+
+    if profile:
+        links = profile.get("links") or []
+        print("\nLinks:")
+        if links:
+            for link in links:
+                print(f"  {link}")
+        else:
+            print("  não informado")
+        interests = profile.get("interests") or []
+        print("\nInteresses:")
+        if interests:
+            for item in interests:
+                print(f"  {item}")
+        else:
+            print("  não informado")
+
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    try:
+        p = argparse.ArgumentParser(
+            prog="runv-finger",
+            description="Mostra o perfil público de outro membro.",
+        )
+        p.add_argument("username", help="nome de utilizador Unix")
+        args = p.parse_args(argv)
+        return cmd_finger(args.username)
+    except KeyboardInterrupt:
+        print("\nInterrompido.", file=sys.stderr)
+        return 130
+    except SystemExit:
+        raise
+    except Exception as e:
+        rc.friendly_exit(f"erro: {e}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

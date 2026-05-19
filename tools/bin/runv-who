@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+"""Lista membros da runv.club."""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+sys.tracebacklimit = 0
+
+
+def _bootstrap() -> None:
+    from pathlib import Path
+
+    installed = Path("/usr/local/share/runv/lib")
+    candidates = [installed]
+    script = Path(__file__).resolve()
+    if script.parent.name == "bin":
+        candidates.insert(0, script.parent.parent / "lib")
+    for c in candidates:
+        if (c / "runv_community.py").is_file() and str(c) not in sys.path:
+            sys.path.insert(0, str(c))
+            return
+
+
+_bootstrap()
+import runv_community as rc  # noqa: E402
+
+
+def collect_member(username: str) -> dict[str, Any]:
+    paths = rc.home_paths(username)
+    has_homepage = paths["public_index"].is_file()
+    homepage_mtime = rc.homepage_mtime_iso(paths["public_index"]) if has_homepage else None
+    return {
+        "username": username,
+        "homepage": f"/~{username}/",
+        "has_homepage": has_homepage,
+        "homepage_mtime": homepage_mtime,
+        "has_plan": rc.file_has_content(paths["plan"]),
+        "has_project": rc.file_has_content(paths["project"]),
+    }
+
+
+def sort_members(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    with_home = [r for r in rows if r["has_homepage"]]
+    without_home = [r for r in rows if not r["has_homepage"]]
+
+    def mtime_key(r: dict[str, Any]) -> str:
+        return r.get("homepage_mtime") or ""
+
+    with_home.sort(key=lambda r: mtime_key(r), reverse=True)
+    without_home.sort(key=lambda r: r["username"].lower())
+    return with_home + without_home
+
+
+def filter_active(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    return [
+        r
+        for r in rows
+        if r["has_homepage"] or r["has_plan"] or r["has_project"]
+    ]
+
+
+def print_text_table(rows: list[dict[str, Any]]) -> None:
+    print("Membros runv.club\n")
+    if not rows:
+        print("(nenhum membro encontrado)")
+        return
+    for r in rows:
+        user = r["username"]
+        if r["has_homepage"]:
+            hm = rc.format_mtime_local(r.get("homepage_mtime")) or "?"
+            home_col = f"home {hm}"
+        else:
+            home_col = "sem homepage"
+        flags = []
+        if r["has_plan"]:
+            flags.append(".plan")
+        if r["has_project"]:
+            flags.append(".project")
+        flag_col = " ".join(flags) if flags else "-"
+        print(f"{user:<12} {home_col:<22} {flag_col:<14} {r['homepage']}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    try:
+        p = argparse.ArgumentParser(
+            prog="runv-who",
+            description="Lista membros da runv.club.",
+        )
+        p.add_argument("--json", action="store_true", help="saída em JSON")
+        p.add_argument("--limit", type=int, default=None, metavar="N", help="limitar resultados")
+        p.add_argument(
+            "--active",
+            action="store_true",
+            help="só utilizadores com homepage, .plan ou .project",
+        )
+        args = p.parse_args(argv)
+
+        if args.limit is not None and args.limit < 1:
+            rc.friendly_exit("--limit deve ser um inteiro positivo.")
+
+        names, warning = rc.load_member_usernames(rc.DEFAULT_USERS_JSON, rc.DEFAULT_HOME_ROOT)
+        if warning:
+            print(warning, file=sys.stderr)
+
+        rows = [collect_member(u) for u in names]
+        if args.active:
+            rows = filter_active(rows)
+        rows = sort_members(rows)
+        if args.limit is not None:
+            rows = rows[: args.limit]
+
+        if args.json:
+            print(json.dumps(rows, ensure_ascii=False, indent=2))
+            return 0
+
+        print_text_table(rows)
+        return 0
+    except KeyboardInterrupt:
+        print("\nInterrompido.", file=sys.stderr)
+        return 130
+    except SystemExit:
+        raise
+    except Exception as e:
+        rc.friendly_exit(f"erro: {e}")
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

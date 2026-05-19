@@ -7,9 +7,9 @@
 **Função:** orquestrar no servidor Debian:
 
 1. Pacotes APT listados em `tools/manifests/apt_packages.txt` (alias `chat` → metapacote `weechat`). O manifesto inclui **`weechat-curses`** explicitamente porque `tools.py` usa `apt-get install --no-install-recommends`: sem isso, o metapacote `weechat` pode satisfazer-se **só** com `weechat-headless` e o comando `chat` deixa de encontrar cliente interactivo (`weechat` / `weechat-curses` no PATH).
-2. Cópia de `tools/bin/` para `/usr/local/bin` (`runv-help`, `runv-links`, `runv-status`, `chat`, …).
+2. Cópia de `tools/bin/` para `/usr/local/bin` (`runv-help`, `runv-links`, `runv-status`, `chat`, `runv-profile`, `runv-finger`, `runv-who`, `runv-bulletin`, …) e de `tools/lib/runv_community.py` para `/usr/local/share/runv/lib/`.
 3. MOTD dinâmico: `tools/motd/60-runv` → `/etc/update-motd.d/60-runv`.
-4. Modelos para novas contas: `tools/skel/` → `/etc/skel/`.
+4. Modelos para novas contas: `tools/skel/` → `/etc/skel/` (inclui `.plan`, `.project`, `.runv/profile.json`).
 5. Drop-in SSH para utilizadores jailed: `tools/sshd/90-runv-jailed.conf` → `/etc/ssh/sshd_config.d/`.
 6. Sudo administrativo para `pmurad-admin`: `tools/sudoers/90-runv-pmurad-admin` → `/etc/sudoers.d/`.
 7. Reconciliação do jail SSH em membros existentes via `scripts/admin/perm1.py`.
