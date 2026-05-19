@@ -86,6 +86,36 @@ def expect_exit(fn: Callable[[], object]) -> bool:
     return False
 
 
+def _prepare_smoke_temp_layout(base: Path) -> None:
+    """Espelha permissões de produção para subprocess como membro runv-members."""
+    import grp
+
+    try:
+        member_gid = grp.getgrnam("runv-members").gr_gid
+    except KeyError:
+        fail("grupo runv-members ausente; execute setup_email_aliases.py primeiro")
+
+    queue = base / "queue"
+    aliases = base / "email-aliases.json"
+    lock = base / "email-aliases.lock"
+
+    queue.mkdir(parents=True, exist_ok=True)
+    for sub in ("approved", "rejected", "cancelled"):
+        (queue / sub).mkdir(parents=True, exist_ok=True)
+
+    aliases.write_text("{}\n", encoding="utf-8")
+    lock.touch()
+
+    os.chmod(base, 0o755)
+    for path in (queue, queue / "approved", queue / "rejected", queue / "cancelled"):
+        os.chown(path, 0, member_gid)
+        os.chmod(path, 0o2770)
+    os.chown(aliases, 0, member_gid)
+    os.chmod(aliases, 0o640)
+    os.chown(lock, 0, member_gid)
+    os.chmod(lock, 0o660)
+
+
 def main() -> int:
     if sys.platform == "win32":
         print(
@@ -142,11 +172,7 @@ def main() -> int:
         queue = base / "queue"
         aliases = base / "email-aliases.json"
         lock = base / "email-aliases.lock"
-        queue.mkdir(parents=True, exist_ok=True)
-        for sub in ("approved", "rejected", "cancelled"):
-            (queue / sub).mkdir(parents=True, exist_ok=True)
-        aliases.write_text("{}\n", encoding="utf-8")
-        lock.touch()
+        _prepare_smoke_temp_layout(base)
 
     env = {
         "RUNV_EMAIL_ALIAS_QUEUE_DIR": str(queue),
