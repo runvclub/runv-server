@@ -60,12 +60,14 @@ def run_cmd(
 ) -> subprocess.CompletedProcess[str]:
     full = list(cmd)
     if as_user:
-        full = ["sudo", "-n", "-u", as_user, "-E"] + full
+        full = ["sudo", "-n", "-u", as_user] + full
     elif as_root and os.geteuid() != 0:
-        full = ["sudo", "-n", "-E"] + full
+        full = ["sudo", "-n"] + full
+    # Fundir com os.environ: sudo -u não propaga um env mínimo de 3 chaves.
+    child_env = {**os.environ, **env}
     proc = subprocess.run(
         full,
-        env=env,
+        env=child_env,
         capture_output=True,
         text=True,
         cwd=str(REPO_ROOT),
