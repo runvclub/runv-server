@@ -1,0 +1,12 @@
+{
+  "enabled": false,
+  "backend": "postfix-hash",
+  "virtual_alias_file": "/etc/postfix/runv-member-aliases",
+  "file_mode": "0o644",
+  "check_maps": true,
+  "run_postmap": true,
+  "postmap_command": ["postmap", "/etc/postfix/runv-member-aliases"],
+  "reload_postfix": true,
+  "reload_command": ["systemctl", "reload", "postfix"],
+  "auto_sync_on_approve": false
+}

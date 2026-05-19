@@ -23,25 +23,41 @@
 
 ## O que o repo não é
 
-- **Não** é MTA completo (não recebe correio para caixas locais de membros como produto deste repositório).
+- **Não** substitui a instalação Postfix/Dovecot/Roundcube no servidor (isso é operação de sistema).
+- **Não** usa Mailgun para correio de membros.
+
+## Dois canais de email (não misturar)
+
+| Canal | Função | Config no servidor |
+|-------|--------|-------------------|
+| **Mailgun** | Transacional / admin (`entre`, boas-vindas, avisos) | `/etc/runv-email.json` |
+| **MTA local** | Correio `@runv.club` para membros (caixa, webmail, encaminhamento) | Postfix + Dovecot + Roundcube (fora deste repo) |
+
+O Mailgun **não** deve receber pedidos de alias `username@runv.club → Gmail`. Isso é papel do **Postfix** (ou mapa virtual equivalente) já instalado na VPS.
 
 ## Aliases de email para membros
 
-O email transacional da runv.club (Mailgun, `/etc/runv-email.json`) continua separado deste fluxo.
+O fluxo runv regista pedidos e aprovações em JSON. O encaminhamento real pode ser aplicado no Postfix com `runv-admin-email-alias sync` quando `/etc/runv-member-mail.json` estiver activo (ver abaixo).
 
-Nesta etapa **não** há mailbox local nem caixa `@runv.club` no servidor. Um membro pode pedir um alias fixo:
+Um membro pode pedir um alias fixo:
 
 `username@runv.club` → email externo de destino
 
-O alias **não** é activado automaticamente: o membro pede no terminal, um admin aprova, e o registo fica em JSON local. Criar o encaminhamento real no provedor de email (Mailgun, DNS, etc.) continua a ser passo manual ou integração futura.
+Por omissão o membro pede no terminal, o admin aprova, e o registo fica em JSON. Com sync Postfix configurado, o encaminhamento no MTA local pode ser automático após `approve` ou via `sync`.
 
 ### Membro
+
+**Sem `sudo` e sem root.** O membro corre os comandos na própria sessão SSH (conta Unix da comunidade, ex. `pmurad`). O sistema usa o username dessa sessão; contas de operador/admin (ex. `pmurad-admin`) **não** estão em `runv-members` e não podem pedir alias por design.
 
 ```bash
 runv-email-alias request usuario@example.org
 runv-email-alias status
 runv-email-alias cancel
 ```
+
+- `status` lê `/var/lib/runv/email-aliases.json` (modo `640`, grupo `runv-members`).
+- `request` / `cancel` escrevem só na fila `email-alias-queue/` (modo `2770`, mesmo grupo).
+- Aprovação e alteração do JSON activo são sempre **admin** (`runv-admin-email-alias` como root).
 
 O alias é sempre `username@runv.club` (username Unix do utilizador que corre o comando). Não é possível escolher outro nome de alias.
 
@@ -51,8 +67,29 @@ O alias é sempre `username@runv.club` (username Unix do utilizador que corre o 
 sudo runv-admin-email-alias pending
 sudo runv-admin-email-alias list
 sudo runv-admin-email-alias approve pablo
+sudo runv-admin-email-alias approve pablo --sync-mail
+sudo runv-admin-email-alias sync
 sudo runv-admin-email-alias reject pablo --reason "email destino inválido"
 ```
+
+### Inventário e sync Postfix (MTA local)
+
+Na VPS, antes de activar sync:
+
+```bash
+sudo python3 scripts/admin/discover_mail_stack.py
+```
+
+Copiar e editar o exemplo:
+
+```bash
+sudo cp email/config/runv-member-mail.example.json /etc/runv-member-mail.json
+# enabled: true após validar postconf virtual_alias_maps
+sudo python3 scripts/admin/sync_member_email_aliases.py --dry-run
+sudo runv-admin-email-alias sync
+```
+
+O sync gera `hash:/etc/postfix/runv-member-aliases` a partir de `/var/lib/runv/email-aliases.json`, corre `postmap` e `systemctl reload postfix`. **Não** altera Mailgun.
 
 ### Setup inicial no servidor
 
@@ -93,11 +130,11 @@ Mais detalhe dos comandos: [17-community-commands.md](17-community-commands.md).
 - Não configura SPF/DKIM/DMARC.
 - Não configura Postfix/Dovecot.
 - Não configura Mailgun para aliases de membros.
-- Não activa encaminhamento real automaticamente.
+- Não configura Roundcube/Dovecot directamente (só mapa virtual Postfix quando sync activo).
 
 ### Próximo passo futuro
 
-Um script como `runv-email-provider-sync` poderá ler `email-aliases.json` e aplicar aliases no provedor real.
+Suporte a backends além de `postfix-hash` (ex. SQL já usado pelo servidor) após mapear o que `discover_mail_stack.py` reportar.
 
 ## Testes
 

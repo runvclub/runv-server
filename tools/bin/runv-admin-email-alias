@@ -25,6 +25,11 @@ def _bootstrap() -> None:
 _bootstrap()
 import runv_email_aliases as ea  # noqa: E402
 
+try:
+    import runv_mail_sync as mail_sync  # noqa: E402
+except ImportError:
+    mail_sync = None  # type: ignore[assignment]
+
 
 def cmd_pending() -> int:
     pending = ea.iter_pending_requests()
@@ -53,7 +58,7 @@ def cmd_list() -> int:
     return 0
 
 
-def cmd_approve(username: str) -> int:
+def cmd_approve(username: str, *, sync_mail: bool) -> int:
     user = ea.validate_alias_username(username)
     operator = ea.admin_operator()
     entry = ea.approve_pending(user, operator)
@@ -62,11 +67,41 @@ def cmd_approve(username: str) -> int:
     print(f"  {entry.get('alias')}\n")
     print("Destino:")
     print(f"  {entry.get('destination')}\n")
-    print("Próximo passo manual:")
-    print(
-        "  criar/atualizar o encaminhamento real no provedor de email:\n"
-        f"  {entry.get('alias')} -> {entry.get('destination')}"
-    )
+    if sync_mail and mail_sync is not None:
+        try:
+            mail_sync.sync_postfix_hash()
+            print("Encaminhamento aplicado no Postfix (sync OK).\n")
+        except SystemExit:
+            print(
+                "Aviso: sync Postfix falhou; registo JSON está activo.\n"
+                "  Corrija /etc/runv-member-mail.json ou execute:\n"
+                "    sudo runv-admin-email-alias sync\n",
+                file=sys.stderr,
+            )
+    elif mail_sync is not None and mail_sync.is_sync_enabled():
+        print(
+            "Próximo passo MTA:\n"
+            "  sudo runv-admin-email-alias sync\n"
+            "  (ou active auto_sync_on_approve em /etc/runv-member-mail.json)\n"
+        )
+    else:
+        print("Próximo passo manual (MTA):")
+        print(
+            "  configurar encaminhamento no Postfix/Dovecot ou\n"
+            "  copiar email/config/runv-member-mail.example.json para\n"
+            "  /etc/runv-member-mail.json e executar: runv-admin-email-alias sync\n"
+        )
+        print(
+            f"  destino: {entry.get('alias')} -> {entry.get('destination')}\n"
+        )
+    return 0
+
+
+def cmd_sync() -> int:
+    if mail_sync is None:
+        ea.rc.friendly_exit("módulo runv_mail_sync não encontrado.")
+    mail_sync.sync_postfix_hash()
+    print("Sync Postfix concluído.")
     return 0
 
 
@@ -94,6 +129,20 @@ def build_parser() -> argparse.ArgumentParser:
     sub.add_parser("list", help="listar aliases activos")
     appr = sub.add_parser("approve", help="aprovar pedido pendente mais recente")
     appr.add_argument("user", metavar="USER", help="nome de utilizador Unix")
+    appr.add_argument(
+        "--sync-mail",
+        action="store_true",
+        help="aplicar imediatamente no Postfix (requer /etc/runv-member-mail.json enabled)",
+    )
+    appr.add_argument(
+        "--no-sync-mail",
+        action="store_true",
+        help="não tentar sync Postfix mesmo com auto_sync_on_approve",
+    )
+    sub.add_parser(
+        "sync",
+        help="sincronizar aliases activos com Postfix (hash runv-member-aliases)",
+    )
     rej = sub.add_parser("reject", help="rejeitar pedido pendente")
     rej.add_argument("user", metavar="USER", help="nome de utilizador Unix")
     rej.add_argument(
@@ -113,7 +162,18 @@ def main(argv: list[str] | None = None) -> int:
         if args.command == "list":
             return cmd_list()
         if args.command == "approve":
-            return cmd_approve(args.user)
+            do_sync = bool(args.sync_mail)
+            if (
+                not args.no_sync_mail
+                and not do_sync
+                and mail_sync is not None
+                and mail_sync.is_sync_enabled()
+            ):
+                cfg = mail_sync.load_config()
+                do_sync = bool(cfg.get("auto_sync_on_approve"))
+            return cmd_approve(args.user, sync_mail=do_sync)
+        if args.command == "sync":
+            return cmd_sync()
         if args.command == "reject":
             return cmd_reject(args.user, args.reason)
         return 1

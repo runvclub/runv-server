@@ -249,11 +249,15 @@ Permite pedir um alias de email fixo `username@runv.club` que, após aprovação
 
 ### Exemplos
 
+Na sessão SSH do **membro** (sem `sudo`):
+
 ```bash
 runv-email-alias request usuario@example.org
 runv-email-alias status
 runv-email-alias cancel
 ```
+
+Requisito: o utilizador tem de pertencer ao grupo `runv-members` (contas criadas com `create_runv_user.py`). Contas só de administração do servidor não usam este comando.
 
 Política, ficheiros em `/var/lib/runv/` e setup: [08-email.md](08-email.md).
 
@@ -271,8 +275,11 @@ Comando **root** para listar pedidos, aprovar ou rejeitar aliases, e actualizar 
 sudo runv-admin-email-alias pending
 sudo runv-admin-email-alias list
 sudo runv-admin-email-alias approve pablo
+sudo runv-admin-email-alias sync
 sudo runv-admin-email-alias reject pablo --reason "email destino inválido"
 ```
+
+Sync Postfix (membros, não Mailgun): [08-email.md](08-email.md) e `scripts/admin/discover_mail_stack.py`.
 
 Setup inicial da fila e permissões:
 
