@@ -42,7 +42,7 @@ def main() -> int:
     if args.config.strip():
         cfg = ms.load_config(Path(args.config.strip()))
 
-    return ms.sync_postfix_hash(dry_run=args.dry_run, cfg=cfg)
+    return ms.sync_mail(dry_run=args.dry_run, cfg=cfg)
 
 
 if __name__ == "__main__":

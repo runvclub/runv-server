@@ -69,7 +69,7 @@ def cmd_approve(username: str, *, sync_mail: bool) -> int:
     print(f"  {entry.get('destination')}\n")
     if sync_mail and mail_sync is not None:
         try:
-            mail_sync.sync_postfix_hash()
+            mail_sync.sync_mail()
             print("Encaminhamento aplicado no Postfix (sync OK).\n")
         except SystemExit:
             print(
@@ -100,7 +100,7 @@ def cmd_approve(username: str, *, sync_mail: bool) -> int:
 def cmd_sync() -> int:
     if mail_sync is None:
         ea.rc.friendly_exit("módulo runv_mail_sync não encontrado.")
-    mail_sync.sync_postfix_hash()
+    mail_sync.sync_mail()
     print("Sync Postfix concluído.")
     return 0
 

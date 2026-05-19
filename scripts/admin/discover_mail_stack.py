@@ -155,10 +155,18 @@ def main() -> int:
         pth = Path(path)
         print(f"{path}: {'presente' if pth.is_file() else 'ausente'}")
 
-    print(
-        "\nPróximo passo: alinhar virtual_alias_maps com hash:/etc/postfix/runv-member-aliases "
-        "e activar /etc/runv-member-mail.json; depois: runv-admin-email-alias sync"
-    )
+    maps = ""
+    code, maps = run(["postconf", "-h", "virtual_alias_maps"])
+    if code == 0 and "mysql:" in maps:
+        print(
+            "\nPróximo passo (MySQL): sudo python3 scripts/admin/inspect_postfix_mysql_aliases.py\n"
+            "  depois copiar email/config/runv-member-mail.example.json para /etc/runv-member-mail.json\n"
+            "  e: sudo runv-admin-email-alias sync"
+        )
+    else:
+        print(
+            "\nPróximo passo: configurar /etc/runv-member-mail.json e runv-admin-email-alias sync"
+        )
     return 0
 
 

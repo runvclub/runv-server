@@ -89,7 +89,16 @@ sudo python3 scripts/admin/sync_member_email_aliases.py --dry-run
 sudo runv-admin-email-alias sync
 ```
 
-O sync gera `hash:/etc/postfix/runv-member-aliases` a partir de `/var/lib/runv/email-aliases.json`, corre `postmap` e `systemctl reload postfix`. **Não** altera Mailgun.
+Na vossa VPS o Postfix usa **`mysql:/etc/postfix/mysql-virtual-alias-maps.cf`** — use backend `postfix-mysql` (não adicione mapa hash paralelo).
+
+```bash
+sudo python3 scripts/admin/inspect_postfix_mysql_aliases.py
+sudo cp email/config/runv-member-mail.example.json /etc/runv-member-mail.json
+# editar enabled + colunas/tabela se o inspect sugerir
+sudo runv-admin-email-alias sync
+```
+
+O sync faz UPSERT na tabela de aliases e `reload postfix`. **Não** altera Mailgun.
 
 ### Setup inicial no servidor
 
