@@ -69,7 +69,14 @@ sudo /etc/update-motd.d/60-runv | tail -25
 ```bash
 cd /opt/runv-server/tools
 sudo python3 tools.py --skip-apt --force
-sudo run-parts /etc/update-motd.d > /run/motd.dynamic
+# O redireccionamento tem de correr como root (senão: Permission denied em /run/motd.dynamic)
+sudo sh -c 'run-parts /etc/update-motd.d > /run/motd.dynamic'
+```
+
+Alternativa equivalente:
+
+```bash
+sudo run-parts /etc/update-motd.d | sudo tee /run/motd.dynamic > /dev/null
 ```
 
 Se o MOTD continuar desactualizado entre logins, rever `/etc/default/motd-news` na VPS (intervalo ou desactivar cache), conforme a política do servidor.
