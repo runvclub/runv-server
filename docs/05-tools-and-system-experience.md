@@ -49,7 +49,7 @@ O ficheiro [`tools/motd/60-runv`](../tools/motd/60-runv) gera a mensagem de boas
 | Arte RUNV + tagline | Identidade visual alinhada ao site |
 | Comandos úteis | `runv-help`, `runv-links`, `lynx`, `tmux`, `byobu`, `mutt`, `chat`, `runvers`, `runv-games` |
 | Comunidade runv | `runv-profile`, `runv-finger`, `runv-who`, `runv-bulletin`, `runv-email-alias` |
-| Últimas sessões SSH | Grelha 3×3 com as **9 sessões mais recentes** em `wtmp` (`last -w`); pode repetir o mesmo utilizador; **não** é quem está online agora |
+| Últimos acessos recentes | Grelha 3×3 com até **9 membros distintos** (`last -w`); ordem = login mais recente de cada um; **não** é quem está online agora |
 
 A ajuda completa está em `runv-help` (inclui a secção Comunidade e email de membro). Detalhes dos comandos: [17-community-commands.md](17-community-commands.md) e [08-email.md](08-email.md).
 

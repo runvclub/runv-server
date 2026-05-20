@@ -27,9 +27,9 @@ print_runv_art() {
 RUNV_ART
 }
 
-# MOTD: últimas 9 sessões SSH (last(1)) → grelha 3×3
+# MOTD: até 9 utilizadores únicos com sessão recente (last(1)) → grelha 3×3
 # Histórico wtmp; não é presença em tempo real (runv-status + who para admin).
-# Pode repetir o mesmo utilizador; ordem = sessões mais recentes primeiro.
+# Cada nome aparece uma vez: ordem = login mais recente daquele user (primeira linha em last).
 # update-motd.d costuma ter PATH mínimo: tentar /usr/bin/last e /bin/last.
 print_last_sessions_3x3() {
   LAST_CMD=$(command -v last 2>/dev/null) || LAST_CMD=
@@ -41,14 +41,16 @@ print_last_sessions_3x3() {
   fi
   tf=$(mktemp -t runvmotd.XXXXXX 2>/dev/null) || tf=/tmp/runvmotd.$$
   trap 'rm -f "$tf"' EXIT HUP INT
-  # Ignora reboot, wtmp, entre/root, contas *-admin; até 9 sessões (sem deduplicar user)
-  "$LAST_CMD" -w -n 80 2>/dev/null | awk '
+  # Ignora reboot, wtmp, entre/root, contas *-admin; até 9 utilizadores distintos
+  "$LAST_CMD" -w -n 500 2>/dev/null | awk '
     /^reboot/ || /^wtmp/ || /^$/ { next }
     NF < 1 { next }
     {
       u = $1
       if (u == "entre" || u == "root") next
       if (u ~ /-admin$/) next
+      if (u in seen) next
+      seen[u] = 1
       print u
       if (++n >= 9) exit
     }
@@ -61,8 +63,8 @@ print_last_sessions_3x3() {
     return
   fi
 
-  printf '\n%bÚltimas sessões SSH%b\n' "${B}" "${R}"
-  printf '  %b(histórico wtmp; não é quem está online agora)%b\n' "${D}" "${R}"
+  printf '\n%bÚltimos acessos recentes%b\n' "${B}" "${R}"
+  printf '  %b(um nome por membro; histórico wtmp; não é quem está online)%b\n' "${D}" "${R}"
   row=1
   while [ "$row" -le 3 ]; do
     read -r c1 || c1=''
