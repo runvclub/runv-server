@@ -21,6 +21,9 @@ DEFAULT_ALIASES_PATH: Final[Path] = Path("/var/lib/runv/email-aliases.json")
 DEFAULT_ALIASES_LOCK: Final[Path] = Path("/var/lib/runv/email-aliases.lock")
 DEFAULT_QUEUE_DIR: Final[Path] = Path("/var/lib/runv/email-alias-queue")
 DEFAULT_ALIAS_DOMAIN: Final[str] = "runv.club"
+DEFAULT_MEMBERS_GROUP: Final[str] = "runv-members"
+ALIASES_JSON_MODE: Final[int] = 0o640
+ALIASES_LOCK_MODE: Final[int] = 0o660
 
 ALIAS_RESERVED_USERNAMES: Final[frozenset[str]] = frozenset(
     {
@@ -156,8 +159,37 @@ def _read_json_file(path: Path) -> Any | None:
         if not raw:
             return None
         return json.loads(raw)
+    except PermissionError:
+        geteuid = getattr(os, "geteuid", None)
+        if geteuid is not None and geteuid() != 0:
+            rc.friendly_exit(
+                "sem permissão para ler email-aliases.json.\n"
+                "Peça ao admin para executar:\n"
+                "  sudo python3 scripts/admin/setup_email_aliases.py"
+            )
+        return None
     except (OSError, json.JSONDecodeError):
         return None
+
+
+def restore_aliases_json_permissions() -> None:
+    """Mantém email-aliases.json legível pelo grupo runv-members após escrita root."""
+    aliases_path, lock_path = aliases_paths()
+    group = os.environ.get("RUNV_MEMBERS_GROUP", "").strip() or DEFAULT_MEMBERS_GROUP
+    try:
+        import grp
+
+        gid = grp.getgrnam(group).gr_gid
+    except KeyError:
+        return
+    for path, mode in ((aliases_path, ALIASES_JSON_MODE), (lock_path, ALIASES_LOCK_MODE)):
+        if not path.exists():
+            continue
+        try:
+            os.chown(path, 0, gid)
+            os.chmod(path, mode)
+        except OSError:
+            pass
 
 
 def load_aliases_unlocked(aliases_path: Path) -> dict[str, dict[str, Any]]:
@@ -201,6 +233,7 @@ def save_aliases(data: dict[str, dict[str, Any]]) -> None:
                 out.flush()
                 os.fsync(out.fileno())
             os.replace(tmp_path, aliases_path)
+            restore_aliases_json_permissions()
         except Exception:
             tmp_path.unlink(missing_ok=True)
             raise
@@ -420,6 +453,7 @@ def approve_pending(username: str, operator: str) -> dict[str, Any]:
                 out.flush()
                 os.fsync(out.fileno())
             os.replace(tmp_path, aliases_path)
+            restore_aliases_json_permissions()
         except Exception:
             tmp_path.unlink(missing_ok=True)
             raise
