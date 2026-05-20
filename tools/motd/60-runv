@@ -3,7 +3,7 @@
 #
 # RUNV em verde (ANSI); tagline e rodapé — alinhado a site/public/index.html
 # e terminal/entre_app.py (RUNV_ASCII_ART / ASCII_TAGLINE).
-# Estatísticas gerais: runv-status (só pmurad-admin); aqui: lista de comandos + acessos recentes.
+# Estatísticas gerais: runv-status (só pmurad-admin); aqui: lista de comandos + sessões recentes.
 #
 # Cores: printf %b com literais \033 (POSIX). Sem echo -e.
 
@@ -27,9 +27,9 @@ print_runv_art() {
 RUNV_ART
 }
 
-# MOTD: "Últimos acessos recentes" — até 9 nomes únicos (last(1)) → grelha 3×3
-# Isto é histórico de sessões, não presença em tempo real; runv-status usa who(1).
-# Cada nome aparece só uma vez: ordem = mais recente primeiro (primeira ocorrência em last).
+# MOTD: últimas 9 sessões SSH (last(1)) → grelha 3×3
+# Histórico wtmp; não é presença em tempo real (runv-status + who para admin).
+# Pode repetir o mesmo utilizador; ordem = sessões mais recentes primeiro.
 # update-motd.d costuma ter PATH mínimo: tentar /usr/bin/last e /bin/last.
 print_last_sessions_3x3() {
   LAST_CMD=$(command -v last 2>/dev/null) || LAST_CMD=
@@ -41,18 +41,16 @@ print_last_sessions_3x3() {
   fi
   tf=$(mktemp -t runvmotd.XXXXXX 2>/dev/null) || tf=/tmp/runvmotd.$$
   trap 'rm -f "$tf"' EXIT HUP INT
-  # Ignora reboot, wtmp, entre/root (conta de pedido / admin); até 9 nomes distintos
-  "$LAST_CMD" -n 500 2>/dev/null | awk '
+  # Ignora reboot, wtmp, entre/root, contas *-admin; até 9 sessões (sem deduplicar user)
+  "$LAST_CMD" -w -n 80 2>/dev/null | awk '
     /^reboot/ || /^wtmp/ || /^$/ { next }
     NF < 1 { next }
     {
       u = $1
       if (u == "entre" || u == "root") next
-      if (!(u in seen)) {
-        seen[u] = 1
-        print u
-        if (++n >= 9) exit
-      }
+      if (u ~ /-admin$/) next
+      print u
+      if (++n >= 9) exit
     }
   ' > "$tf" || true
 
@@ -63,13 +61,14 @@ print_last_sessions_3x3() {
     return
   fi
 
-  printf '\n%bÚltimos acessos recentes%b\n' "${B}" "${R}"
+  printf '\n%bÚltimas sessões SSH%b\n' "${B}" "${R}"
+  printf '  %b(histórico wtmp; não é quem está online agora)%b\n' "${D}" "${R}"
   row=1
   while [ "$row" -le 3 ]; do
     read -r c1 || c1=''
     read -r c2 || c2=''
     read -r c3 || c3=''
-    printf '  %b%-12s%b  %b%-12s%b  %b%-12s%b\n' \
+    printf '  %b%-16s%b  %b%-16s%b  %b%-16s%b\n' \
       "${Y}" "$c1" "${R}" \
       "${Y}" "$c2" "${R}" \
       "${Y}" "$c3" "${R}"
@@ -83,16 +82,23 @@ print_runv_art
 printf '\n%s\n' '.club — um computador para compartilhar'
 
 printf '\n%bComandos úteis%b\n' "${B}" "${R}"
-# Coluna do nome do comando alinhada (maior: runv-links = 10 chars)
-printf '  %b%-12s%b %b—%b ajuda e boas práticas do runv.club.\n' "${G}" "runv-help" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b links do site e do mantenedor.\n' "${G}" "runv-links" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b navegador web no terminal.\n' "${G}" "lynx" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b multiplexador de terminal (várias sessões).\n' "${G}" "tmux" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b barra de estado e atalhos sobre tmux/screen.\n' "${G}" "byobu" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b cliente de e-mail no terminal.\n' "${G}" "mutt" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b IRC da rede da casa.\n' "${G}" "chat" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b catálogo dos espaços e serviços da casa.\n' "${G}" "runvers" "${R}" "${D}" "${R}"
-printf '  %b%-12s%b %b—%b catálogo de jogos do servidor.\n' "${G}" "runv-games" "${R}" "${D}" "${R}"
+# Coluna do nome do comando alinhada (maior: runv-email-alias = 16 chars)
+printf '  %b%-16s%b %b—%b ajuda e boas práticas do runv.club.\n' "${G}" "runv-help" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b links do site e do mantenedor.\n' "${G}" "runv-links" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b navegador web no terminal.\n' "${G}" "lynx" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b multiplexador de terminal (várias sessões).\n' "${G}" "tmux" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b barra de estado e atalhos sobre tmux/screen.\n' "${G}" "byobu" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b cliente de e-mail no terminal.\n' "${G}" "mutt" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b IRC da rede da casa.\n' "${G}" "chat" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b catálogo dos espaços e serviços da casa.\n' "${G}" "runvers" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b catálogo de jogos do servidor.\n' "${G}" "runv-games" "${R}" "${D}" "${R}"
+
+printf '\n%bComunidade runv%b\n' "${B}" "${R}"
+printf '  %b%-16s%b %b—%b perfil local (.plan, .project).\n' "${G}" "runv-profile" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b ver perfil de outro membro.\n' "${G}" "runv-finger" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b listar membros da casa.\n' "${G}" "runv-who" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b mural comunitário no terminal.\n' "${G}" "runv-bulletin" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b pedir ou ver alias user@runv.club.\n' "${G}" "runv-email-alias" "${R}" "${D}" "${R}"
 
 print_last_sessions_3x3
 

@@ -23,6 +23,15 @@ printf '  %brunv-links%b     Links do projeto, site e parceiros.\n' "${G}" "${R}
 printf '  %brunvers%b        Espaços e serviços da comunidade (square, plantit).\n' "${G}" "${R}"
 printf '\n'
 
+printf '%b%bComunidade runv%b\n' "${Y}" "${B}" "${R}"
+printf '  %brunv-profile%b     Perfil local: runv-profile init | show | path\n' "${G}" "${R}"
+printf '  %brunv-finger%b      Ver perfil público de outro membro (ex.: runv-finger pablo).\n' "${G}" "${R}"
+printf '  %brunv-who%b         Listar membros (--active, --json, --limit N).\n' "${G}" "${R}"
+printf '  %brunv-bulletin%b    Mural no terminal: list | post (mensagens curtas).\n' "${G}" "${R}"
+printf '  %brunv-email-alias%b  Alias user@runv.club: request | status | cancel\n' "${G}" "${R}"
+printf '                      (só membros no grupo runv-members; aprovação pelos admins).\n'
+printf '\n'
+
 printf '%b%bFerramentas instaladas no servidor%b (exemplos)\n' "${Y}" "${B}" "${R}"
 printf '  %blynx%b           Navegador web no terminal.\n' "${G}" "${R}"
 printf '  %bcurl%b / %bwget%b   Transferir ficheiros e páginas pela linha de comando.\n' "${G}" "${R}" "${G}" "${R}"
@@ -57,6 +66,7 @@ printf '\n'
 
 printf '%b%bDicas para começar%b\n' "${Y}" "${B}" "${R}"
 printf '  • Edite o site em %b~/public_html/index.html%b para começar.\n' "${C}" "${R}"
+printf '  • Corra %brunv-profile init%b e preencha %b~/.plan%b / %b~/.project%b.\n' "${G}" "${R}" "${C}" "${R}" "${C}" "${R}"
 printf '\n'
 
 printf '%b%bAjuda e mais informações%b\n' "${Y}" "${B}" "${R}"

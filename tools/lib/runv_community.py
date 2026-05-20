@@ -6,6 +6,7 @@ Utilitários partilhados pelos comandos comunitários runv.club (stdlib apenas).
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from datetime import datetime, timezone
@@ -60,8 +61,15 @@ def validate_username(username: str) -> str:
     return u
 
 
+def path_is_file(path: Path) -> bool:
+    try:
+        return path.is_file()
+    except OSError:
+        return False
+
+
 def read_text_limited(path: Path, *, max_bytes: int = MAX_READ_BYTES) -> str | None:
-    if not path.is_file():
+    if not path_is_file(path):
         return None
     try:
         with path.open("rb") as f:
@@ -195,9 +203,19 @@ def load_member_usernames(
             )
     names_home: list[str] = []
     if home_root.is_dir():
-        for entry in home_root.iterdir():
-            if entry.is_dir() and USERNAME_RE.fullmatch(entry.name):
-                names_home.append(entry.name)
+        try:
+            entries = home_root.iterdir()
+        except OSError:
+            entries = ()
+        for entry in entries:
+            if not entry.is_dir() or not USERNAME_RE.fullmatch(entry.name):
+                continue
+            try:
+                if not os.access(entry, os.R_OK | os.X_OK):
+                    continue
+            except OSError:
+                continue
+            names_home.append(entry.name)
     return sorted(set(names_home), key=str.lower), warning
 
 

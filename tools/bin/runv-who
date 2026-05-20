@@ -32,8 +32,14 @@ import runv_community as rc  # noqa: E402
 
 def collect_member(username: str) -> dict[str, Any]:
     paths = rc.home_paths(username)
-    has_homepage = paths["public_index"].is_file()
-    homepage_mtime = rc.homepage_mtime_iso(paths["public_index"]) if has_homepage else None
+    try:
+        has_homepage = rc.path_is_file(paths["public_index"])
+        homepage_mtime = (
+            rc.homepage_mtime_iso(paths["public_index"]) if has_homepage else None
+        )
+    except OSError:
+        has_homepage = False
+        homepage_mtime = None
     return {
         "username": username,
         "homepage": f"/~{username}/",

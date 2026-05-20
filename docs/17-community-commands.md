@@ -13,7 +13,9 @@ Estes comandos dão mais vida pubnix ao servidor runv.club:
 
 São instalados por [`tools/tools.py`](../tools/tools.py) em `/usr/local/bin` (junto com `runv-help`, `chat`, etc.). A biblioteca partilhada fica em `/usr/local/share/runv/lib/runv_community.py`.
 
-Não expõem email, chave pública nem fingerprint de `/var/lib/runv/users.json`.
+No login SSH, o MOTD ([`tools/motd/60-runv`](../tools/motd/60-runv)) e `runv-help` listam estes comandos na secção **Comunidade runv**. Ver também [05-tools-and-system-experience.md](05-tools-and-system-experience.md#motd-e-runv-help).
+
+Não expõem email, chave pública nem fingerprint de `/var/lib/runv/users.json` (excepto `runv-who`, que usa só a lista de usernames em `users.json` quando legível).
 
 ## `runv-profile`
 
@@ -296,7 +298,6 @@ Possíveis evoluções (fora do âmbito actual):
 
 - `runv-admin bulletin hide/delete` (moderação);
 - feed público do mural no site;
-- integração com MOTD;
 - integração com Garden / Gotchi;
 - backfill admin para membros existentes.
 
