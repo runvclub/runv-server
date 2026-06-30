@@ -17,9 +17,11 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Final
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 ADMIN_DIR = SCRIPT_DIR.parent / "scripts" / "admin"
@@ -27,6 +29,11 @@ if str(ADMIN_DIR) not in sys.path:
     sys.path.insert(0, str(ADMIN_DIR))
 
 from admin_guard import ensure_admin_cli
+
+# Espelha o provisionador (create_runv_user.USERNAME_PATTERN); paridade garantida
+# por tests/test_validation_parity.py. Só publicamos nomes que poderiam ter sido
+# criados pela política, mesmo que users.json seja editado à mão.
+USERNAME_PATTERN: Final[re.Pattern[str]] = re.compile(r"^[a-z][a-z0-9_-]{1,31}$")
 
 
 def parse_args() -> argparse.Namespace:
@@ -101,6 +108,12 @@ def main() -> None:
             continue
         username = row.get("username")
         if not isinstance(username, str) or not username:
+            continue
+        if not USERNAME_PATTERN.fullmatch(username):
+            print(
+                f"Aviso: username inválido em users.json ignorado: {username!r}",
+                file=sys.stderr,
+            )
             continue
         created = row.get("created_at")
         since = created if isinstance(created, str) else ""

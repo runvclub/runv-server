@@ -53,6 +53,8 @@ ALLOWED_KEY_TYPES: Final[tuple[str, ...]] = (
     "ssh-rsa",
 )
 FINGERPRINT_SHA256_RE: Final[re.Pattern[str]] = re.compile(r"\b(SHA256:[+A-Za-z0-9/_=-]+)\b")
+# RFC 5321; espelha entre_core.MAX_EMAIL_LEN (paridade: tests/test_validation_parity.py).
+MAX_EMAIL_LEN: Final[int] = 254
 
 DEFAULT_METADATA_PATH: Final[Path] = Path("/var/lib/runv/users.json")
 DEFAULT_LOCK_PATH: Final[Path] = Path("/var/lib/runv/users.lock")
@@ -131,6 +133,8 @@ def validate_username_syntax(username: str) -> str:
 
 def validate_email(email: str) -> str:
     e = email.strip()
+    if len(e) > MAX_EMAIL_LEN:
+        raise ValueError("email demasiado longo")
     if not EMAIL_PATTERN.fullmatch(e):
         raise ValueError("formato de email inválido")
     return e

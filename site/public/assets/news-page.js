@@ -56,7 +56,7 @@
       if (empty) {
         empty.hidden = false;
         empty.textContent =
-          "Não foi possível carregar a lista (ficheiro data/news.json ausente ou indisponível). Use o feed RSS ou tente mais tarde.";
+          "Não foi possível carregar a lista (arquivo data/news.json ausente ou indisponível). Use o feed RSS ou tente mais tarde.";
       }
     }
   }

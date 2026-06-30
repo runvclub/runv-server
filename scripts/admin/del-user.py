@@ -42,7 +42,10 @@ from runv_landing_sync import try_sync_landing_via_genlanding
 # constantes
 USERNAME_PATTERN: Final[re.Pattern[str]] = re.compile(r"^[a-z][a-z0-9_-]{1,31}$")
 
-# Contas de sistema / serviço — nunca remover por engano
+# Contas de sistema / serviço — nunca remover por engano.
+# Espelha terminal/entre_core.py e create_runv_user.py; paridade garantida por
+# tests/test_validation_parity.py. "entre" é a conta de onboarding (proteger de
+# remoção acidental); "join"/"welcome" são reservados a rotas/serviços do site.
 RESERVED_USERNAMES: Final[frozenset[str]] = frozenset(
     {
         "root",
@@ -65,6 +68,9 @@ RESERVED_USERNAMES: Final[frozenset[str]] = frozenset(
         "nobody",
         "admin",
         "postmaster",
+        "entre",
+        "join",
+        "welcome",
     }
 )
 

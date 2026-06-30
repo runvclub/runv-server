@@ -75,7 +75,13 @@ EMAIL_PATTERN: Final[re.Pattern[str]] = re.compile(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
     r"(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$"
 )
+# RFC 5321: limite do endereço. Espelha entre_core.MAX_EMAIL_LEN.
+MAX_EMAIL_LEN: Final[int] = 254
 
+# ATENÇÃO: estas constantes de política são duplicadas em terminal/entre_core.py
+# (e parcialmente em update_user.py / del-user.py) por desenho — os módulos são
+# instalados separadamente e não se importam em runtime. A paridade é garantida
+# por tests/test_validation_parity.py; ao alterar aqui, altere lá também.
 RESERVED_USERNAMES: Final[frozenset[str]] = frozenset(
     {
         "root",
@@ -98,6 +104,9 @@ RESERVED_USERNAMES: Final[frozenset[str]] = frozenset(
         "nobody",
         "admin",
         "postmaster",
+        "entre",
+        "join",
+        "welcome",
     }
 )
 
@@ -230,6 +239,8 @@ def validate_email(email: str) -> str:
     if email != email.strip():
         raise ValidationError("email não pode ter espaços no início ou fim")
     e = email.strip()
+    if len(e) > MAX_EMAIL_LEN:
+        raise ValidationError("email demasiado longo.")
     at = e.count("@")
     if at == 0:
         raise ValidationError(

@@ -113,6 +113,11 @@ def page_shell(
     nav_inner = '\n        <span class="hero-nav-sep" aria-hidden="true">·</span>\n        '.join(
         nav_items
     )
+    base_url = "https://runv.club"
+    if current_slug in (None, "index"):
+        canonical = f"{base_url}/wiki/"
+    else:
+        canonical = f"{base_url}/wiki/{current_slug}.html"
     return f"""<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -120,6 +125,9 @@ def page_shell(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{html.escape(title)}</title>
   <meta name="description" content="{html.escape(description)}">
+  <link rel="canonical" href="{html.escape(canonical, quote=True)}">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0c0b0f">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
