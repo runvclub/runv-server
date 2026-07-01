@@ -1,27 +1,27 @@
-runv.club — bem-vindo(a)
+runv.club — welcome
 
-Olá {username},
+Hello {username},
 
-A sua conta no runv.club foi criada.
+Your runv.club account has been created.
 
-Utilizamos o endereço {email} como o seu email de contacto nesta conta.
+We're using the address {email} as your contact email for this account.
 {request_reference}
 
-Acesso por SSH
+SSH access
 ----------------
-Para entrar no servidor, use a **chave privada OpenSSH** que corresponde à chave pública que você registrou.
-Nunca envie nem compartilhe essa chave privada com terceiros.
+To log into the server, use the **OpenSSH private key** matching the public key you registered.
+Never send or share that private key with anyone else.
 
-Impressão digital da chave pública no nosso sistema: {fingerprint}
+Public key fingerprint on our system: {fingerprint}
 
 {ssh_instructions}
 
-Espaço web
+Web space
 ----------
-A sua página de membro deverá estar disponível em:
+Your member page should be available at:
 {member_url}
 
-Se esta for a sua primeira experiência numa pubnix, vá com calma: explore o ambiente, leia a wiki, edite a sua página e apareça no IRC da comunidade quando quiser.
+If this is your first time on a pubnix, take it slow: explore the environment, read the wiki, edit your page, and drop by the community IRC whenever you like.
 
-Bem-vindo(a),
-Equipe runv.club
+Welcome aboard,
+runv.club team

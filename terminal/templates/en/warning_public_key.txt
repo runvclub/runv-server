@@ -1,0 +1,11 @@
+
+  Before the SSH key
+  ───────────────────
+
+  In the last step you'll paste **only the public key** — a single line,
+  starting with something like ssh-ed25519 or ssh-rsa.
+
+  **Never** the private key (files without .pub, lines starting with
+  -----BEGIN … PRIVATE KEY-----, or a PuTTY "Private key" export).
+
+  If in doubt, generate a fresh pair on your computer before pasting.

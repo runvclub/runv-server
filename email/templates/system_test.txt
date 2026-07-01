@@ -1,11 +1,11 @@
-runv.club — email de teste
+runv.club — test email
 
-Este é um email automático de verificação do subsistema de envio.
+This is an automated message to verify the mail subsystem.
 
-Administrador: {admin_email}
-Remetente configurado: {default_from}
-Domínio / host registado: {host}
-URL base API (se Mailgun): {api_base_url}
-Timestamp UNIX: {timestamp}
+Administrator: {admin_email}
+Configured sender: {default_from}
+Registered domain / host: {host}
+API base URL (if Mailgun): {api_base_url}
+UNIX timestamp: {timestamp}
 
-Se você recebeu esta mensagem, o backend configurado (Mailgun API ou SMTP legado) e a biblioteca estão operacionais.
+If you received this message, the configured backend (Mailgun API or legacy SMTP) and the library are operational.

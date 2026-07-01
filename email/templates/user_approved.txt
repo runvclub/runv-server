@@ -1,12 +1,12 @@
-runv.club — pedido aprovado
+runv.club — request approved
 
-Olá {username},
+Hello {username},
 
-O seu pedido de entrada (referência {request_id}) foi aprovado pela administração.
+Your join request (reference {request_id}) has been approved by the administration.
 
-O acesso ao runv.club é por **SSH**. Guarde bem a sua **chave privada OpenSSH** e nunca a compartilhe com ninguém.
+Access to runv.club is via **SSH**. Keep your **OpenSSH private key** safe and never share it with anyone.
 
-Se precisar falar com a equipe, escreva para admin@runv.club.
+If you need to reach the team, write to admin@runv.club.
 
-Um abraço,
-Equipe runv.club
+Cheers,
+runv.club team

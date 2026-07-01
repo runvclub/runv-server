@@ -1,10 +1,10 @@
-runv.club — conta de utilizador criada
+runv.club — user account created
 
-Foi criada uma conta Unix runv para o seguinte utilizador:
+A runv Unix account was created for the following user:
 
-Utilizador: {username}
-Email (metadado): {email}
-Operador/script: {operator_info}
-Referência do pedido: {request_reference}
+User: {username}
+Email (metadata): {email}
+Operator/script: {operator_info}
+Request reference: {request_reference}
 
 Timestamp: {timestamp}

@@ -1,15 +1,15 @@
-runv.club — novo pedido de entrada
+runv.club — new join request
 
-Olá,
+Hello,
 
-Foi recebido um novo pedido através do fluxo «entre».
+A new request was received through the «entre» flow.
 
-ID do pedido: {request_id}
-Data (UTC): {timestamp}
-Nome de utilizador desejado: {username}
-E-mail de contato: {email}
-Fingerprint SHA256 da chave: {fingerprint}
+Request ID: {request_id}
+Date (UTC): {timestamp}
+Desired username: {username}
+Contact email: {email}
+Key SHA256 fingerprint: {fingerprint}
 
-Consulte a fila em /var/lib/runv/entre-queue/ para revisar o pedido.
+Check the queue at /var/lib/runv/entre-queue/ to review the request.
 
-Equipe runv.club
+runv.club team

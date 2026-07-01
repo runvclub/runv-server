@@ -1,13 +1,13 @@
-runv.club — pedido recebido
+runv.club — request received
 
-Olá,
+Hello,
 
-O seu pedido de entrada foi registrado com sucesso.
+Your join request was successfully registered.
 
-Referência: {request_id}
-Nome de utilizador pedido: {username}
+Reference: {request_id}
+Requested username: {username}
 
-A equipe vai analisar o pedido. Não é necessário reenviar a mesma informação várias vezes.
+The team will review the request. There's no need to resend the same information multiple times.
 
-Cumprimentos,
-Equipe runv.club
+Best regards,
+runv.club team

@@ -28,6 +28,8 @@ from typing import Any, Final
 
 import tomllib
 
+from i18n import DEFAULT_LANG, t
+
 # --- Alinhado a create_runv_user.py (não importar em runtime) ----------------
 
 USERNAME_PATTERN: Final[re.Pattern[str]] = re.compile(r"^[a-z][a-z0-9_-]{1,31}$")
@@ -112,111 +114,97 @@ def load_config(path: Path) -> dict[str, Any]:
     return data
 
 
-def validate_username(username: str) -> str:
+def validate_username(username: str, lang: str = DEFAULT_LANG) -> str:
     if not username or not username.strip():
-        raise ValidationError("o nome de utilizador desejado é obrigatório.")
+        raise ValidationError(t(lang, "err_username_required"))
     u = username.strip()
     if len(u) > MAX_USERNAME_LEN:
-        raise ValidationError("nome de utilizador demasiado longo.")
+        raise ValidationError(t(lang, "err_username_too_long"))
     if not USERNAME_PATTERN.fullmatch(u):
-        raise ValidationError(
-            "use apenas letras minúsculas, dígitos, _ e -; comece com letra; "
-            "entre 2 e 32 caracteres."
-        )
+        raise ValidationError(t(lang, "err_username_format"))
     if u in RESERVED_USERNAMES:
-        raise ValidationError("esse nome está reservado ou não é permitido.")
+        raise ValidationError(t(lang, "err_username_reserved"))
     try:
         pwd.getpwnam(u)
     except KeyError:
         pass
     else:
-        raise ValidationError("esse nome já existe neste servidor.")
+        raise ValidationError(t(lang, "err_username_taken"))
     return u
 
 
-def validate_online_presence(raw: str) -> str:
+def validate_online_presence(raw: str, lang: str = DEFAULT_LANG) -> str:
     """Texto livre: URLs, perfis, uma linha por sítio — sem mencionar moderação ao utilizador."""
     if raw is None or not str(raw).strip():
         raise ValidationError(
-            "indica sítios ou perfis onde possamos ver o teu trabalho ou o que publicas online "
-            f"(mínimo {MIN_ONLINE_PRESENCE_LEN} caracteres). Podes usar várias linhas no passo anterior."
+            t(lang, "err_online_presence_required", min_len=MIN_ONLINE_PRESENCE_LEN)
         )
-    t = str(raw).strip()
-    if len(t) < MIN_ONLINE_PRESENCE_LEN:
-        raise ValidationError(
-            "esse campo ainda é curto demais — adiciona um link, perfil ou página onde apareças online."
-        )
-    if len(t) > MAX_ONLINE_PRESENCE_LEN:
-        raise ValidationError(
-            "texto demasiado longo; resume ou escolhe os links mais importantes."
-        )
-    if "\x00" in t:
-        raise ValidationError("caracteres inválidos no texto.")
-    return t
+    s = str(raw).strip()
+    if len(s) < MIN_ONLINE_PRESENCE_LEN:
+        raise ValidationError(t(lang, "err_online_presence_too_short"))
+    if len(s) > MAX_ONLINE_PRESENCE_LEN:
+        raise ValidationError(t(lang, "err_online_presence_too_long"))
+    if "\x00" in s:
+        raise ValidationError(t(lang, "err_online_presence_invalid_chars"))
+    return s
 
 
-def validate_email(email: str) -> str:
+def validate_email(email: str, lang: str = DEFAULT_LANG) -> str:
     if not email or not email.strip():
-        raise ValidationError("o email é obrigatório.")
+        raise ValidationError(t(lang, "err_email_required"))
     if email != email.strip():
-        raise ValidationError("o email não pode ter espaços no início ou fim.")
+        raise ValidationError(t(lang, "err_email_spaces"))
     e = email.strip()
     if len(e) > MAX_EMAIL_LEN:
-        raise ValidationError("email demasiado longo.")
+        raise ValidationError(t(lang, "err_email_too_long"))
     at = e.count("@")
     if at == 0:
-        raise ValidationError(
-            "indica um endereço com @, por exemplo nome@exemplo.org."
-        )
+        raise ValidationError(t(lang, "err_email_missing_at"))
     if at != 1:
-        raise ValidationError("o email deve ter um único @.")
+        raise ValidationError(t(lang, "err_email_multiple_at"))
     if not EMAIL_PATTERN.fullmatch(e):
-        raise ValidationError("formato de email inválido.")
+        raise ValidationError(t(lang, "err_email_invalid_format"))
     return e
 
 
-def _reject_private_key_blob(raw: str) -> None:
+def _reject_private_key_blob(raw: str, lang: str = DEFAULT_LANG) -> None:
     s = raw.strip()
     low = s.lower()
     for marker in PRIVATE_KEY_MARKERS:
         if marker.lower() in low:
-            raise ValidationError(
-                "isto parece uma chave **privada**. Nunca a cole aqui. "
-                "Cole apenas a linha da chave **pública** (.pub)."
-            )
+            raise ValidationError(t(lang, "err_private_key_pasted"))
 
 
-def normalize_public_key(raw: str) -> str:
+def normalize_public_key(raw: str, lang: str = DEFAULT_LANG) -> str:
     if raw is None or raw == "":
-        raise ValidationError("a chave pública é obrigatória.")
+        raise ValidationError(t(lang, "err_pubkey_required"))
     if len(raw) > MAX_PUBKEY_LEN:
-        raise ValidationError("linha da chave demasiado longa.")
-    _reject_private_key_blob(raw)
+        raise ValidationError(t(lang, "err_pubkey_line_too_long"))
+    _reject_private_key_blob(raw, lang)
     if "\n" in raw or "\r" in raw:
-        raise ValidationError("cole uma única linha, sem quebras.")
+        raise ValidationError(t(lang, "err_pubkey_single_line"))
     line = raw.strip()
     if not line:
-        raise ValidationError("chave pública vazia.")
+        raise ValidationError(t(lang, "err_pubkey_empty"))
     parts = line.split()
     if len(parts) < 2:
-        raise ValidationError("formato inválido: esperado tipo, dados base64 e comentário opcional.")
+        raise ValidationError(t(lang, "err_pubkey_malformed"))
     key_type = parts[0]
     if key_type not in ALLOWED_KEY_TYPES:
-        raise ValidationError(
-            f"tipo de chave não aceite ({key_type!r}). "
-            f"Exemplos: ssh-ed25519, ecdsa-sha2-nistp256, ssh-rsa."
-        )
+        raise ValidationError(t(lang, "err_pubkey_unsupported_type", key_type=key_type))
     blob = parts[1]
     if not re.fullmatch(r"[A-Za-z0-9+/]+=*", blob):
-        raise ValidationError("dados da chave (base64) inválidos.")
+        raise ValidationError(t(lang, "err_pubkey_invalid_base64"))
     normalized = key_type + " " + blob
     if len(parts) > 2:
         normalized += " " + " ".join(parts[2:])
     return normalized
 
 
-def compute_public_key_fingerprint(public_key_line: str, tmp_dir: Path | None = None) -> str:
-    line = normalize_public_key(public_key_line)
+def compute_public_key_fingerprint(
+    public_key_line: str, tmp_dir: Path | None = None, lang: str = DEFAULT_LANG
+) -> str:
+    line = normalize_public_key(public_key_line, lang)
     fd, tmppath = tempfile.mkstemp(prefix="runv-entre-key-", suffix=".pub", dir=tmp_dir)
     path = Path(tmppath)
     try:
@@ -230,21 +218,21 @@ def compute_public_key_fingerprint(public_key_line: str, tmp_dir: Path | None = 
         )
         if proc.returncode != 0:
             err = (proc.stderr or proc.stdout or "").strip()
-            raise ValidationError(f"a chave foi rejeitada pelo ssh-keygen: {err}")
+            raise ValidationError(t(lang, "err_pubkey_rejected_by_sshkeygen", err=err))
         out = (proc.stdout or "").strip().splitlines()
         if not out:
-            raise RuntimeError("ssh-keygen não devolveu saída")
+            raise RuntimeError(t(lang, "err_sshkeygen_no_output"))
         m = FINGERPRINT_SHA256_RE.search(out[0])
         if not m:
-            raise RuntimeError(f"não foi possível ler o fingerprint: {out[0]!r}")
+            raise RuntimeError(t(lang, "err_sshkeygen_no_fingerprint", out=out[0]))
         return m.group(1)
     finally:
         path.unlink(missing_ok=True)
 
 
-def validate_public_key_line(raw: str) -> tuple[str, str]:
-    normalized = normalize_public_key(raw)
-    fp = compute_public_key_fingerprint(normalized)
+def validate_public_key_line(raw: str, lang: str = DEFAULT_LANG) -> tuple[str, str]:
+    normalized = normalize_public_key(raw, lang)
+    fp = compute_public_key_fingerprint(normalized, lang=lang)
     return normalized, fp
 
 
@@ -508,6 +496,7 @@ def build_request_payload(
     fingerprint: str,
     remote_addr: str | None,
     tty: str | None,
+    lang: str = DEFAULT_LANG,
 ) -> dict[str, Any]:
     return {
         "request_id": request_id,
@@ -522,6 +511,9 @@ def build_request_payload(
         "source": SOURCE_TAG,
         "status": "pending",
         "app_version": APP_VERSION,
+        # Idioma escolhido pelo visitante na sessão «entre» — informativo para o
+        # admin; os emails automáticos permanecem em inglês independentemente disto.
+        "lang": lang,
     }
 
 

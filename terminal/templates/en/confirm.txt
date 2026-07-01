@@ -1,0 +1,15 @@
+  Confirm request
+  ────────────────
+
+  Review the data before continuing.
+
+    Desired name        : {username}
+    Email               : {email}
+    Where we can see you:
+{online_presence}
+
+    SHA256 fingerprint  : {fingerprint}
+    (server local clock at confirmation): {submitted_preview}
+
+  After confirming, the request stays in the queue for manual review. There
+  is no immediate account creation.

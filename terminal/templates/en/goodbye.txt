@@ -1,0 +1,19 @@
+
+  Request registered
+  ───────────────────
+
+  Your request has been received.
+
+  It will now go to manual review by the runv.club administration.
+
+  If everything checks out, you'll get a reply by email with the next steps.
+
+  No need to resend the request multiple times.
+
+  Internal request reference: {request_id}
+
+  Thank you for making it this far — and for helping keep alive this spirit
+  of learning, curiosity, and community.
+
+  See you soon.
+

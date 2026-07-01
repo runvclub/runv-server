@@ -1,0 +1,19 @@
+
+  runv.club — join request
+  ─────────────────────────
+
+  This is a Brazilian pubnix: a shared Unix shell, a page at ~/public_html,
+  curious people, and a calmer internet.
+
+  You'll be asked a few **straightforward questions** next — on each screen,
+  read the title and type your answer **on the indicated line** (Enter to
+  confirm; one step lets you use several lines and finish with a line that's
+  just a single dot: .)
+
+  We'll ask for: your desired username, email, sites or profiles where you
+  show up online (blog, code, networks you use), and your **public** SSH key.
+
+  The request goes into a queue; the team handles each case manually — **there
+  is no instant account**.
+
+  Ready? Press Enter on the next screen and we'll get started.

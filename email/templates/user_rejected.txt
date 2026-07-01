@@ -1,13 +1,13 @@
-runv.club — pedido não aprovado
+runv.club — request not approved
 
-Olá,
+Hello,
 
-O seu pedido de entrada (referência {request_id}) não foi aprovado.
+Your join request (reference {request_id}) was not approved.
 
-Motivo indicado pela administração (se aplicável):
+Reason given by the administration (if applicable):
 {reason}
 
-Para mais esclarecimentos, fale com a administração pelo canal habitual.
+For more details, reach out to the administration through the usual channel.
 
-Cumprimentos,
-Equipe runv.club
+Best regards,
+runv.club team

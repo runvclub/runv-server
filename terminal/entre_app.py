@@ -5,7 +5,14 @@ Experiência SSH guiada para pedidos de entrada na runv.club (utilizador «entre
 Executado via ForceCommand no OpenSSH. Não cria contas Linux; apenas fila + log
 + notificação opcional.
 
-Versão 0.02 — runv.club
+Bilíngue: a primeira tela pergunta Português/English (choose_language()) e essa
+escolha vale para toda a sessão — prompts, mensagens de validação, ecrã final.
+Textos em terminal/i18n.py; templates localizados em terminal/templates/<lang>/
+com fallback para o pt-BR em terminal/templates/ quando o arquivo localizado
+não existir (ver template_for()). Os templates admin_console_notice.txt e
+admin_mail.txt (lidos só pelo admin) permanecem em português sempre.
+
+Versão 0.03 — runv.club
 """
 
 from __future__ import annotations
@@ -23,8 +30,6 @@ RUNV_ASCII_ART: str = """██████╗ ██╗   ██╗███╗
 ██╔══██╗╚██╗ ██╔╝██║╚██╗██║╚██╗ ██╔╝
 ██║  ██║ ╚████╔╝ ██║ ╚████║ ╚████╔╝
 ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═══╝  ╚═══╝"""
-
-ASCII_TAGLINE: str = ".club — um computador para compartilhar"
 
 # Em intro.txt: linha só com este marcador separa ecrãs da narrativa.
 INTRO_PAGE_BREAK: str = "%%PAGE%%"
@@ -51,20 +56,21 @@ from entre_core import (
     validate_public_key_line,
     validate_username,
 )
+from i18n import DEFAULT_LANG, t
 
 
 def eprint(msg: str) -> None:
     print(msg, file=sys.stderr)
 
 
-def pause(stdin, stdout) -> None:
-    stdout.write("\n[Enter] continuar  ·  [q] sair\n")
+def pause(stdin, stdout, lang: str) -> None:
+    stdout.write(t(lang, "pause_prompt"))
     stdout.flush()
     line = stdin.readline()
     if not line:
         raise SystemExit(0)
-    if line.strip().lower() in ("q", "quit", "sair"):
-        print("\nAté logo.\n")
+    if line.strip().lower() in ("q", "quit", "sair", "exit"):
+        print(t(lang, "goodbye_quit"))
         raise SystemExit(0)
 
 
@@ -77,7 +83,7 @@ def read_line(prompt: str, stdin, stdout) -> str:
     return line.rstrip("\r\n")
 
 
-def write_data_step_header(stdout, step: int, total: int, title: str) -> None:
+def write_data_step_header(stdout, step: int, total: int, title: str, lang: str) -> None:
     """Cabeçalho visível antes de cada campo do formulário."""
     clear_screen(stdout)
     g = "\033[92m" if _use_ansi_color(stdout) else ""
@@ -86,18 +92,16 @@ def write_data_step_header(stdout, step: int, total: int, title: str) -> None:
     r = "\033[0m" if g else ""
     bar = "━" * 52
     stdout.write(f"\n  {g}{bar}{r}\n")
-    stdout.write(f"  {b}{c}Dados · passo {step}/{total}{r}\n")
+    stdout.write(f"  {b}{c}{t(lang, 'step_header_label', step=step, total=total)}{r}\n")
     stdout.write(f"  {b}{g}{title}{r}\n")
     stdout.write(f"  {g}{bar}{r}\n\n")
 
 
-def read_multiline_until_dot(stdin, stdout, *, max_lines: int = 48) -> str:
+def read_multiline_until_dot(stdin, stdout, lang: str, *, max_lines: int = 48) -> str:
     """Várias linhas; termina com uma linha só com '.' (como no SMTP clássico)."""
     d = "\033[2m" if _use_ansi_color(stdout) else ""
     r = "\033[0m" if d else ""
-    stdout.write(
-        f"{d}  (podes usar várias linhas; para terminar, uma linha só com . e Enter){r}\n\n"
-    )
+    stdout.write(f"{d}  {t(lang, 'multiline_hint')}{r}\n\n")
     stdout.flush()
     lines: list[str] = []
     for _ in range(max_lines):
@@ -111,9 +115,7 @@ def read_multiline_until_dot(stdin, stdout, *, max_lines: int = 48) -> str:
             continue
         lines.append(s)
         if len("\n".join(lines)) > MAX_ONLINE_PRESENCE_LEN:
-            stdout.write(
-                f"\n  {d}(limite de tamanho atingido — campo fechado aqui.){r}\n"
-            )
+            stdout.write(f"\n  {d}{t(lang, 'multiline_size_limit')}{r}\n")
             break
     return "\n".join(lines).strip()
 
@@ -145,7 +147,7 @@ def style_runv_club(text: str, stdout) -> str:
     return text.replace(RUNV_CLUB_MARK, f"{g}{RUNV_CLUB_MARK}{r}")
 
 
-def wait_any_key(stdin, stdout) -> None:
+def wait_any_key(stdin, stdout, lang: str) -> None:
     """Lê uma tecla em modo cru (POSIX); senão, uma linha (Enter)."""
     if sys.platform != "win32" and stdin.isatty():
         try:
@@ -166,27 +168,57 @@ def wait_any_key(stdin, stdout) -> None:
             return
         except (ImportError, OSError, termios.error):
             pass
-    stdout.write("  (tecla Enter para continuar)\n")
+    stdout.write(t(lang, "press_enter_hint"))
     stdout.flush()
     line = stdin.readline()
     if not line:
         raise SystemExit(0)
 
 
-def show_opening_splash(stdin, stdout) -> None:
+def choose_language(stdin, stdout) -> str:
+    """
+    Primeira tela da sessão — bilíngue por construção (não usa i18n.t, é a
+    própria escolha de idioma). A resposta vale para toda a sessão.
+    """
+    clear_screen(stdout)
+    stdout.write("\n  runv.club\n\n")
+    stdout.write("  Português ou English?\n\n")
+    stdout.write("  [1] Português (padrão / default)\n")
+    stdout.write("  [2] English\n\n")
+    stdout.write("Opção / Option: ")
+    stdout.flush()
+    line = stdin.readline()
+    if not line:
+        raise SystemExit(0)
+    choice = line.strip().lower()
+    if choice in ("2", "en", "english"):
+        return "en"
+    return DEFAULT_LANG
+
+
+def template_for(templates: Path, name: str, lang: str) -> Path:
+    """Versão localizada (templates/<lang>/<name>) se existir; senão o pt-BR de sempre."""
+    if lang != DEFAULT_LANG:
+        candidate = templates / lang / name
+        if candidate.is_file():
+            return candidate
+    return templates / name
+
+
+def show_opening_splash(stdin, stdout, lang: str) -> None:
     clear_screen(stdout)
     green = "\033[92m" if _use_ansi_color(stdout) else ""
     reset = "\033[0m" if green else ""
     stdout.write("\n")
     for line in RUNV_ASCII_ART.splitlines():
         stdout.write(f"  {green}{line}{reset}\n")
-    stdout.write(f"\n  {green}{ASCII_TAGLINE}{reset}\n\n")
-    stdout.write(f"  {green}Aperte qualquer tecla para continuar...{reset}\n")
+    stdout.write(f"\n  {green}{t(lang, 'ascii_tagline')}{reset}\n\n")
+    stdout.write(f"  {green}{t(lang, 'press_any_key')}{reset}\n")
     stdout.flush()
-    wait_any_key(stdin, stdout)
+    wait_any_key(stdin, stdout, lang)
 
 
-def show_paged_template(stdin, stdout, template_path: Path) -> None:
+def show_paged_template(stdin, stdout, template_path: Path, lang: str) -> None:
     raw = template_path.read_text(encoding="utf-8")
     pages = [p.strip("\n") for p in raw.split(INTRO_PAGE_BREAK)]
     pages = [p for p in pages if p.strip()]
@@ -200,61 +232,43 @@ def show_paged_template(stdin, stdout, template_path: Path) -> None:
         if not page.endswith("\n"):
             stdout.write("\n")
         stdout.flush()
-        pause(stdin, stdout)
+        pause(stdin, stdout, lang)
 
 
-def collect_loop(stdin, stdout, templates: Path) -> tuple[str, str, str, str, str]:
+def collect_loop(stdin, stdout, templates: Path, lang: str) -> tuple[str, str, str, str, str]:
     username = email = online_presence = pubkey = ""
     fp = ""
     total = 4
     while True:
-        write_data_step_header(stdout, 1, total, "Nome de utilizador Unix desejado")
-        stdout.write(
-            style_runv_club(
-                "Letras minúsculas, dígitos, _ ou -; começa com letra. "
-                "Deixa em branco só se ainda não tiveres escolhido.\n",
-                stdout,
-            )
-        )
+        write_data_step_header(stdout, 1, total, t(lang, "step1_title"), lang)
+        stdout.write(style_runv_club(t(lang, "step1_help"), stdout))
         b = "\033[1m" if _use_ansi_color(stdout) else ""
         r = "\033[0m" if b else ""
-        stdout.write(f"\n  {b}» Escreve abaixo e prima Enter:{r}\n\n  ")
+        stdout.write(f"\n  {b}{t(lang, 'input_marker_write')}{r}\n\n  ")
         stdout.flush()
         u = read_line("", stdin, stdout).strip()
         if u:
             username = u
 
-        write_data_step_header(stdout, 2, total, "Email de contacto")
-        stdout.write(
-            "Endereço para a equipa te responder sobre este pedido.\n"
-        )
-        stdout.write(f"\n  {b}» Escreve abaixo e prima Enter:{r}\n\n  ")
+        write_data_step_header(stdout, 2, total, t(lang, "step2_title"), lang)
+        stdout.write(t(lang, "step2_help"))
+        stdout.write(f"\n  {b}{t(lang, 'input_marker_write')}{r}\n\n  ")
         stdout.flush()
         e = read_line("", stdin, stdout).strip()
         if e:
             email = e
 
-        write_data_step_header(stdout, 3, total, "Onde te encontramos online?")
-        stdout.write(
-            style_runv_club(
-                "Links, perfis ou páginas onde aparece o teu trabalho, código ou participação "
-                "— por exemplo site, GitHub, Mastodon, itch.io, etc. "
-                "Uma sugestão por linha.\n",
-                stdout,
-            )
-        )
-        stdout.write(f"\n  {b}» A tua resposta (várias linhas):{r}\n")
+        write_data_step_header(stdout, 3, total, t(lang, "step3_title"), lang)
+        stdout.write(style_runv_club(t(lang, "step3_help"), stdout))
+        stdout.write(f"\n  {b}{t(lang, 'input_marker_multiline')}{r}\n")
         stdout.flush()
-        raw_on = read_multiline_until_dot(stdin, stdout)
+        raw_on = read_multiline_until_dot(stdin, stdout, lang)
         if raw_on:
             online_presence = raw_on
 
-        write_data_step_header(stdout, 4, total, "Chave pública SSH")
-        stdout.write(
-            "Uma única linha, a mesma que irias pôr em authorized_keys. "
-            "Só a pública.\n"
-        )
-        stdout.write(f"\n  {b}» Cola a linha abaixo e prima Enter:{r}\n\n  ")
+        write_data_step_header(stdout, 4, total, t(lang, "step4_title"), lang)
+        stdout.write(t(lang, "step4_help"))
+        stdout.write(f"\n  {b}{t(lang, 'input_marker_paste')}{r}\n\n  ")
         stdout.flush()
         pk = stdin.readline()
         if not pk:
@@ -265,34 +279,34 @@ def collect_loop(stdin, stdout, templates: Path) -> tuple[str, str, str, str, st
 
         errors: list[str] = []
         try:
-            vu = validate_username(username)
+            vu = validate_username(username, lang)
         except ValidationError as ex:
             errors.append(str(ex))
             vu = ""
         try:
-            ve = validate_email(email)
+            ve = validate_email(email, lang)
         except ValidationError as ex:
             errors.append(str(ex))
             ve = ""
         try:
-            v_on = validate_online_presence(online_presence)
+            v_on = validate_online_presence(online_presence, lang)
         except ValidationError as ex:
             errors.append(str(ex))
             v_on = ""
         try:
             if not pubkey:
-                raise ValidationError("a chave pública é obrigatória.")
-            nkey, fp = validate_public_key_line(pubkey)
+                raise ValidationError(t(lang, "err_pubkey_required"))
+            nkey, fp = validate_public_key_line(pubkey, lang)
         except ValidationError as ex:
             errors.append(str(ex))
             nkey, fp = "", ""
 
         if errors:
             clear_screen(stdout)
-            stdout.write("— Corrige os dados —\n\n")
+            stdout.write(f"{t(lang, 'fix_errors_header')}\n\n")
             for err in errors:
                 stdout.write(f"  • {err}\n")
-            stdout.write("\n[Enter] para voltar ao início do formulário\n")
+            stdout.write(t(lang, "back_to_form_hint"))
             stdout.flush()
             stdin.readline()
             continue
@@ -308,10 +322,11 @@ def confirm_loop(
     online_presence: str,
     fingerprint: str,
     templates: Path,
+    lang: str,
 ) -> str:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
     body = render_template(
-        templates / "confirm.txt",
+        template_for(templates, "confirm.txt", lang),
         {
             "username": username,
             "email": email,
@@ -323,22 +338,22 @@ def confirm_loop(
     while True:
         clear_screen(stdout)
         stdout.write(style_runv_club(body, stdout))
-        stdout.write("\n  [c] confirmar envio\n")
-        stdout.write("  [e] editar dados\n")
-        stdout.write("  [x] cancelar e sair\n\n")
-        stdout.write("Opção: ")
+        stdout.write(f"\n{t(lang, 'confirm_option_confirm')}\n")
+        stdout.write(f"{t(lang, 'confirm_option_edit')}\n")
+        stdout.write(f"{t(lang, 'confirm_option_cancel')}\n\n")
+        stdout.write(t(lang, "confirm_prompt_label"))
         stdout.flush()
         line = stdin.readline()
         if not line:
             raise SystemExit(0)
         c = line.strip().lower()
-        if c in ("c", "confirmar", "s", "sim", "y", "yes"):
+        if c in ("c", "confirmar", "confirm", "s", "sim", "y", "yes"):
             return "confirm"
-        if c in ("e", "editar"):
+        if c in ("e", "editar", "edit"):
             return "edit"
-        if c in ("x", "cancelar", "n", "nao", "não"):
+        if c in ("x", "cancelar", "cancel", "n", "nao", "não", "no"):
             return "cancel"
-        stdout.write("Opção inválida.\n")
+        stdout.write(f"{t(lang, 'confirm_invalid_option')}\n")
         stdout.write("[Enter]")
         stdin.readline()
 
@@ -375,18 +390,24 @@ def main() -> int:
         return 2
 
     try:
+        # --- Idioma: primeira pergunta da sessão, vale para toda a interação
+        lang = choose_language(stdin, stdout)
+        log_session(logger, f"idioma escolhido: {lang!r}")
+
         # --- Abertura: arte ASCII da landing (verde) + qualquer tecla
-        show_opening_splash(stdin, stdout)
+        show_opening_splash(stdin, stdout, lang)
 
         # --- Etapa 1: narrativa (%%PAGE%% em intro.txt)
-        show_paged_template(stdin, stdout, templates / "intro.txt")
+        show_paged_template(stdin, stdout, template_for(templates, "intro.txt", lang), lang)
 
         # --- Etapa 2: aviso chave (pode ter %%PAGE%% como intro.txt)
-        show_paged_template(stdin, stdout, templates / "warning_public_key.txt")
+        show_paged_template(
+            stdin, stdout, template_for(templates, "warning_public_key.txt", lang), lang
+        )
 
         # --- Etapa 3–4: coleta e confirmação (com edição repetível)
         username, email, online_presence, pubkey, fingerprint = collect_loop(
-            stdin, stdout, templates
+            stdin, stdout, templates, lang
         )
         while True:
             action = confirm_loop(
@@ -397,14 +418,15 @@ def main() -> int:
                 online_presence=online_presence,
                 fingerprint=fingerprint,
                 templates=templates,
+                lang=lang,
             )
             if action == "cancel":
                 log_session(logger, "utilizador cancelou antes de gravar")
-                stdout.write("\nPedido cancelado. Até logo.\n\n")
+                stdout.write(t(lang, "request_cancelled"))
                 return 0
             if action == "edit":
                 username, email, online_presence, pubkey, fingerprint = collect_loop(
-                    stdin, stdout, templates
+                    stdin, stdout, templates, lang
                 )
                 continue
             break
@@ -422,6 +444,7 @@ def main() -> int:
                 fingerprint=fingerprint,
                 remote_addr=ctx.get("remote_addr"),
                 tty=ctx.get("tty"),
+                lang=lang,
             )
             try:
                 path_saved = save_request_json(
@@ -446,7 +469,8 @@ def main() -> int:
         submitted_at = payload["submitted_at"]
         _ = path_saved
 
-        # Aviso em consola ao admin (template curto)
+        # Aviso em consola ao admin (template curto) — sempre em pt; inclui o
+        # idioma escolhido pelo visitante como referência para o admin.
         try:
             oneline = online_presence.replace("\n", " ").strip()
             if len(oneline) > 100:
@@ -460,6 +484,7 @@ def main() -> int:
                     "fingerprint": fingerprint,
                     "submitted_at": submitted_at,
                     "online_presence_line": oneline,
+                    "lang": lang,
                 },
             )
             log_session(logger, "admin_console_notice:\n" + notice.strip())
@@ -483,6 +508,7 @@ def main() -> int:
                         "submitted_at": submitted_at,
                         "remote_addr": ctx.get("remote_addr") or "",
                         "tty": ctx.get("tty") or "",
+                        "lang": lang,
                     },
                 )
                 sendmail_notify(
@@ -499,7 +525,7 @@ def main() -> int:
         # --- Etapa 7: despedida
         clear_screen(stdout)
         goodbye = render_template(
-            templates / "goodbye.txt",
+            template_for(templates, "goodbye.txt", lang),
             {"request_id": request_id},
         )
         stdout.write(style_runv_club(goodbye, stdout))

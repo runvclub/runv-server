@@ -1610,31 +1610,31 @@ def try_send_welcome_email(
     host = (welcome_ssh_host or "").strip()
     if host:
         ssh_instructions = (
-            f"Comando sugerido: ssh {username}@{host}\n"
-            "Confirme no cliente SSH que está a usar a chave privada correta "
-            "(a que corresponde à impressão digital acima)."
+            f"Suggested command: ssh {username}@{host}\n"
+            "Confirm in your SSH client that you're using the correct private key "
+            "(the one matching the fingerprint above)."
         )
     else:
         ssh_instructions = (
-            f"Comando típico: ssh {username}@<hostname>\n"
-            "Substitua <hostname> pelo endereço do servidor que o administrador lhe indicar. "
-            "No cliente SSH, seleccione a **chave privada** que corresponde à chave pública registada."
+            f"Typical command: ssh {username}@<hostname>\n"
+            "Replace <hostname> with the server address the administrator gives you. "
+            "In your SSH client, select the **private key** matching the registered public key."
         )
 
     try:
         send_user_notice(
             USER_ACCOUNT_CREATED,
             user_email,
-            subject="[runv.club] Bem-vindo(a) — a sua conta foi criada",
+            subject="[runv.club] Welcome — your account has been created",
             from_addr=from_addr,
             _state=state,
             username=username,
             email=user_email,
             fingerprint=fingerprint,
             request_reference=(
-                f"Referência do seu pedido: {request_id}"
+                f"Your request reference: {request_id}"
                 if request_id
-                else "Referência do seu pedido: não aplicável"
+                else "Your request reference: not applicable"
             ),
             member_url=member_url,
             ssh_instructions=ssh_instructions,
@@ -1717,7 +1717,7 @@ def try_send_admin_user_created_email(
         send_admin_notice(
             ADMIN_USER_CREATED,
             admin,
-            subject=f"[runv.club] Conta criada — {username}",
+            subject=f"[runv.club] Account created — {username}",
             from_addr=from_addr,
             _state=state,
             username=username,

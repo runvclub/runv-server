@@ -7,6 +7,7 @@ Username desejado    : {username}
 E-mail de contato    : {email}
 Fingerprint SHA256   : {fingerprint}
 Enviado em           : {submitted_at}
+Idioma da sessão     : {lang}
 IP remoto            : {remote_addr}
 TTY                  : {tty}
 

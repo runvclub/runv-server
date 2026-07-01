@@ -598,7 +598,7 @@ def try_send_community_ban_notice(
         send_user_notice(
             USER_ACCOUNT_COMMUNITY_DEACTIVATED,
             user_email,
-            subject="[runv.club] Conta desativada",
+            subject="[runv.club] Account deactivated",
             from_addr=from_addr,
             _state=state,
             username=username,
