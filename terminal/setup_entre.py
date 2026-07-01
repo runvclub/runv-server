@@ -75,6 +75,20 @@ SSHD_DROPIN: Final[Path] = Path("/etc/ssh/sshd_config.d/runv-entre.conf")
 PAM_SSHD: Final[Path] = Path("/etc/pam.d/sshd")
 MODULE_SRC: Final[Path] = Path(__file__).resolve().parent
 
+# Arquivos e pastas copiados para o install-root por copy_module(). Ao adicionar
+# um novo módulo .py em terminal/ (que não seja este instalador), inclua-o aqui —
+# tests/test_setup_entre_copy_list.py trava o esquecimento automaticamente.
+COPY_FILES: Final[tuple[str, ...]] = (
+    "entre_app.py",
+    "entre_core.py",
+    "i18n.py",
+    "closed_app.py",
+    "close_entre.py",
+    "config.example.toml",
+    "gen_config_toml.py",
+)
+COPY_SUBDIRS: Final[tuple[str, ...]] = ("templates", "systemd", "scripts", "data", "examples")
+
 AUTH_SHARED: Final[str] = "shared-password"
 AUTH_KEY: Final[str] = "key-only"
 AUTH_EMPTY: Final[str] = "empty-password"
@@ -639,16 +653,8 @@ def apply_sshd_configuration(
 
 
 def copy_module(dest: Path, *, dry_run: bool) -> None:
-    files = [
-        "entre_app.py",
-        "entre_core.py",
-        "closed_app.py",
-        "close_entre.py",
-        "config.example.toml",
-        "gen_config_toml.py",
-        "README.md",
-    ]
-    subdirs = ["templates", "docs", "systemd", "scripts", "data", "examples"]
+    files = COPY_FILES
+    subdirs = COPY_SUBDIRS
     if dry_run:
         print(f"[dry-run] copiaria para {dest}")
         return

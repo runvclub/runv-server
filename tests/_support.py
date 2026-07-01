@@ -58,6 +58,7 @@ del_user = None
 build_directory = None
 publish_news = None
 i18n = None
+setup_entre = None
 
 try:
     entre_core = importlib.import_module("entre_core")
@@ -67,6 +68,7 @@ try:
     publish_news = importlib.import_module("publish_news")
     del_user = _load_from_path("del_user", "scripts/admin/del-user.py")
     i18n = importlib.import_module("i18n")
+    setup_entre = importlib.import_module("setup_entre")
     LOADED = True
 except Exception as exc:  # pragma: no cover - depende de SO Unix
     SKIP_REASON = (
