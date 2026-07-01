@@ -1,0 +1,63 @@
+RUNV.CLUB - PRIVACY AND SECURITY
+
+GENERAL PRINCIPLE
+
+Privacy and security are part of the basic operation of any minimally serious system.
+
+DATA AND RESPONSIBILITY
+
+Users should only provide the data necessary to use the system and keep their information up to date when relevant for access, support, and security.
+
+The administration must handle data carefully, limit internal access, and reduce unnecessary exposure.
+
+USERS ALSO HAVE RESPONSIBILITY
+
+The platform has protection duties, but users also need to take care of their own account, their private key, the device used for access, and signs of compromise.
+Security is a shared responsibility.
+
+WHAT USERS SHOULD AVOID
+
+- sharing keys or credentials;
+- publishing other people's personal data;
+- using insecure devices for sensitive access;
+- ignoring signs of intrusion or compromise;
+- installing suspicious extensions or dubious software on the device used for SSH or email.
+
+SECURITY INCIDENTS
+
+Any suspicion of:
+- unauthorized access;
+- account theft;
+- fraud;
+- a malicious link;
+- a technical failure with security impact;
+- an information leak;
+
+must be reported immediately to:
+admin@runv.club
+
+REVIEW OF EVENTS
+
+To protect the platform, the administration may review technical logs, usage patterns, access history, and evidence related to incidents, abuse, and moderation.
+
+IMPORTANT LIMITATION
+
+No online system is invulnerable.
+What matters is reducing risk, responding quickly, logging relevant incidents, and fixing what's confirmed.
+
+OPERATIONAL GOOD PRACTICES
+
+- reviewing suspicious access;
+- logging relevant incidents;
+- removing unnecessary permissions;
+- fixing confirmed flaws;
+- guiding affected users when necessary.
+
+THIRD-PARTY PRIVACY
+
+Using the system to collect, copy, disclose, or exploit other users' data without a legitimate basis and without authorization is prohibited.
+
+OFFICIAL CONTACT
+
+Questions about security, privacy, or an incident:
+admin@runv.club

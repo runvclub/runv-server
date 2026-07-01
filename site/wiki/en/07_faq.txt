@@ -1,0 +1,49 @@
+RUNV.CLUB - FAQ
+
+1. What is runv.club?
+runv.club is a Brazilian community in the tilde style, with an SSH account, terminal, personal page, wiki, news, and a space to learn, publish, and connect with others.
+
+2. Is the system only for Portal IDEA students?
+No. runv.club can welcome people from different backgrounds, as long as there's availability and the community rules are respected.
+
+3. How do I get into the system?
+On the runv.club pubnix, access is via SSH with a key (not an SSH password). Account requests follow the official flow (see the "Join" page on the site: an Ed25519 key and a connection to entre@runv.club); the team creates the account after manual review. Approval can take up to 21 calendar days (we're a small team).
+
+4. I lost my SSH key or can't log in. What do I do?
+There's no password recovery on SSH. Keep your private key safe. If you've lost it or need to replace the public key on the server, write to admin@runv.club explaining the situation.
+
+5. Can I share my account with someone else?
+It's not recommended and may be prohibited, especially when it compromises security, auditing, account responsibility, or system rules.
+
+6. Can my account be suspended?
+Yes. Accounts can be warned, limited, or suspended for rule violations, abuse, fraud, evading a penalty, spam, harassment, or risk to operations.
+
+7. What can lead to a ban?
+Fraud, scams, phishing, intrusion, malicious exploitation, serious illegal content, real threats, serious harassment, evading a penalty, and serious repeat offenses.
+
+8. Does every penalty start with a warning?
+No. Minor violations may start with guidance or a warning. Serious violations can lead to immediate suspension or a direct ban.
+
+9. How do I report abuse or suspicious behavior?
+Send an objective report, with evidence if available, to admin@runv.club.
+
+10. How do I appeal a penalty?
+Contact admin@runv.club, identify the account, explain the case objectively, and send any relevant evidence.
+
+11. Does the system keep usage information?
+There may be technical logs and operational history for security, support, moderation, and platform integrity purposes.
+
+12. Can I publish other people's data?
+No. Exposing personal data, documents, contacts, private screenshots, or sensitive information without authorization can lead to serious penalties.
+
+13. What should I do if I suspect my account was compromised?
+If you suspect your private key was copied or your computer was compromised: stop using that key, generate a new pair, don't reuse the leaked material, and immediately contact admin@runv.club so the team can evaluate replacing the public key on the server and review the account.
+
+14. How do I talk to the administration?
+Through the official email: admin@runv.club
+
+15. Where can I see the system's rules?
+In the official runv.club wiki, especially the community rules, moderation, privacy, and access files.
+
+16. Where do I ask for help on IRC?
+After logging in via SSH, run chat. WeeChat opens the house network, joins the #runv channel automatically, and shows the nick list on the side once the terminal is wide enough. For external IRC clients, the backend remains irc.tilde.chat on port 6697 with TLS/SSL. For account matters or sensitive data, use admin@runv.club.

@@ -1,3 +1,72 @@
+/* Fontes auto-hospedadas (site/public/assets/fonts/) — evita requisição a
+   fonts.googleapis.com/fonts.gstatic.com (privacidade, uma origem a menos,
+   sem bloqueio de render em rede lenta). Subset "latin" (U+0000-00FF) cobre
+   todos os acentos do português (ã, õ, ç, á, é...) e do inglês. */
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/atkinson-hyperlegible-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/atkinson-hyperlegible-400-italic.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/atkinson-hyperlegible-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/ibm-plex-mono-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "IBM Plex Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/ibm-plex-mono-600.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/syne-600.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/syne-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Syne";
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url("fonts/syne-800.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   --bg: #0c0b0f;
   --fg: #e8e4dc;
@@ -163,6 +232,21 @@ body {
 
 .hero-nav-current {
   color: var(--fg);
+}
+
+/* Alternador de idioma — mesma navegação, mas em mono para se ler como um
+   controle ("PT/EN"), não como mais um link de conteúdo. Seletor composto
+   (.hero-nav a.lang-switch) para vencer a especificidade de ".hero-nav a"
+   sem recorrer a !important. */
+.hero-nav a.lang-switch {
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.85em;
+  color: var(--muted);
+}
+
+.hero-nav a.lang-switch:hover,
+.hero-nav a.lang-switch:focus-visible {
+  color: var(--accent);
 }
 
 .top-nav {
@@ -391,9 +475,27 @@ body {
   padding: 1.75rem clamp(1rem, 3vw, 1.35rem);
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid var(--stroke);
+  border-left: 3px solid var(--accent);
   border-radius: var(--radius);
   box-sizing: border-box;
   overflow-x: hidden;
+}
+
+/* Alterna o acento da borda entre verde e lilás (classe explícita, não
+   nth-of-type — outras <section> não-prose-block no meio da sequência,
+   como quick-paths, não devem deslocar a paridade). Quebra a repetição
+   visual de uma sequência longa de cartões idênticos. */
+.prose-block.accent-b {
+  border-left-color: var(--accent2);
+}
+
+.section-kicker {
+  margin: 0 0 0.6rem;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .prose-block code {

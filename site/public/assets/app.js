@@ -174,7 +174,9 @@ async function main() {
   let members = [];
 
   try {
-    const res = await fetch("data/members.json", { cache: "no-store" });
+    // Caminho absoluto: o diretório de membros é único e compartilhado entre
+    // /  e /en/ — um fetch relativo quebraria sob /en/ (resolveria para /en/data/...).
+    const res = await fetch("/data/members.json", { cache: "no-store" });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     members = await res.json();
     if (!Array.isArray(members)) throw new Error("members.json inválido");

@@ -1,0 +1,28 @@
+RUNV.CLUB - WIKI
+
+Welcome to the runv.club wiki.
+
+Here you'll find, in a simple and direct way, the main information about access, accounts, community rules, moderation, privacy, security, and frequently asked questions.
+
+If you just arrived, the best path is usually:
+
+- read the overview;
+- check the accounts and access page;
+- go through the FAQ;
+- save the official contact.
+
+OFFICIAL CONTACT
+
+Email: admin@runv.club
+
+QUICK HELP
+
+If you need a short answer:
+
+- to join, see the "Join" page on the site;
+- for support or sensitive matters, use admin@runv.club;
+- for quick chat and questions, connect via SSH and run chat; it opens WeeChat straight into the #runv channel.
+
+PURPOSE OF THIS WIKI
+
+This wiki exists to reduce confusion, set clear expectations, and help everyone use the system with more peace of mind.

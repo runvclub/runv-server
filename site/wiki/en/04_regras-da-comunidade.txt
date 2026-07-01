@@ -1,0 +1,61 @@
+RUNV.CLUB - COMMUNITY RULES
+
+These rules exist to keep the community welcoming, usable, and safe. The goal isn't to police idle conversation — it's to protect the space so people can learn, publish, and get along well.
+
+RULE 1 - BASIC RESPECT
+
+Attacking, humiliating, threatening, stalking, or intimidating other users is prohibited.
+Debate is not an excuse for harassment.
+Disagreement is normal. Abusive behavior is not.
+
+RULE 2 - NO HATE SPEECH
+
+Content that promotes discrimination, dehumanization, hostility, or exclusion based on race, color, origin, ethnicity, nationality, religion, disability, sex, gender identity, or sexual orientation is prohibited.
+
+RULE 3 - NO FRAUD
+
+Lying about identity, role, affiliation, authorization, outcome, certificate, permission, account ownership, or any other element used to deceive others is prohibited.
+
+RULE 4 - NO SPAM
+
+Flooding, repetitive advertising, mass messaging, misleading links, unauthorized automation, and insistent posting of irrelevant content are prohibited.
+
+RULE 5 - NO ILLEGAL OR DANGEROUS CONTENT
+
+Using the system to distribute illegal content, malicious instructions, scams, phishing, malware, exploitation material, real threats, or incitement to criminal activity is prohibited.
+
+RULE 6 - PRIVACY MATTERS
+
+Exposing other people's personal data without authorization is prohibited.
+Also prohibited: publishing screenshots, emails, contacts, documents, private data, or sensitive information with the intent to embarrass, punish, or attack someone.
+
+RULE 7 - NO EVADING MODERATION
+
+Creating an alternate account to escape a warning, suspension, limitation, or ban is prohibited.
+Using someone else to get around a penalty is also prohibited.
+
+RULE 8 - RESPONSIBLE TECHNICAL USE
+
+Exploiting system flaws, testing vulnerabilities without authorization, aggressively automating actions, abusive scraping, or degrading operation is prohibited.
+
+RULE 9 - GOOD FAITH
+
+If a user's behavior isn't literally listed but is clearly malicious, manipulative, abusive, or harmful to the system, the administration may act.
+
+RULE 10 - COMPLYING WITH ADMINISTRATIVE DECISIONS
+
+Discussion and appeal are allowed.
+Causing turmoil, threatening staff, pressuring other users, or spreading misinformation about moderation actions doesn't help and can make things worse.
+
+EXPECTED CONDUCT
+
+- communicate problems clearly;
+- respect users and the team;
+- report abuse without making a spectacle of it;
+- stay focused on legitimate use of the system;
+- act with maturity and good faith.
+
+CONTACT CHANNEL
+
+For support, reports, or appeals:
+admin@runv.club

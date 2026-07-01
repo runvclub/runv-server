@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join — runv.club</title>
+  <meta name="description" content="How to generate an SSH key on Linux, macOS, or Windows and ask to join runv.club via ssh entre@runv.club.">
+  <link rel="canonical" href="https://runv.club/en/join/">
+  <link rel="alternate" hreflang="pt-BR" href="https://runv.club/junte-se/">
+  <link rel="alternate" hreflang="en" href="https://runv.club/en/join/">
+  <link rel="alternate" hreflang="x-default" href="https://runv.club/junte-se/">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0c0b0f">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://runv.club/en/join/">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="runv.club">
+  <meta property="og:title" content="Join — runv.club">
+  <meta property="og:description" content="How to generate an SSH key on Linux, macOS, or Windows and ask to join runv.club via ssh entre@runv.club.">
+  <meta property="og:image" content="https://runv.club/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="runv.club — a Brazilian tilde-style community">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Join — runv.club">
+  <meta name="twitter:description" content="How to generate an SSH key on Linux, macOS, or Windows and ask to join runv.club via ssh entre@runv.club.">
+  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top-nav"><a href="/en/">← runv.club</a></nav>
+
+    <header>
+      <p class="eyebrow">runv.club</p>
+      <nav class="hero-nav" aria-label="Other pages">
+        <a href="/en/news/">News</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/">Wiki</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <span class="hero-nav-current" aria-current="page">Join</span>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/junte-se/" class="lang-switch">Português</a>
+      </nav>
+      <h1 class="hero-title subpage-title">Join</h1>
+      <p class="subpage-intro">An SSH key on your computer and a first contact with <span class="ssh-identity">entre@runv.club</span> — the simple way, on any system.</p>
+    </header>
+
+    <div class="entre-callout" role="status">
+      <span class="entre-callout-label">Join request</span>
+      <span class="ssh-identity ssh-identity-lg">entre@runv.club</span>
+    </div>
+
+    <section class="mini-cards" aria-label="Before you start">
+      <article class="mini-card">
+        <p class="mini-card-kicker">What you need</p>
+        <h2>A computer and a few minutes</h2>
+        <p>You just need to generate an SSH key, copy the public part, and follow the guided flow at <span class="ssh-identity">entre@runv.club</span>.</p>
+      </article>
+      <article class="mini-card">
+        <p class="mini-card-kicker">No rush</p>
+        <h2>You don't need to know it all yet</h2>
+        <p>If this is your first time with SSH, that's fine. The whole point of this page is to make that first step simpler and friendlier.</p>
+      </article>
+    </section>
+
+    <main class="section prose-block subpage-main join-main">
+      <h2>In short</h2>
+      <ol class="checklist join-summary">
+        <li><strong>Generate</strong> an SSH key pair on your computer. You'll only use the <em>public key</em> in your request.</li>
+        <li><strong>Connect</strong> with <code>ssh</code> to <span class="ssh-identity">entre@runv.club</span> and follow what shows up on screen.</li>
+        <li><strong>Wait</strong> for review. The process is manual and there's no instant sign-up.</li>
+      </ol>
+
+      <p>
+        If this is your first time using SSH, that's fine: this page was written to help you take that first step at your own pace.
+      </p>
+
+      <h2>Linux</h2>
+      <p>In the terminal, generate an Ed25519 key and copy the <strong>public key</strong> (<code>.pub</code>) line.</p>
+      <pre class="code-block" tabindex="0"><code>ssh-keygen -t ed25519 -C "your-email-or-pc" -f ~/.ssh/id_ed25519_runv
+cat ~/.ssh/id_ed25519_runv.pub</code></pre>
+
+      <h2>macOS</h2>
+      <p>In <strong>Terminal</strong> (Spotlight: "Terminal"), use the same commands as Linux. OpenSSH already ships with the system; if you like, you can add the key with <code>ssh-add ~/.ssh/id_ed25519_runv</code>.</p>
+      <pre class="code-block" tabindex="0"><code>ssh-keygen -t ed25519 -C "your-email-or-pc" -f ~/.ssh/id_ed25519_runv
+cat ~/.ssh/id_ed25519_runv.pub</code></pre>
+
+      <h2>Windows</h2>
+      <p>In <strong>PowerShell</strong> or Windows Terminal, first check whether the client exists with <code>ssh -V</code>. If it's missing, install the <em>OpenSSH Client</em> under Settings → Apps → Optional features.</p>
+      <pre class="code-block" tabindex="0"><code>ssh-keygen -t ed25519 -C "your-email-or-pc" -f $env:USERPROFILE\.ssh\id_ed25519_runv
+Get-Content $env:USERPROFILE\.ssh\id_ed25519_runv.pub</code></pre>
+      <p class="join-note">Never share the file <strong>without</strong> <code>.pub</code>. That's the private file and it should stay with you only.</p>
+
+      <h2>Connecting to <span class="ssh-identity">entre@runv.club</span></h2>
+      <p>Linux / macOS:</p>
+      <pre class="code-block" tabindex="0"><code>ssh -i ~/.ssh/id_ed25519_runv entre@runv.club</code></pre>
+      <p>Windows (PowerShell):</p>
+      <pre class="code-block" tabindex="0"><code>ssh -i $env:USERPROFILE\.ssh\id_ed25519_runv entre@runv.club</code></pre>
+      <p>The first time, accept the fingerprint if you're connecting to the right server. If your key has a different name or is in the default path, you can leave out <code>-i</code>.</p>
+      <p>
+        Questions or issues: <a href="mailto:admin@runv.club">admin@runv.club</a>. We prefer <strong>Ed25519</strong> keys; ECDSA and RSA may also be accepted depending on server policy.
+      </p>
+      <p>
+        Once your account is approved, you'll be able to log into the pubnix, build your personal page, explore the environment, and chat with the community on IRC.
+      </p>
+    </main>
+
+    <footer class="site-footer">
+      <p>Admin: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/en/faq/" class="footer-link-discrete">FAQ</a></p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+RUNV.CLUB - OVERVIEW
+
+WHAT IS RUNV.CLUB
+
+runv.club is a Brazilian community in the tilde style: an online space with a Unix/Linux shell account, personal page, terminal, wiki, news, and community life around technology, digital culture, and learning.
+
+PURPOSE
+
+The purpose of runv.club is to offer a more human, more personal, and calmer place to study, publish, chat, and explore the internet with less noise and more autonomy.
+
+BASIC PRINCIPLES
+
+1. Clarity
+   People need to understand how to join, how to ask for help, and how to use the system without guesswork.
+
+2. Simple access
+   Account requests, SSH key authentication, and support should follow clear, public paths.
+
+3. Security
+   Each account is individual and needs to be protected responsibly.
+
+4. Respect for the community
+   The space needs to remain welcoming, usable, and safe for everyone.
+
+5. Good faith
+   The system was built for learning, community, creation, and exchange — not for fraud, abuse, or sabotage.
+
+WHO IT'S FOR
+
+runv.club is for beginners, the curious, students, professionals, and enthusiasts who want to learn more about Unix/Linux, publish a personal page, use classic tools, and take part in a Brazilian technology community.
+
+You don't need to arrive already knowing everything.
+
+WHAT YOU'LL FIND HERE
+
+- shell access in a Unix/Linux environment;
+- space for a personal page;
+- public wiki and help pages;
+- news and operational updates;
+- the community's IRC channel;
+- rules, support, and guidance.
+
+WHAT THE SYSTEM IS NOT
+
+runv.club is not a rules-free space, and it wasn't built for spam, fraud, harassment, intrusion, malicious exploitation, abusive data collection, or any use that harms other people or the platform's operation.
+
+SUPPORT
+
+If a question, technical issue, access problem, or need for guidance comes up, the official contact is:
+admin@runv.club
+
+FINAL GUIDELINE
+
+If something isn't explicitly covered, that doesn't mean anything goes. Using the system depends on good faith, respect for the published rules, and preserving the safety of the platform and the community.

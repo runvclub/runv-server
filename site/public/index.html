@@ -6,6 +6,9 @@
   <title>runv.club — pubnix brasileira, Unix/Linux e página pessoal</title>
   <meta name="description" content="Comunidade brasileira em servidor compartilhado Unix/Linux: conta SSH, página pessoal, terminal, IRC e convivência calma para aprender, publicar e explorar.">
   <link rel="canonical" href="https://runv.club/">
+  <link rel="alternate" hreflang="pt-BR" href="https://runv.club/">
+  <link rel="alternate" hreflang="en" href="https://runv.club/en/">
+  <link rel="alternate" hreflang="x-default" href="https://runv.club/">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0c0b0f">
   <meta property="og:type" content="website">
@@ -14,15 +17,20 @@
   <meta property="og:site_name" content="runv.club">
   <meta property="og:title" content="runv.club — pubnix brasileira, Unix/Linux e página pessoal">
   <meta property="og:description" content="Comunidade brasileira em servidor compartilhado Unix/Linux: conta SSH, página pessoal, terminal, IRC e convivência para aprender, publicar e explorar.">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://runv.club/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="runv.club — comunidade brasileira em estilo tilde">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="runv.club — pubnix brasileira, Unix/Linux e página pessoal">
   <meta name="twitter:description" content="Comunidade brasileira em servidor compartilhado Unix/Linux: conta SSH, página pessoal, terminal, IRC e convivência para aprender, publicar e explorar.">
+  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"WebSite","name":"runv.club","url":"https://runv.club/","description":"Comunidade brasileira em pubnix Unix/Linux: conta SSH, página pessoal, terminal, estudo e convívio. Projeto do Portal IDEA.","inLanguage":"pt-BR","publisher":{"@type":"Organization","name":"Portal IDEA"}}
+  {"@context":"https://schema.org","@graph":[
+    {"@type":"WebSite","@id":"https://runv.club/#website","name":"runv.club","url":"https://runv.club/","description":"Comunidade brasileira em pubnix Unix/Linux: conta SSH, página pessoal, terminal, estudo e convívio. Projeto do Portal IDEA.","inLanguage":"pt-BR","publisher":{"@id":"https://runv.club/#organization"}},
+    {"@type":"Organization","@id":"https://runv.club/#organization","name":"runv.club","url":"https://runv.club/","description":"Comunidade brasileira em estilo tilde/pubnix: contas SSH, páginas pessoais, terminal e IRC para aprender Unix/Linux.","email":"admin@runv.club","parentOrganization":{"@type":"Organization","name":"Portal IDEA"},"foundingLocation":{"@type":"Country","name":"BR"}}
+  ]}
   </script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;600&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -50,6 +58,8 @@
         <a href="/wiki/">Wiki</a>
         <span class="hero-nav-sep" aria-hidden="true">·</span>
         <a href="/junte-se/">Junte-se</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/" class="lang-switch">English</a>
       </nav>
       <h1 class="hero-title">runv.club</h1>
       <p class="hero-subtitle">
@@ -95,6 +105,7 @@
     </section>
 
     <section class="section prose-block" aria-labelledby="what-h">
+      <p class="section-kicker">MANIFESTO</p>
       <h2 id="what-h">O que é a runv?</h2>
       <p>
         A runv.club é uma comunidade online em estilo tilde voltada ao público brasileiro. Em vez de depender só de redes sociais, feeds infinitos e plataformas fechadas, a proposta é voltar ao essencial: contas em um servidor compartilhado, páginas pessoais, terminal, IRC, aprendizado prático e convivência entre pessoas que gostam de tecnologia, cultura digital e conhecimento livre.
@@ -104,7 +115,8 @@
       </p>
     </section>
 
-    <section class="section prose-block" aria-labelledby="who-h">
+    <section class="section prose-block accent-b" aria-labelledby="who-h">
+      <p class="section-kicker">PARA QUEM É</p>
       <h2 id="who-h">Para quem é</h2>
       <p>A runv é para quem quer:</p>
       <ul class="checklist">
@@ -121,6 +133,7 @@
     </section>
 
     <section class="section prose-block" aria-labelledby="spirit-h">
+      <p class="section-kicker">VALORES</p>
       <h2 id="spirit-h">O espírito da comunidade</h2>
       <p>
         A runv.club foi pensada para lembrar os antigos ambientes Unix públicos e comunitários — os chamados pubnixes — em que pessoas se encontravam para aprender, explorar, conversar, publicar e criar juntas.
@@ -138,7 +151,8 @@
       <p class="pull-soft">Aqui, aprender e conviver andam juntos.</p>
     </section>
 
-    <section class="section prose-block" aria-labelledby="can-h">
+    <section class="section prose-block accent-b" aria-labelledby="can-h">
+      <p class="section-kicker">NO DIA A DIA</p>
       <h2 id="can-h">O que você pode fazer aqui</h2>
       <p>Na runv, você pode:</p>
       <ul class="checklist">
@@ -154,6 +168,7 @@
     </section>
 
     <section class="section prose-block" aria-labelledby="first-steps-h">
+      <p class="section-kicker">PRIMEIROS PASSOS</p>
       <h2 id="first-steps-h">Como costuma ser o começo</h2>
       <p>
         O primeiro passo costuma ser simples: você gera sua chave SSH, faz o pedido pela página <a href="/junte-se/">Junte-se</a>, espera a revisão da equipe e, quando a conta for aprovada, entra no servidor para explorar com calma.
@@ -174,7 +189,8 @@
       </article>
     </section>
 
-    <section class="section prose-block" aria-labelledby="idea-h">
+    <section class="section prose-block accent-b" aria-labelledby="idea-h">
+      <p class="section-kicker">PARCERIA</p>
       <h2 id="idea-h">Mantida pelo Portal IDEA</h2>
       <p>
         A runv.club é totalmente mantida pelo <strong>Portal IDEA</strong>, instituição dedicada à ampliação do acesso ao conhecimento e à formação de pessoas por meio da educação online.
@@ -185,6 +201,7 @@
     </section>
 
     <section class="section prose-block" aria-labelledby="origin-h">
+      <p class="section-kicker">HISTÓRIA</p>
       <h2 id="origin-h">Sobre a origem</h2>
       <p>
         A comunidade foi desenvolvida por <strong>Pablo Murad</strong> (<a href="/~pmurad/">~pmurad</a>) como uma forma de resgatar a memória dos antigos sistemas Unix públicos e trazer essa experiência para o contexto brasileiro de hoje.

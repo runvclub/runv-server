@@ -29,3 +29,4 @@ runv-email.secrets.json
 
 .agent/
 .cursor/
+.claude/

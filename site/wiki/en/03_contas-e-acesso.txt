@@ -1,0 +1,63 @@
+RUNV.CLUB - ACCOUNTS AND ACCESS
+
+SIGNING UP
+
+Account requests follow runv.club's official flow (for example, an SSH connection to entre@runv.club with your public key, as described on the "Join" page); the team reviews the queue and the Unix account is created by the administration — there's no instant automatic web sign-up.
+
+Review is manual. Since we're a small team, approving a request can take up to 21 calendar days — thank you for your patience while we review each case.
+
+Sign-up must be done with true and reasonably consistent information.
+Creating an account with a false identity to deceive others, dodge a penalty, commit fraud, or fake legitimacy is grounds for moderation action.
+
+LOGIN
+
+Access to the system is individual and, on the pubnix, based on SSH with a public key (Unix account with no SSH login password). Each user is responsible for protecting their email, their SSH private key, and any other authentication method tied to the account.
+
+ACCESS RECOVERY
+
+There's no "forgot my password" on SSH: if you lose the private key, you can no longer authenticate with the registered pair.
+In that case (or if you need to replace the public key on the server), contact:
+admin@runv.club
+
+ACCOUNT SHARING
+
+Sharing an account is prohibited when it:
+- compromises security;
+- makes auditing actions harder;
+- allows fraud, abuse, or evasion of a penalty;
+- results in misuse of permissions.
+
+The administration may limit, suspend, or close accounts used irregularly by multiple people.
+
+RESPONSIBILITY FOR THE ACCOUNT
+
+Anything done through an account can be attributed to its holder until there's concrete evidence of compromise, intrusion, or misuse by a third party.
+
+GOOD SECURITY PRACTICES
+
+- protect your SSH private key (restricted permissions, no copies in shared folders or repositories);
+- don't reuse the same private key on services you don't trust or that could leak the material;
+- never send a private key in a message (only the public key, when requested through an official channel);
+- don't click suspicious links;
+- on shared devices, close the SSH session and don't leave the private key or SSH agent exposed carelessly;
+- report unusual access immediately.
+
+SUSPENDED OR BLOCKED ACCESS
+
+An account may be temporarily limited or suspended when there is:
+- indication of intrusion;
+- suspicious automated activity;
+- attempted fraud;
+- repeated violations;
+- risk to the system's integrity.
+
+IMPORTANT REMINDER
+
+Your account concentrates access, history, and support. It's worth treating it with care: keep the private key safe, keep your contact info up to date when relevant, and report anything that looks wrong right away.
+
+ACCESS SUPPORT
+
+Any login problem, recovery issue, security concern, or suspected compromise should be reported to:
+admin@runv.club
+
+Community and real-time help: after logging in via SSH, run chat to open WeeChat straight into the #runv channel. The nick list on the side appears once the terminal is wide enough. Use IRC for quick questions, conversation, and initial guidance; for sensitive account matters, prefer the email above.

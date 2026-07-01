@@ -1,0 +1,92 @@
+RUNV.CLUB - MODERATION AND SANCTIONS
+
+PURPOSE OF MODERATION
+
+Moderation exists to protect users, preserve the system's operation, and prevent a minority from destroying the environment's usefulness for everyone else.
+
+The purpose of moderation isn't to punish for sport. It's to keep the space safe, predictable, and usable for the community.
+
+TYPES OF ACTION
+
+1. Informal guidance
+   Used for a minor, isolated mistake with no meaningful harm.
+
+2. Formal warning
+   Used when there's a clear rule violation, but there's still room to correct the behavior.
+
+3. Temporary limitation
+   May restrict posting, interaction, technical resources, or partial access.
+
+4. Temporary suspension
+   Blocking for a set period, used for repeat offenses or moderate/serious violations.
+
+5. Permanent ban
+   Final termination of access, used when the risk is high or trust has been broken.
+
+COMMON CAUSES FOR A WARNING
+
+- hostile language without an explicit threat;
+- minor flooding;
+- recurring disorganization despite guidance;
+- occasional disregard for usage rules.
+
+COMMON CAUSES FOR SUSPENSION
+
+- repeat offense after a warning;
+- continued harassment;
+- persistent spam;
+- improper exposure of others;
+- attempting to get around a limitation;
+- abusive use of platform resources;
+- behavior that harms operation or support.
+
+COMMON CAUSES FOR A BAN
+
+- fraud;
+- phishing, scams, or social engineering;
+- intrusion, attempted intrusion, or malicious exploitation;
+- publishing serious illegal content;
+- real threats against users or staff;
+- evading a penalty with alternate accounts;
+- serious repeat offenses showing a total lack of good faith.
+
+REVIEW CRITERIA
+
+The administration may consider:
+- severity of the conduct;
+- apparent intent;
+- harm caused;
+- the user's history;
+- risk of repetition;
+- cooperation or bad faith during the investigation.
+
+NOT EVERYTHING FOLLOWS A LINEAR LADDER
+
+Not every violation starts with a warning.
+Minor cases can be resolved with guidance. Serious cases — such as serious fraud, real threats, scams, or technical attacks — can justify immediate suspension or a direct ban.
+
+APPEAL
+
+A user can contest an applied measure through the official channel:
+admin@runv.club
+
+The appeal must include:
+- account identification;
+- an objective description of the case;
+- the reason for the appeal;
+- evidence, if any exists.
+
+APPEAL RULES
+
+- an appeal without objectivity gets in the way;
+- lying makes things worse;
+- emotional pressure doesn't substitute for evidence;
+- aggressiveness toward the team can lead to a new penalty.
+
+FINAL DECISION
+
+The administration may review, uphold, reduce, or increase the applied measure based on the available evidence.
+
+CONSISTENCY
+
+A rule applied inconsistently becomes just text. That's why the administration may act whenever there's a real need to protect users, staff, and operations.
