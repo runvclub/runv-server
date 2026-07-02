@@ -1,0 +1,9 @@
+data/tny.c.i
+data/build.sh.i
+data/roms/asteroid.rom.i
+data/roms/draw.rom.i
+data/.clang-format.i
+data/src/tnyasm.c.i
+data/roms/snake.rom.i
+data/src/tnyemu.c.i
+data/.hgignore.i

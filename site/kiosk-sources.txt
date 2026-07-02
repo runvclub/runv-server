@@ -1,0 +1,12 @@
+# kiosk — fontes opt-in para a página /recentes (agregador de blogs/journals).
+# Uma fonte por linha. Linhas vazias e começadas por # são ignoradas.
+#
+# Formato:
+#   https://runv.club/~maria/            (título vem do <h1> da página)
+#   https://runv.club/~joao/  | João     (rótulo força o nome da fonte)
+#
+# Só entram membros que optarem por aparecer aqui, publicando uma página no
+# formato HTML Blog (<h1> + <time> + <a>) ou HTML Journal (<h1> + <article> + <h2>).
+# Ver docs e a wiki para o formato. Conteúdo remoto é sempre escapado (nunca injetado cru).
+
+# (adicione as URLs dos membros abaixo)

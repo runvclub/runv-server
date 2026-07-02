@@ -1,0 +1,23 @@
+nexy - Gemini to nex proxy
+Author: vladimyr
+
+Nexy sets up a Gemini server capable of fetching nex content and
+convert it to text/gemini. This makes it possible to use existing
+Gemini browsers that support proxying such as Amfora [1].
+
+[1]: https://github.com/makew0rld/amfora
+
+Instructions:
+- npm install
+- mkdir certs
+- npm run gencert
+- npm start
+
+Here is how to use Amfora:
+- Add the following line to /etc/hosts: 0.0.0.0 nexy.localhost
+- Open ~/.config/amfora/config.toml and under [proxies] add:
+nex = "nexy.localhost:1965"
+
+Credit:
+- nexy written by vladimyr
+- gencert script written by Omar Polo

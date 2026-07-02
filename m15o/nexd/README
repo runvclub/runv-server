@@ -1,0 +1,29 @@
+A simple server that implements the nex protocol
+
+To install on OpenBSD as a daemon:
+
+First, create an unprivileged user:
+useradd -c"nexd Daemon" -d/var/empty -s/sbin/nologin _nexd
+
+Then create the /var/nex, from which the files will be served
+
+Finally run the following:
+1. `make build`
+2. copy binary to /usr/local/bin, make sure it's executable
+3. create /etc/rc.d/nexd with the following content
+
+```
+#!/bin/ksh
+
+daemon="/usr/local/bin/nexd /var/nex"
+daemon_user="_nexd"
+
+. /etc/rc.d/rc.subr
+
+rc_bg=YES
+rc_reload=NO
+
+rc_cmd $1
+```
+
+Now you can start the server by running `rcctl start nexd`.

@@ -1,0 +1,43 @@
+body{
+    font-family: sans-serif;
+    margin: 40px auto;
+    padding: 0px 10px;
+    max-width: 650px;
+    line-height: 1.5;
+    background-color: whitesmoke;
+}
+
+textarea {
+    height: 400px;
+    width: 100%;
+}
+
+form > *:not(label, [type=submit]) {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+}
+
+pre {
+    background-color: gainsboro;
+    padding: 1em;
+}
+
+nav > * {
+    margin-right: 10px;
+}
+
+main > nav {
+    margin-top: 1em;
+}
+
+footer {
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: 1px solid;
+}
+
+.link::before {
+    content: "↗ ";
+}

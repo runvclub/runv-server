@@ -1,0 +1,183 @@
+Links SourceHut de projetos m15o
+Origem inicial: ecossistema_m15o_projetos_codigo_ideias(1).md
+Validado contra perfis publicos em 2026-07-02
+
+Contagem:
+- 27 repositorios Git confirmados no perfil https://git.sr.ht/~m15o
+- 11 repositorios Mercurial confirmados no perfil https://hg.sr.ht/~m15o
+- 11 repositorios Git legado (citados no documento original, nao encontrados no perfil)
+- Total de entradas unicas: 49 (excluindo perfis centrais)
+
+Observacoes:
+- Lista validada via acesso web aos perfis publicos do SourceHut em 2026-07-02.
+- Repositorios legado foram mantidos conforme solicitado; duplicados obvios foram removidos
+  (statuscafe, midnight, nightfall, wobble — mantidos os pares status.cafe, midnight.pub,
+  nightfall.city, wobble.town).
+- Nomes como midnight.pub (ponto) e midnight-pub (hifen) sao repositorios diferentes;
+  o confirmado no perfil e midnight-pub; midnight.pub permanece como legado a conferir.
+- O ecossistema nex no SourceHut esta em Mercurial (nexd, kinex, warp, etc.), nao em git .../nex.
+- Links legado podem estar renomeados, privados, hospedados em outro lugar ou inexistentes;
+  conferir com git ls-remote / hg identify ou abrindo manualmente no navegador.
+
+============================================================
+1) Perfis centrais SourceHut
+============================================================
+https://git.sr.ht/~m15o
+https://hg.sr.ht/~m15o
+
+============================================================
+2a) Repositorios Git confirmados no perfil (~m15o) — 27
+============================================================
+https://git.sr.ht/~m15o/15f                    # forth machine that doesn't do much!
+https://git.sr.ht/~m15o/bitters
+https://git.sr.ht/~m15o/dotfiles
+https://git.sr.ht/~m15o/emacs.d                # my emacs.d folder
+https://git.sr.ht/~m15o/feed                   # Simple parser for RSS and Atom feeds
+https://git.sr.ht/~m15o/gmi2html               # Translate gmi to html
+https://git.sr.ht/~m15o/grid
+https://git.sr.ht/~m15o/html-blog              # website for html blog
+https://git.sr.ht/~m15o/html-journal           # website for html journal
+https://git.sr.ht/~m15o/htmlb                  # html blog parser
+https://git.sr.ht/~m15o/htmlj                  # html journal parser
+https://git.sr.ht/~m15o/ichi                   # ichi
+https://git.sr.ht/~m15o/ichipedia              # ichi's encyclopedia
+https://git.sr.ht/~m15o/midnight-pub           # Virtual pub
+https://git.sr.ht/~m15o/moka                   # wiki engine
+https://git.sr.ht/~m15o/ni                     # static wiki generator
+https://git.sr.ht/~m15o/nightfall-server       # Nightfall City Server
+https://git.sr.ht/~m15o/nini                   # nini is the new ni
+https://git.sr.ht/~m15o/nspace                 # language for register machines
+https://git.sr.ht/~m15o/opml                   # Utilities to work with OPML subscription lists
+https://git.sr.ht/~m15o/owl-report
+https://git.sr.ht/~m15o/riku                   # Collect responses from HTML forms
+https://git.sr.ht/~m15o/smol.pub               # Publish on the smol net
+https://git.sr.ht/~m15o/status                 # status updates
+https://git.sr.ht/~m15o/the-neon-kiosk         # a funny looking kiosk
+https://git.sr.ht/~m15o/vpub                   # virtual pub software
+https://git.sr.ht/~m15o/yon                    # UI for knowledge
+
+============================================================
+2b) Repositorios Git legado — citados no documento original, nao no perfil — 11
+============================================================
+https://git.sr.ht/~m15o/ichi.city              # a conferir
+https://git.sr.ht/~m15o/merp                   # a conferir
+https://git.sr.ht/~m15o/merp-feed-embed        # a conferir
+https://git.sr.ht/~m15o/midnight.pub           # a conferir (diferente de midnight-pub)
+https://git.sr.ht/~m15o/nex                    # a conferir (ecossistema nex esta em hg)
+https://git.sr.ht/~m15o/netspeed               # a conferir
+https://git.sr.ht/~m15o/nightfall.city         # a conferir (diferente de nightfall-server)
+https://git.sr.ht/~m15o/nps                    # a conferir
+https://git.sr.ht/~m15o/speakeasy               # a conferir
+https://git.sr.ht/~m15o/status.cafe            # a conferir (diferente de status)
+https://git.sr.ht/~m15o/wobble.town            # a conferir
+
+============================================================
+3) Repositorios Mercurial confirmados no perfil (~m15o) — 11
+============================================================
+https://hg.sr.ht/~m15o/kinex                   # nex server for the web
+https://hg.sr.ht/~m15o/lipu.li                 # little wiki engine
+https://hg.sr.ht/~m15o/mebo                    # message board
+https://hg.sr.ht/~m15o/nex-pfm                 # tools to get your nex platform up and ready!
+https://hg.sr.ht/~m15o/nexd                    # nightfall express
+https://hg.sr.ht/~m15o/nexy
+https://hg.sr.ht/~m15o/nova                    # graphical nex browser
+https://hg.sr.ht/~m15o/piclog                  # A place to share your JPEG pictures with your friends
+https://hg.sr.ht/~m15o/rex                     # rex is a tiny nex browser
+https://hg.sr.ht/~m15o/tny                     # tiny virtual console
+https://hg.sr.ht/~m15o/warp                    # a nex proxy
+
+============================================================
+4) Snapshots / downloads
+============================================================
+https://git.sr.ht/~m15o/vpub/archive/master.tar.gz
+https://git.sr.ht/~m15o/htmlj/archive/master.tar.gz
+https://git.sr.ht/~m15o/bitters/archive/master.tar.gz
+https://git.sr.ht/~m15o/nspace/archive/master.tar.gz
+https://hg.sr.ht/~m15o/piclog/archive/default.tar.gz
+
+============================================================
+5) Comandos de clonagem prontos
+============================================================
+
+# Git — confirmados no perfil (27):
+git clone https://git.sr.ht/~m15o/15f
+git clone https://git.sr.ht/~m15o/bitters
+git clone https://git.sr.ht/~m15o/dotfiles
+git clone https://git.sr.ht/~m15o/emacs.d
+git clone https://git.sr.ht/~m15o/feed
+git clone https://git.sr.ht/~m15o/gmi2html
+git clone https://git.sr.ht/~m15o/grid
+git clone https://git.sr.ht/~m15o/html-blog
+git clone https://git.sr.ht/~m15o/html-journal
+git clone https://git.sr.ht/~m15o/htmlb
+git clone https://git.sr.ht/~m15o/htmlj
+git clone https://git.sr.ht/~m15o/ichi
+git clone https://git.sr.ht/~m15o/ichipedia
+git clone https://git.sr.ht/~m15o/midnight-pub
+git clone https://git.sr.ht/~m15o/moka
+git clone https://git.sr.ht/~m15o/ni
+git clone https://git.sr.ht/~m15o/nightfall-server
+git clone https://git.sr.ht/~m15o/nini
+git clone https://git.sr.ht/~m15o/nspace
+git clone https://git.sr.ht/~m15o/opml
+git clone https://git.sr.ht/~m15o/owl-report
+git clone https://git.sr.ht/~m15o/riku
+git clone https://git.sr.ht/~m15o/smol.pub
+git clone https://git.sr.ht/~m15o/status
+git clone https://git.sr.ht/~m15o/the-neon-kiosk
+git clone https://git.sr.ht/~m15o/vpub
+git clone https://git.sr.ht/~m15o/yon
+
+# Git — legado (11):
+git clone https://git.sr.ht/~m15o/ichi.city
+git clone https://git.sr.ht/~m15o/merp
+git clone https://git.sr.ht/~m15o/merp-feed-embed
+git clone https://git.sr.ht/~m15o/midnight.pub
+git clone https://git.sr.ht/~m15o/nex
+git clone https://git.sr.ht/~m15o/netspeed
+git clone https://git.sr.ht/~m15o/nightfall.city
+git clone https://git.sr.ht/~m15o/nps
+git clone https://git.sr.ht/~m15o/speakeasy
+git clone https://git.sr.ht/~m15o/status.cafe
+git clone https://git.sr.ht/~m15o/wobble.town
+
+# Mercurial — confirmados no perfil (11):
+hg clone https://hg.sr.ht/~m15o/kinex
+hg clone https://hg.sr.ht/~m15o/lipu.li
+hg clone https://hg.sr.ht/~m15o/mebo
+hg clone https://hg.sr.ht/~m15o/nex-pfm
+hg clone https://hg.sr.ht/~m15o/nexd
+hg clone https://hg.sr.ht/~m15o/nexy
+hg clone https://hg.sr.ht/~m15o/nova
+hg clone https://hg.sr.ht/~m15o/piclog
+hg clone https://hg.sr.ht/~m15o/rex
+hg clone https://hg.sr.ht/~m15o/tny
+hg clone https://hg.sr.ht/~m15o/warp
+
+============================================================
+6) Comando local para verificar existencia em uma maquina com acesso ao sr.ht
+============================================================
+
+# Git — confirmados no perfil:
+for repo in \
+  15f bitters dotfiles emacs.d feed gmi2html grid html-blog html-journal htmlb htmlj \
+  ichi ichipedia midnight-pub moka ni nightfall-server nini nspace opml owl-report \
+  riku smol.pub status the-neon-kiosk vpub yon; do
+  echo "== $repo =="
+  git ls-remote "https://git.sr.ht/~m15o/$repo" HEAD >/dev/null 2>&1 && echo "OK" || echo "FALHOU/NAO EXISTE/PRIVADO"
+done
+
+# Git — legado:
+for repo in \
+  ichi.city merp merp-feed-embed midnight.pub nex netspeed nightfall.city nps \
+  speakeasy status.cafe wobble.town; do
+  echo "== $repo (legado) =="
+  git ls-remote "https://git.sr.ht/~m15o/$repo" HEAD >/dev/null 2>&1 && echo "OK" || echo "FALHOU/NAO EXISTE/PRIVADO"
+done
+
+# Mercurial — confirmados no perfil:
+for repo in \
+  kinex lipu.li mebo nex-pfm nexd nexy nova piclog rex tny warp; do
+  echo "== $repo =="
+  hg identify "https://hg.sr.ht/~m15o/$repo" >/dev/null 2>&1 && echo "OK" || echo "FALHOU/NAO EXISTE/PRIVADO"
+done

@@ -1,0 +1,72 @@
+SMALL WEB - GEMINI, GOPHER AND NEX
+
+runv.club lives on the "small web": a lighter internet made of text, simple protocols, and pages that open without hurry. Besides the ordinary website (HTTP), your account publishes over three alternative protocols at the same time.
+
+YOUR PUBLIC FOLDERS
+
+Each account has, in its home, one folder per protocol. Anything you put in them is public; do not keep secrets there.
+
+- public_html  — your website (HTTP), seen in a normal browser;
+- public_gemini — your Gemini capsule (.gmi files);
+- public_gopher — your Gopher space (gophermap);
+- public_nex   — your Nex capsule (a plain-text index file).
+
+THE NEX PROTOCOL
+
+Nex is the most minimal protocol of the small web, born in Nightfall City. It runs on port 1900: the client sends one line (the path) and the server returns plain text, with no headers, no state, and no tracking. It is Gopher and Gemini taken to the essentials.
+
+Links are lines that start with an arrow. For example:
+
+=> /users/ other members
+=> notes.txt my notes
+
+HOW TO PUBLISH ON NEX
+
+Your starting point is the index file in public_nex. Edit it and create whatever files you like.
+
+- edit ~/public_nex/index (plain text; no HTML);
+- link pages with lines like => path Name;
+- create subfolders to organize (each folder can have its own index);
+- keep 755 on folders and 644 on files, so the server can read them.
+
+Your capsule address is nex://runv.club/users/YOUR_USERNAME/.
+
+HOW TO BROWSE NEX
+
+There are two easy ways to explore the house's Nex space:
+
+- in the terminal, use the rex command (e.g. rex for the root, or rex /users/ for the member list);
+- in a browser, open https://runv.club/nex/ (the same tree, converted to HTML).
+
+THE RECENTES PAGE (BLOGS AND JOURNALS)
+
+The page https://runv.club/recentes gathers, in one place, the most recent entries from members' blogs and journals. It is a discovery layer that complements the constellation on the home page: the constellation shows who exists; the Recentes page shows what is new. Joining is optional: only those who ask will appear.
+
+HTML BLOG FORMAT
+
+An "HTML Blog" is a simple HTML page, with no framework. It has a title and, per entry, a date and a link. The minimal structure of each entry is a time tag followed by a link:
+
+<h1>My blog</h1>
+<time datetime="2026-06-20">20 Jun 2026</time>
+<a href="/posts/gemini.html">Discovering Gemini</a>
+
+The date in datetime must use the year-month-day format (2026-06-20).
+
+HTML JOURNAL FORMAT
+
+An "HTML Journal" is a single page, with a title and a sequence of entries, each inside an article tag with a date heading:
+
+<h1>My journal</h1>
+<article><h2>2026-06-22</h2><p>Wrote on Nex today.</p></article>
+
+HOW TO JOIN THE RECENTES PAGE
+
+The process is simple and safe. Content the house reads is always treated as text (never executed), so there is no risk to other members.
+
+- publish a page in the HTML Blog or HTML Journal format (for example under public_html);
+- send the address to admin@runv.club asking to be added to the list;
+- from then on, your recent entries will appear on Recentes.
+
+PERMISSIONS
+
+For any of these protocols, the permission rule is the same: 755 on your home and public folders, 644 on the files served. If something stops opening, start by restoring these values.

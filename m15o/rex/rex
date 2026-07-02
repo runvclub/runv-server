@@ -1,0 +1,9 @@
+#!/bin/ksh
+#
+# rex is a tiny browser for nex
+# usage: rex [host] [selector]
+# example: rex nex.nightfall.city
+#          rex nex.nightfall.city users/m15o/
+# credit: nex://nex.nightfall.city/users/alexlehm/
+  
+echo $2 | nc $1 1900 | less

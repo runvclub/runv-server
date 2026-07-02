@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMALL WEB - GEMINI, GOPHER E NEX — Wiki runv.club</title>
+  <meta name="description" content="SMALL WEB - GEMINI, GOPHER E NEX — wiki runv.club.">
+  <link rel="canonical" href="https://runv.club/wiki/small-web-nex.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://runv.club/wiki/small-web-nex.html">
+  <link rel="alternate" hreflang="en" href="https://runv.club/en/wiki/small-web-nex.html">
+  <link rel="alternate" hreflang="x-default" href="https://runv.club/wiki/small-web-nex.html">
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0c0b0f">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://runv.club/wiki/small-web-nex.html">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="runv.club">
+  <meta property="og:title" content="SMALL WEB - GEMINI, GOPHER E NEX — Wiki runv.club">
+  <meta property="og:description" content="SMALL WEB - GEMINI, GOPHER E NEX — wiki runv.club.">
+  <meta property="og:image" content="https://runv.club/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="runv.club — comunidade brasileira em estilo tilde">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SMALL WEB - GEMINI, GOPHER E NEX — Wiki runv.club">
+  <meta name="twitter:description" content="SMALL WEB - GEMINI, GOPHER E NEX — wiki runv.club.">
+  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top-nav"><a href="/">← runv.club</a></nav>
+
+    <header>
+      <p class="eyebrow">runv.club</p>
+      <nav class="hero-nav wiki-hero-nav" aria-label="Páginas da wiki">
+        <a href="/news/">Notícias</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/">Índice</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/visao-geral.html">Visão geral</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/contas-e-acesso.html">Contas e acesso</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/regras-da-comunidade.html">Regras</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/punicoes-e-moderacao.html">Punições</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/privacidade-e-seguranca.html">Privacidade</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/faq.html">FAQ wiki</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <span class="hero-nav-current" aria-current="page">Small web</span>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/junte-se/">Junte-se</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/small-web-nex.html" class="lang-switch">English</a>
+      </nav>
+    </header>
+
+    <main class="section prose-block subpage-main wiki-main">
+<h1 class="hero-title subpage-title wiki-page-title">SMALL WEB - GEMINI, GOPHER E NEX</h1>
+
+<p>O runv.club vive na &quot;small web&quot;: uma internet mais leve, feita de texto, protocolos simples e páginas que abrem sem pressa. Além do site comum (HTTP), a sua conta publica em três protocolos alternativos ao mesmo tempo.</p>
+
+<h2>AS SUAS PASTAS PÚBLICAS</h2>
+
+<p>Cada conta tem, na sua home, uma pasta por protocolo. Tudo o que colocar nelas fica público; não guarde ali segredos.</p>
+
+<ul><li>public_html  — o seu site na web (HTTP), visto no navegador comum;</li><li>public_gemini — a sua cápsula Gemini (ficheiros .gmi);</li><li>public_gopher — o seu espaço Gopher (gophermap);</li><li>public_nex   — a sua cápsula Nex (ficheiro index em texto puro).</li></ul>
+
+<h2>O PROTOCOLO NEX</h2>
+
+<p>Nex é o protocolo mais minimalista da small web, criado na Nightfall City. Funciona na porta 1900: o cliente envia uma linha (o caminho) e o servidor devolve texto puro, sem cabeçalhos, sem estado e sem rastreio. É Gopher e Gemini levados ao essencial.</p>
+
+<p>Os links são linhas que começam com uma seta. Por exemplo:</p>
+
+<p>=&gt; /users/ outros membros<br>
+=&gt; notas.txt as minhas notas</p>
+
+<h2>COMO PUBLICAR NO NEX</h2>
+
+<p>O seu ponto de partida é o ficheiro index em public_nex. Edite-o e crie os ficheiros que quiser.</p>
+
+<ul><li>edite ~/public_nex/index (texto puro; sem HTML);</li><li>ligue páginas com linhas do tipo =&gt; caminho Nome;</li><li>crie subpastas para organizar (cada pasta pode ter o seu index);</li><li>mantenha 755 nas pastas e 644 nos ficheiros, para o servidor conseguir ler.</li></ul>
+
+<p>O endereço da sua cápsula é nex://runv.club/users/SEU_UTILIZADOR/.</p>
+
+<h2>COMO NAVEGAR NO NEX</h2>
+
+<p>Há duas formas simples de explorar o Nex da casa:</p>
+
+<ul><li>no terminal, use o comando rex (ex.: rex para a raiz, ou rex /users/ para a lista de membros);</li><li>no navegador, abra https://runv.club/nex/ (a mesma árvore, convertida para HTML).</li></ul>
+
+<h2>A PAGINA RECENTES (BLOGS E JOURNALS)</h2>
+
+<p>A página https://runv.club/recentes reúne, num só lugar, as entradas mais recentes dos blogs e journals dos membros. É uma camada de descoberta que completa a constelação da página inicial: a constelação mostra quem existe; a página Recentes mostra o que há de novo. A entrada é opcional: só aparece quem pedir.</p>
+
+<h2>FORMATO HTML BLOG</h2>
+
+<p>Um &quot;HTML Blog&quot; é uma página HTML simples, sem framework. Tem um título e, por entrada, uma data e um link. A estrutura mínima de cada entrada é uma etiqueta de tempo seguida de um link:</p>
+
+<p>&lt;h1&gt;O meu blog&lt;/h1&gt;<br>
+&lt;time datetime=&quot;2026-06-20&quot;&gt;20 jun 2026&lt;/time&gt;<br>
+&lt;a href=&quot;/posts/gemini.html&quot;&gt;Descobrindo o Gemini&lt;/a&gt;</p>
+
+<p>A data em datetime deve estar no formato ano-mes-dia (2026-06-20).</p>
+
+<h2>FORMATO HTML JOURNAL</h2>
+
+<p>Um &quot;HTML Journal&quot; é uma página só, com um título e uma sequência de entradas, cada uma dentro de uma etiqueta de artigo com um cabeçalho de data:</p>
+
+<p>&lt;h1&gt;O meu journal&lt;/h1&gt;<br>
+&lt;article&gt;&lt;h2&gt;2026-06-22&lt;/h2&gt;&lt;p&gt;Escrevi no Nex hoje.&lt;/p&gt;&lt;/article&gt;</p>
+
+<h2>COMO ENTRAR NA PAGINA RECENTES</h2>
+
+<p>O processo é simples e seguro. O conteúdo que a casa lê é sempre tratado como texto (nunca executado), por isso não há risco para os outros membros.</p>
+
+<ul><li>publique uma página no formato HTML Blog ou HTML Journal (por exemplo em public_html);</li><li>envie o endereço para admin@runv.club a pedir para entrar na lista;</li><li>a partir daí, as suas entradas recentes passam a aparecer em Recentes.</li></ul>
+
+<h2>PERMISSOES</h2>
+
+<p>Para qualquer destes protocolos, a regra de permissões é a mesma: 755 na sua home e nas pastas públicas, 644 nos ficheiros servidos. Se algo deixar de abrir, comece por repor estes valores.</p>
+    </main>
+
+    <footer class="site-footer">
+      <p>Administração: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/faq/" class="footer-link-discrete">FAQ</a></p>
+    </footer>
+  </div>
+</body>
+</html>

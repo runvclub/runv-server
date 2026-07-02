@@ -1055,3 +1055,145 @@ h2 {
   }
 }
 
+/* ============================================================
+   Camada retro — small web / m15o (adicionada 2026-07)
+   Tipografia monoespaçada e caixas planas, no espírito dos
+   projetos da small web (midnight.pub, smol.pub, moka).
+   NÃO mexe na constelação (.star-member / .starfield-root) nem
+   no --accent: os pontos dos membros continuam verdes e visíveis
+   sobre o fundo escuro. A arte ASCII do herói também fica intacta.
+   ============================================================ */
+:root {
+  --radius: 3px;
+}
+
+/* Monoespaçado por toda a página — o traço mais forte do visual small-web. */
+body,
+h1, h2, h3,
+.hero-title, .hero-subtitle, .hero-lead,
+.eyebrow, .section-kicker, .feature-kicker,
+.chips, .checklist, .pillars, .pull-soft, .pull-accent,
+.button-primary, .button-secondary,
+.feature-card, .prose-block, .quick-path-card,
+.quick-paths, .section-invite, .cta-panel, .site-footer,
+.hero-nav, .hero-ssh-hint {
+  font-family: "IBM Plex Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+}
+
+body {
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+h1, h2, h3,
+.hero-title, .cta-brand {
+  letter-spacing: 0;
+}
+
+/* Caixas planas com moldura fina, em vez de sombras/gradientes — cara de terminal. */
+.feature-card,
+.quick-path-card,
+.cta-panel,
+.section-invite {
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  background: rgba(232, 228, 220, 0.02);
+  box-shadow: none;
+}
+
+.button-primary,
+.button-secondary {
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+
+/* Um toque de prompt antes dos kickers, como um shell. */
+.section-kicker::before,
+.feature-kicker::before,
+.eyebrow::before {
+  content: "$ ";
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+/* Cursor de terminal a piscar após o título da home (não nas subpáginas/wiki).
+   Em prefers-reduced-motion o bloco global desliga a animação (fica fixo). */
+.hero-title:not(.subpage-title)::after {
+  content: "\2589";
+  margin-left: 0.12em;
+  color: var(--accent);
+  animation: runv-cursor-blink 1.15s steps(1) infinite;
+}
+
+@keyframes runv-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* Links com sublinhado tracejado — cara de documento de terminal. */
+.prose-block a,
+.section a,
+.quick-path-card a,
+.smallweb-strip a,
+.kiosk-item a {
+  text-decoration-line: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+
+/* Bloco de descoberta (Nex + recentes) no herói. */
+.smallweb-strip {
+  margin: 1.1rem 0 0.2rem;
+  padding: 0.6rem 0.85rem;
+  border: 1px dashed var(--stroke);
+  border-radius: var(--radius);
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.smallweb-strip a {
+  color: var(--accent);
+}
+
+.smallweb-strip .sw-sep {
+  opacity: 0.4;
+  margin: 0 0.5rem;
+}
+
+/* Página /recentes (kiosk): lista simples estilo índice de terminal. */
+.kiosk-list {
+  list-style: none;
+  margin: 1.5rem 0 0;
+  padding: 0;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+.kiosk-item {
+  padding: 0.45rem 0;
+  border-bottom: 1px dashed var(--stroke);
+  line-height: 1.5;
+}
+
+.kiosk-item time {
+  color: var(--muted);
+  margin-right: 0.6rem;
+  white-space: nowrap;
+}
+
+.kiosk-item a {
+  color: var(--accent);
+}
+
+.kiosk-src {
+  color: var(--muted);
+  opacity: 0.8;
+  margin-left: 0.35rem;
+}
+
+.kiosk-empty {
+  color: var(--muted);
+  padding: 1rem 0;
+}
+

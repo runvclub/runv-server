@@ -75,3 +75,11 @@ except Exception as exc:  # pragma: no cover - depende de SO Unix
         "módulos do runv exigem ambiente Unix (pwd/fcntl/geteuid): "
         f"{type(exc).__name__}: {exc}"
     )
+
+# nexd é stdlib-puro e tolera ausência de pwd, por isso carrega mesmo fora de Unix
+# (permite testar as funções de saneamento de selector em qualquer plataforma).
+nexd = None
+try:
+    nexd = importlib.import_module("nexd")
+except Exception:  # pragma: no cover
+    nexd = None

@@ -19,3 +19,5 @@ less
 curl
 wget
 git
+# Nex: cliente de terminal «rex» usa netcat (variante OpenBSD).
+netcat-openbsd

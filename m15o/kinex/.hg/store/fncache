@@ -1,0 +1,8 @@
+data/LICENSE.i
+data/.hgignore.i
+data/go.mod.i
+data/kinex.go.i
+data/README.i
+data/go.sum.i
+data/Makefile.i
+data/main.go.i

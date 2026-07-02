@@ -1,0 +1,67 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: monospace;
+    font-size: 16px;
+    background-color: midnightblue;
+}
+
+.main-header, main, .main-footer {
+    max-width: 45em;
+    margin: 0 auto;
+    background-color: aliceblue;
+    padding: 1em;
+}
+
+.main-header {
+    background-color: paleturquoise;
+}
+
+h1, h2 {
+    margin-top: 0;
+    color: midnightblue;
+}
+
+.title {
+    margin-bottom: 0;
+    word-wrap: anywhere;
+}
+
+.meta {
+    margin-bottom: 1em;
+}
+
+img {
+    max-width: 100%;
+}
+
+textarea {
+    height: 150px;
+}
+
+form {
+    max-width: 400px;
+}
+
+form > *:not(label, [type=submit]) {
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+}
+
+.main-footer {
+    background-color: palegoldenrod;
+}
+
+.flash {
+    background-color: palegreen;
+    padding: 1em;
+}
+
+.is-visitor {
+    color: darkblue;
+    font-style: oblique;
+}

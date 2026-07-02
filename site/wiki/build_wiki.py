@@ -50,6 +50,7 @@ LABELS_PT: Final[dict[str, str]] = {
     "punicoes-e-moderacao": "Punições",
     "privacidade-e-seguranca": "Privacidade",
     "faq": "FAQ wiki",
+    "small-web-nex": "Small web",
 }
 
 LABELS_EN: Final[dict[str, str]] = {
@@ -60,6 +61,7 @@ LABELS_EN: Final[dict[str, str]] = {
     "punicoes-e-moderacao": "Moderation & sanctions",
     "privacidade-e-seguranca": "Privacy & security",
     "faq": "Wiki FAQ",
+    "small-web-nex": "Small web",
 }
 
 # Config por locale. src_dir/out_dir resolvidos em main() (Path relativos a SITE_DIR).

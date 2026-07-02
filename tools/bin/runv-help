@@ -40,6 +40,7 @@ printf '  %bless%b           Paginar ficheiros longos (ex.: less README.md).\n' 
 printf '  %btmux%b / %bbyobu%b   Multiplexadores de terminal (várias sessões).\n' "${G}" "${R}" "${G}" "${R}"
 printf '  %bmutt%b           E-mail no terminal.\n' "${G}" "${R}"
 printf '  %bchat%b           IRC da rede da casa.\n' "${G}" "${R}"
+printf '  %brex%b            Cliente Nex de terminal (small web; ex.: rex /users/).\n' "${G}" "${R}"
 printf '  %brunvers%b        Espaços e serviços da comunidade.\n' "${G}" "${R}"
 printf '  %btree%b           Árvore de diretórios.\n' "${G}" "${R}"
 printf '  %brunv-games%b     Jogos do servidor (inclui adventure e gotchi).\n' "${G}" "${R}"
@@ -50,6 +51,13 @@ printf '  • Coloque ficheiros %bHTML/CSS estáticos%b; o endereço público de
 printf '    do servidor (pergunte aos administradores se não souber o URL).\n'
 printf '  • %bchmod 755%b a sua home e %b~/public_html%b; %bchmod 644%b nos ficheiros do site.\n' "${C}" "${R}" "${C}" "${R}" "${C}" "${R}"
 printf '  • Tudo dentro de %bpublic_html%b é %bvisível na web%b — não coloque chaves nem dados privados.\n' "${G}" "${R}" "${B}" "${R}"
+printf '\n'
+
+printf '%b%bSmall web — Gemini, Gopher e Nex%b\n' "${Y}" "${B}" "${R}"
+printf '  • %b~/public_gemini/%b (Gemini), %b~/public_gopher/%b (Gopher) e %b~/public_nex/%b (Nex).\n' "${C}" "${R}" "${C}" "${R}" "${C}" "${R}"
+printf '  • Nex é o protocolo mínimo da small web: edite %b~/public_nex/index%b (texto puro; links com => ).\n' "${C}" "${R}"
+printf '  • Veja o Nex da casa com %brex%b (terminal) ou em %bhttps://runv.club/nex/%b (web).\n' "${G}" "${R}" "${C}" "${R}"
+printf '  • Mantenha %b755%b nas pastas públicas e %b644%b nos ficheiros.\n' "${C}" "${R}" "${C}" "${R}"
 printf '\n'
 
 printf '%b%bBoas práticas (máquina partilhada)%b\n' "${Y}" "${B}" "${R}"

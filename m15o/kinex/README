@@ -1,0 +1,40 @@
+A web server for nex
+====================
+
+kinex allows you to have your nex station available over the web.
+
+Usage
+-----
+
+kinex [-s style.css] [-t template.tpl] [-p 8080] /var/nex/ nex.nightfall.city
+
+Installation
+------------
+
+To install on OpenBSD as a daemon:
+
+First, create an unprivileged user:
+useradd -c"kinexd Daemon" -d/var/empty -s/sbin/nologin _kinexd
+
+Then create the /var/nex, from which the files will be served
+
+Finally run the following:
+1. `make build`
+2. copy binary to /usr/local/bin/, make sure it's executable
+3. create /etc/rc.d/kinexd with the following content
+
+```
+#!/bin/ksh
+
+daemon="/usr/local/bin/kinex /var/nex"
+daemon_user="_kinexd"
+
+. /etc/rc.d/rc.subr
+
+rc_bg=YES
+rc_reload=NO
+
+rc_cmd $1
+```
+
+Now you can start the server by running `rcctl start kinexd`.

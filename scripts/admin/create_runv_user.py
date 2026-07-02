@@ -813,6 +813,49 @@ def prepare_public_gemini(
         raise SystemProvisionError(f"não foi possível ajustar dono de {idx}: {e}") from e
 
 
+def default_nex_index(username: str) -> str:
+    return f"""# ~{username} — runv.club (Nex)
+
+Bem-vindo ao **Nex**, o protocolo minimo da small web: texto puro, uma ligacao, sem cabecalhos nem rastreio.
+
+Esta capsula e sua. Edite ~/public_nex/index e crie mais ficheiros; ligue-os com linhas => caminho Nome.
+
+=> /users/ outros membros
+=> / raiz do runv.club
+"""
+
+
+def prepare_public_nex(
+    home: Path,
+    username: str,
+    uid: int,
+    gid: int,
+    log: logging.Logger,
+) -> None:
+    """
+    Prepara ~/public_nex (755) e o ficheiro ``index`` (644). Espelha public_gemini:
+    o modelo ``index`` só é criado se ainda não existir (nunca substituído).
+    O nexd serve /users/<user> a partir daqui (sem bind mount — como o gophernicus).
+    """
+    d = home / "public_nex"
+    d.mkdir(parents=True, exist_ok=True)
+    os.chmod(d, 0o755)
+    try:
+        os.chown(d, uid, gid)
+    except PermissionError as e:
+        raise SystemProvisionError(f"não foi possível ajustar dono de {d}: {e}") from e
+    idx = d / "index"
+    if idx.exists():
+        log.info("%s já existe; modelo não aplicado", idx)
+        return
+    idx.write_text(default_nex_index(username), encoding="utf-8")
+    os.chmod(idx, 0o644)
+    try:
+        os.chown(idx, uid, gid)
+    except PermissionError as e:
+        raise SystemProvisionError(f"não foi possível ajustar dono de {idx}: {e}") from e
+
+
 def ensure_gemini_user_symlink(
     username: str,
     home: Path,
@@ -1060,6 +1103,7 @@ def apply_runv_permissions(home: Path, uid: int, gid: int) -> None:
     for label, path in (
         ("public_gopher", home / "public_gopher"),
         ("public_gemini", home / "public_gemini"),
+        ("public_nex", home / "public_nex"),
     ):
         if path.is_dir():
             try:
@@ -1067,6 +1111,13 @@ def apply_runv_permissions(home: Path, uid: int, gid: int) -> None:
                 os.chown(path, uid, gid)
             except PermissionError as e:
                 raise SystemProvisionError(f"não foi possível ajustar permissões de {path}: {e}") from e
+    nex_idx = home / "public_nex" / "index"
+    if nex_idx.is_file():
+        try:
+            os.chmod(nex_idx, 0o644)
+            os.chown(nex_idx, uid, gid)
+        except PermissionError as e:
+            raise SystemProvisionError(f"não foi possível ajustar permissões de {nex_idx}: {e}") from e
     gmap = home / "public_gopher" / "gophermap"
     if gmap.is_file():
         try:
@@ -1100,6 +1151,8 @@ def verify_user_artifact_permissions(
         (home / "public_gopher" / "gophermap", 0o644, "gophermap"),
         (home / "public_gemini", 0o755, "public_gemini"),
         (home / "public_gemini" / "index.gmi", 0o644, "index.gmi"),
+        (home / "public_nex", 0o755, "public_nex"),
+        (home / "public_nex" / "index", 0o644, "index (nex)"),
     ]
     if expect_readme:
         checks.append((home / "README.md", 0o644, "README.md"))
@@ -2057,7 +2110,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  pedido fila:  {queue_request.request_id} ({queue_request.queue_path})")
         print(
             "  ações: (1) adduser + skel  (2) authorized_keys  (3) public_html  "
-            "(4) public_gopher + public_gemini + bind Gemini  (5) README só com --with-readme  "
+            "(4) public_gopher + public_gemini + bind Gemini + public_nex  (5) README só com --with-readme  "
             "(6) permissões  (7) jail SSH só com --with-jail  "
             "(8) quota  (9) verificação + patch IRC (chat)  (10) metadados JSON"
         )
@@ -2100,10 +2153,11 @@ def main(argv: list[str] | None = None) -> int:
         log.info("=== fase 3: public_html e index.html estático")
         prepare_public_html(home, user, uid, gid, args.force_index, log)
 
-        log.info("=== fase 3b: public_gopher (gophermap) e public_gemini (index.gmi)")
+        log.info("=== fase 3b: public_gopher (gophermap), public_gemini (index.gmi) e public_nex (index)")
         prepare_public_gopher(home, user, uid, gid, args.force_gopher, log)
         prepare_public_gemini(home, user, uid, gid, log)
         ensure_gemini_user_symlink(user, home, log, force=args.force_gemini)
+        prepare_public_nex(home, user, uid, gid, log)
 
         if args.with_readme:
             log.info("=== fase 4: README.md runv (--with-readme)")
@@ -2224,6 +2278,7 @@ def main(argv: list[str] | None = None) -> int:
         print("  public_html:       pronto (index.html estático)")
         print("  public_gopher:     pronto (gophermap)")
         print("  public_gemini:     pronto (index.gmi)")
+        print("  public_nex:        pronto (index) — nexd serve nex://.../users/<user>/")
         print("  bind Gemini:       /var/gemini/users/<user> <- ~/public_gemini (se o diretório existir)")
         print("  IRC:               comando «chat» → irc.tilde.chat (TLS) #runv (patch_irc.py)")
         if args.with_readme:

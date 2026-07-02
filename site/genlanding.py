@@ -127,6 +127,12 @@ def render_vhost(
         Require all granted
     </Directory>
 
+    # Gateway Nex → HTML (kinex em 127.0.0.1:1971); ver scripts/admin/setup_nex.py.
+    # Requer mod_proxy + mod_proxy_http (a2enmod proxy proxy_http).
+    ProxyPreserveHost On
+    ProxyPass /nex http://127.0.0.1:1971/nex
+    ProxyPassReverse /nex http://127.0.0.1:1971/nex
+
     ErrorLog ${{APACHE_LOG_DIR}}/{log_tag}-error.log
     CustomLog ${{APACHE_LOG_DIR}}/{log_tag}-access.log combined
 </VirtualHost>
@@ -476,6 +482,9 @@ def main(argv: list[str] | None = None) -> int:
         run_cmd(["a2enmod", "userdir"], dry_run=args.dry_run)
         run_cmd(["a2enmod", "rewrite"], dry_run=args.dry_run)
         run_cmd(["a2enmod", "headers"], dry_run=args.dry_run)
+        # Gateway Nex (/nex → kinex 127.0.0.1:1971): mod_proxy + mod_proxy_http.
+        run_cmd(["a2enmod", "proxy"], dry_run=args.dry_run)
+        run_cmd(["a2enmod", "proxy_http"], dry_run=args.dry_run)
 
         rss_conf_path = APACHE_CONF_AVAILABLE / RSS_MIME_CONF_FILE
         rss_body = render_rss_mime_conf_contents(document_root)

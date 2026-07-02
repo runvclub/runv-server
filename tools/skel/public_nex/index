@@ -1,0 +1,12 @@
+# Capsule Nex — runv.club
+
+Bem-vindo ao runv.club no Nex, o protocolo minimo da small web:
+texto puro, uma ligacao, sem cabecalhos nem rastreio.
+
+Este e o teu espaco. Edita ~/public_nex/index e cria mais ficheiros;
+liga-os com linhas => caminho Nome.
+
+=> /users/ outros membros
+=> / raiz do runv.club
+
+nex://runv.club/users/NOME_UTILIZADOR/

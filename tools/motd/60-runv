@@ -92,6 +92,7 @@ printf '  %b%-16s%b %b—%b multiplexador de terminal (várias sessões).\n' "${
 printf '  %b%-16s%b %b—%b barra de estado e atalhos sobre tmux/screen.\n' "${G}" "byobu" "${R}" "${D}" "${R}"
 printf '  %b%-16s%b %b—%b cliente de e-mail no terminal.\n' "${G}" "mutt" "${R}" "${D}" "${R}"
 printf '  %b%-16s%b %b—%b IRC da rede da casa.\n' "${G}" "chat" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b navegar o Nex da casa (small web, porta 1900).\n' "${G}" "rex" "${R}" "${D}" "${R}"
 printf '  %b%-16s%b %b—%b catálogo dos espaços e serviços da casa.\n' "${G}" "runvers" "${R}" "${D}" "${R}"
 printf '  %b%-16s%b %b—%b catálogo de jogos do servidor.\n' "${G}" "runv-games" "${R}" "${D}" "${R}"
 

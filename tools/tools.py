@@ -226,6 +226,7 @@ def install_bin_scripts(
         "runv-games",
         "runvers",
         "chat",
+        "rex",
         "runv-profile",
         "runv-finger",
         "runv-who",
@@ -536,6 +537,42 @@ def install_skel(
                 os.chmod(gopher_dir, 0o755)
             if gemini_dir.is_dir():
                 os.chmod(gemini_dir, 0o755)
+
+    # public_nex (Nex — mesmo critério do index.gmi: nunca sobrescreve index existente)
+    nex_dir = DEST_SKEL / "public_nex"
+    nex_src = SKEL_DIR / "public_nex" / "index"
+    nex_dst = nex_dir / "index"
+
+    if not nex_src.is_file():
+        summary.errors.append(f"origem inexistente: {nex_src}")
+        log.error("Origem inexistente: %s", nex_src)
+    else:
+        if not dry_run:
+            nex_dir.mkdir(parents=True, exist_ok=True)
+            os.chmod(nex_dir, 0o755)
+            try:
+                os.chown(nex_dir, 0, 0)
+            except OSError as e:
+                log.warning("chown em skel public_nex: %s", e)
+        elif not nex_dir.exists():
+            log.info("[dry-run] criaria diretório %s (755)", nex_dir)
+
+        if nex_dst.is_file():
+            log.info("Destino já existe, mantido (index Nex em skel): %s", nex_dst)
+            summary.skipped.append(str(nex_dst))
+        else:
+            copy_one(
+                nex_src,
+                nex_dst,
+                0o644,
+                force=force,
+                dry_run=dry_run,
+                log=log,
+                summary=summary,
+            )
+
+        if not dry_run and nex_dir.is_dir():
+            os.chmod(nex_dir, 0o755)
 
 
 def apply_irc_patch(

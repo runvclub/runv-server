@@ -1,0 +1,10 @@
+data/README.i
+data/nexd.go.i
+data/LICENSE.i
+data/.hgignore.i
+data/go.mod.i
+data/main.go.i
+data/go.sum.i
+data/Makefile.i
+data/cmd/nexd/nexd.go.i
+data/handler.go.i

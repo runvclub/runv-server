@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SMALL WEB - GEMINI, GOPHER AND NEX — runv.club Wiki</title>
+  <meta name="description" content="SMALL WEB - GEMINI, GOPHER AND NEX — runv.club wiki.">
+  <link rel="canonical" href="https://runv.club/en/wiki/small-web-nex.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://runv.club/wiki/small-web-nex.html">
+  <link rel="alternate" hreflang="en" href="https://runv.club/en/wiki/small-web-nex.html">
+  <link rel="alternate" hreflang="x-default" href="https://runv.club/wiki/small-web-nex.html">
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0c0b0f">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://runv.club/en/wiki/small-web-nex.html">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:site_name" content="runv.club">
+  <meta property="og:title" content="SMALL WEB - GEMINI, GOPHER AND NEX — runv.club Wiki">
+  <meta property="og:description" content="SMALL WEB - GEMINI, GOPHER AND NEX — runv.club wiki.">
+  <meta property="og:image" content="https://runv.club/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="runv.club — a Brazilian tilde-style community">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SMALL WEB - GEMINI, GOPHER AND NEX — runv.club Wiki">
+  <meta name="twitter:description" content="SMALL WEB - GEMINI, GOPHER AND NEX — runv.club wiki.">
+  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top-nav"><a href="/en/">← runv.club</a></nav>
+
+    <header>
+      <p class="eyebrow">runv.club</p>
+      <nav class="hero-nav wiki-hero-nav" aria-label="Páginas da wiki">
+        <a href="/en/news/">News</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/">Index</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/visao-geral.html">Overview</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/contas-e-acesso.html">Accounts &amp; access</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/regras-da-comunidade.html">Community rules</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/punicoes-e-moderacao.html">Moderation &amp; sanctions</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/privacidade-e-seguranca.html">Privacy &amp; security</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/faq.html">Wiki FAQ</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <span class="hero-nav-current" aria-current="page">Small web</span>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/join/">Join</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/small-web-nex.html" class="lang-switch">Português</a>
+      </nav>
+    </header>
+
+    <main class="section prose-block subpage-main wiki-main">
+<h1 class="hero-title subpage-title wiki-page-title">SMALL WEB - GEMINI, GOPHER AND NEX</h1>
+
+<p>runv.club lives on the &quot;small web&quot;: a lighter internet made of text, simple protocols, and pages that open without hurry. Besides the ordinary website (HTTP), your account publishes over three alternative protocols at the same time.</p>
+
+<h2>YOUR PUBLIC FOLDERS</h2>
+
+<p>Each account has, in its home, one folder per protocol. Anything you put in them is public; do not keep secrets there.</p>
+
+<ul><li>public_html  — your website (HTTP), seen in a normal browser;</li><li>public_gemini — your Gemini capsule (.gmi files);</li><li>public_gopher — your Gopher space (gophermap);</li><li>public_nex   — your Nex capsule (a plain-text index file).</li></ul>
+
+<h2>THE NEX PROTOCOL</h2>
+
+<p>Nex is the most minimal protocol of the small web, born in Nightfall City. It runs on port 1900: the client sends one line (the path) and the server returns plain text, with no headers, no state, and no tracking. It is Gopher and Gemini taken to the essentials.</p>
+
+<p>Links are lines that start with an arrow. For example:</p>
+
+<p>=&gt; /users/ other members<br>
+=&gt; notes.txt my notes</p>
+
+<h2>HOW TO PUBLISH ON NEX</h2>
+
+<p>Your starting point is the index file in public_nex. Edit it and create whatever files you like.</p>
+
+<ul><li>edit ~/public_nex/index (plain text; no HTML);</li><li>link pages with lines like =&gt; path Name;</li><li>create subfolders to organize (each folder can have its own index);</li><li>keep 755 on folders and 644 on files, so the server can read them.</li></ul>
+
+<p>Your capsule address is nex://runv.club/users/YOUR_USERNAME/.</p>
+
+<h2>HOW TO BROWSE NEX</h2>
+
+<p>There are two easy ways to explore the house&#x27;s Nex space:</p>
+
+<ul><li>in the terminal, use the rex command (e.g. rex for the root, or rex /users/ for the member list);</li><li>in a browser, open https://runv.club/nex/ (the same tree, converted to HTML).</li></ul>
+
+<h2>THE RECENTES PAGE (BLOGS AND JOURNALS)</h2>
+
+<p>The page https://runv.club/recentes gathers, in one place, the most recent entries from members&#x27; blogs and journals. It is a discovery layer that complements the constellation on the home page: the constellation shows who exists; the Recentes page shows what is new. Joining is optional: only those who ask will appear.</p>
+
+<h2>HTML BLOG FORMAT</h2>
+
+<p>An &quot;HTML Blog&quot; is a simple HTML page, with no framework. It has a title and, per entry, a date and a link. The minimal structure of each entry is a time tag followed by a link:</p>
+
+<p>&lt;h1&gt;My blog&lt;/h1&gt;<br>
+&lt;time datetime=&quot;2026-06-20&quot;&gt;20 Jun 2026&lt;/time&gt;<br>
+&lt;a href=&quot;/posts/gemini.html&quot;&gt;Discovering Gemini&lt;/a&gt;</p>
+
+<p>The date in datetime must use the year-month-day format (2026-06-20).</p>
+
+<h2>HTML JOURNAL FORMAT</h2>
+
+<p>An &quot;HTML Journal&quot; is a single page, with a title and a sequence of entries, each inside an article tag with a date heading:</p>
+
+<p>&lt;h1&gt;My journal&lt;/h1&gt;<br>
+&lt;article&gt;&lt;h2&gt;2026-06-22&lt;/h2&gt;&lt;p&gt;Wrote on Nex today.&lt;/p&gt;&lt;/article&gt;</p>
+
+<h2>HOW TO JOIN THE RECENTES PAGE</h2>
+
+<p>The process is simple and safe. Content the house reads is always treated as text (never executed), so there is no risk to other members.</p>
+
+<ul><li>publish a page in the HTML Blog or HTML Journal format (for example under public_html);</li><li>send the address to admin@runv.club asking to be added to the list;</li><li>from then on, your recent entries will appear on Recentes.</li></ul>
+
+<h2>PERMISSIONS</h2>
+
+<p>For any of these protocols, the permission rule is the same: 755 on your home and public folders, 644 on the files served. If something stops opening, start by restoring these values.</p>
+    </main>
+
+    <footer class="site-footer">
+      <p>Admin: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/en/faq/" class="footer-link-discrete">FAQ</a></p>
+    </footer>
+  </div>
+</body>
+</html>

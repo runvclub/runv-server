@@ -1,0 +1,48 @@
+#!/bin/sh
+# runv.club — rex: cliente Nex mínimo de terminal.
+# Nex é o protocolo minimalista da small web (porta 1900): envia-se um selector
+# (caminho) e recebe-se texto puro. Baseado em rex de ~m15o (nex.nightfall.city).
+#
+# Uso:
+#   rex                       # raiz do runv.club local (nex://localhost/)
+#   rex /users/               # lista de cápsulas dos membros
+#   rex /users/maria/         # cápsula de ~maria
+#   rex out.host.org /algo    # estação Nex remota
+#
+# Depende de: nc (netcat-openbsd) e um pager (less). Sem dependências pesadas.
+
+HOST="runv.club"
+SELECTOR="/"
+
+case "$#" in
+  0) : ;;                                  # defaults
+  1)
+    case "$1" in
+      /*) SELECTOR="$1" ;;                 # um único argumento começado por / é o selector local
+      *)  HOST="$1" ;;                     # senão, é o host (selector = /)
+    esac
+    ;;
+  *)
+    HOST="$1"
+    SELECTOR="$2"
+    ;;
+esac
+
+# Descobrir um netcat utilizável.
+NC=""
+for c in nc ncat netcat; do
+  if command -v "$c" >/dev/null 2>&1; then
+    NC="$c"
+    break
+  fi
+done
+if [ -z "$NC" ]; then
+  echo "rex: 'nc' (netcat-openbsd) não encontrado. Instale: sudo apt install -y netcat-openbsd" >&2
+  exit 127
+fi
+
+PAGER_CMD="${PAGER:-less}"
+command -v "$PAGER_CMD" >/dev/null 2>&1 || PAGER_CMD="cat"
+
+# Envia o selector seguido de LF; mostra a resposta no pager.
+printf '%s\n' "$SELECTOR" | "$NC" "$HOST" 1900 | "$PAGER_CMD"

@@ -1,0 +1,31 @@
+{
+  "name": "nexy",
+  "version": "0.0.0",
+  "description": "Gemini-to-Nex proxy",
+  "main": "server.js",
+  "type": "module",
+  "files": [
+    "server.js",
+    "contrib"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "npx prettier --write \"**/*.js\"",
+    "gencert": "sh contrib/gencert -ed certs nexy.localhost",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "nex",
+    "gemini",
+    "proxy"
+  ],
+  "author": "vladimyr",
+  "license": "0BSD",
+  "devDependencies": {
+    "@types/prettier": "^2.7.3",
+    "prettier": "^2.8.8"
+  },
+  "dependencies": {
+    "file-type": "^18.5.0"
+  }
+}

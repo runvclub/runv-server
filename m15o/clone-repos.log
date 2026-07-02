@@ -1,0 +1,485 @@
+=== clone-repos.ps1 ===
+Diretorio: Z:\NetShare\Projetos\m15o
+Lista: Z:\NetShare\Projetos\m15o\links_srht_m15o.txt
+
+Repositorios encontrados: 49
+
+[CLONE] 15f - git https://git.sr.ht/~m15o/15f
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\15f'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...os\m15o\15f'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] 15f
+[CLONE] bitters - git https://git.sr.ht/~m15o/bitters
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\bitters'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...15o\bitters'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] bitters
+[CLONE] dotfiles - git https://git.sr.ht/~m15o/dotfiles
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\dotfiles'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...5o\dotfiles'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] dotfiles
+[CLONE] emacs.d - git https://git.sr.ht/~m15o/emacs.d
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\emacs.d'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...15o\emacs.d'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] emacs.d
+[CLONE] feed - git https://git.sr.ht/~m15o/feed
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\feed'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\feed'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] feed
+[CLONE] gmi2html - git https://git.sr.ht/~m15o/gmi2html
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\gmi2html'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...5o\gmi2html'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] gmi2html
+[CLONE] grid - git https://git.sr.ht/~m15o/grid
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\grid'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\grid'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] grid
+[CLONE] html-blog - git https://git.sr.ht/~m15o/html-blog
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\html-blog'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...o\html-blog'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] html-blog
+[CLONE] html-journal - git https://git.sr.ht/~m15o/html-journal
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\html-journal'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...tml-journal'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] html-journal
+[CLONE] htmlb - git https://git.sr.ht/~m15o/htmlb
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\htmlb'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...\m15o\htmlb'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] htmlb
+[CLONE] htmlj - git https://git.sr.ht/~m15o/htmlj
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\htmlj'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...\m15o\htmlj'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] htmlj
+[CLONE] ichi - git https://git.sr.ht/~m15o/ichi
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\ichi'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\ichi'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] ichi
+[CLONE] ichipedia - git https://git.sr.ht/~m15o/ichipedia
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\ichipedia'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...o\ichipedia'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] ichipedia
+[CLONE] midnight-pub - git https://git.sr.ht/~m15o/midnight-pub
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\midnight-pub'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...idnight-pub'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] midnight-pub
+[CLONE] moka - git https://git.sr.ht/~m15o/moka
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\moka'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\moka'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] moka
+[CLONE] ni - git https://git.sr.ht/~m15o/ni
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\ni'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...tos\m15o\ni'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] ni
+[CLONE] nightfall-server - git https://git.sr.ht/~m15o/nightfall-server
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\nightfall-server'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...fall-server'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] nightfall-server
+[CLONE] nini - git https://git.sr.ht/~m15o/nini
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\nini'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\nini'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] nini
+[CLONE] nspace - git https://git.sr.ht/~m15o/nspace
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\nspace'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...m15o\nspace'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] nspace
+[CLONE] opml - git https://git.sr.ht/~m15o/opml
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\opml'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\opml'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] opml
+[CLONE] owl-report - git https://git.sr.ht/~m15o/owl-report
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\owl-report'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...\owl-report'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] owl-report
+[CLONE] riku - git https://git.sr.ht/~m15o/riku
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\riku'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\riku'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] riku
+[CLONE] smol.pub - git https://git.sr.ht/~m15o/smol.pub
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\smol.pub'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...5o\smol.pub'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] smol.pub
+[CLONE] status - git https://git.sr.ht/~m15o/status
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\status'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...m15o\status'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] status
+[CLONE] the-neon-kiosk - git https://git.sr.ht/~m15o/the-neon-kiosk
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\the-neon-kiosk'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...-neon-kiosk'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] the-neon-kiosk
+[CLONE] vpub - git https://git.sr.ht/~m15o/vpub
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\vpub'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\vpub'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] vpub
+[CLONE] yon - git https://git.sr.ht/~m15o/yon
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\yon'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...os\m15o\yon'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+[OK] yon
+[CLONE] ichi.city - git https://git.sr.ht/~m15o/ichi.city
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\ichi.city'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...o\ichi.city'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/ichi.city/' not found
+[FAIL] ichi.city - exit code 128
+[CLONE] merp - git https://git.sr.ht/~m15o/merp
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\merp'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...s\m15o\merp'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/merp/' not found
+[FAIL] merp - exit code 128
+[CLONE] merp-feed-embed - git https://git.sr.ht/~m15o/merp-feed-embed
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\merp-feed-embed'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...-feed-embed'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/merp-feed-embed/' not found
+[FAIL] merp-feed-embed - exit code 128
+[CLONE] midnight.pub - git https://git.sr.ht/~m15o/midnight.pub
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\midnight.pub'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...idnight.pub'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/midnight.pub/' not found
+[FAIL] midnight.pub - exit code 128
+[CLONE] nex - git https://git.sr.ht/~m15o/nex
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\nex'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...os\m15o\nex'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/nex/' not found
+[FAIL] nex - exit code 128
+[CLONE] netspeed - git https://git.sr.ht/~m15o/netspeed
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\netspeed'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...5o\netspeed'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/netspeed/' not found
+[FAIL] netspeed - exit code 128
+[CLONE] nightfall.city - git https://git.sr.ht/~m15o/nightfall.city
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\nightfall.city'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...htfall.city'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/nightfall.city/' not found
+[FAIL] nightfall.city - exit code 128
+[CLONE] nps - git https://git.sr.ht/~m15o/nps
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\nps'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...os\m15o\nps'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/nps/' not found
+[FAIL] nps - exit code 128
+[CLONE] speakeasy - git https://git.sr.ht/~m15o/speakeasy
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\speakeasy'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...o\speakeasy'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/speakeasy/' not found
+[FAIL] speakeasy - exit code 128
+[CLONE] status.cafe - git https://git.sr.ht/~m15o/status.cafe
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\status.cafe'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...status.cafe'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/status.cafe/' not found
+[FAIL] status.cafe - exit code 128
+[CLONE] wobble.town - git https://git.sr.ht/~m15o/wobble.town
+git.exe : Cloning into 'Z:\NetShare\Projetos\m15o\wobble.town'...
+No Z:\NetShare\Projetos\m15o\clone-repos.ps1:147 caractere:9
++         & git clone $repo.Url $targetDir 2>&1 | Out-Host
++         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Cloning into 'Z...wobble.town'...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+fatal: repository 'https://git.sr.ht/~m15o/wobble.town/' not found
+[FAIL] wobble.town - exit code 128
+[CLONE] kinex - hg https://hg.sr.ht/~m15o/kinex
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 10 revis§es com 20 mudanþas em 8 arquivos
+novas revis§es 170d72fed6ca:2a5fe74f2a55
+atualizando para o ramo default
+7 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] kinex
+[CLONE] lipu.li - hg https://hg.sr.ht/~m15o/lipu.li
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 31 revis§es com 327 mudanþas em 133 arquivos
+novas revis§es 7994d12ad235:8f90aaad8ab7
+atualizando para o ramo default
+115 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] lipu.li
+[CLONE] mebo - hg https://hg.sr.ht/~m15o/mebo
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 86 revis§es com 650 mudanþas em 252 arquivos
+novas revis§es 5b532267332c:d936493838f2
+atualizando para o ramo default
+104 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] mebo
+[CLONE] nex-pfm - hg https://hg.sr.ht/~m15o/nex-pfm
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 8 revis§es com 11 mudanþas em 5 arquivos (+1 cabeþas)
+novas revis§es 68369987074e:103ad291fbfb
+atualizando para o ramo default
+5 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] nex-pfm
+[CLONE] nexd - hg https://hg.sr.ht/~m15o/nexd
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 12 revis§es com 25 mudanþas em 10 arquivos
+novas revis§es 3e435c43494d:f6acf1a50a65
+atualizando para o ramo default
+7 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] nexd
+[CLONE] nexy - hg https://hg.sr.ht/~m15o/nexy
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 1 revis§es com 4 mudanþas em 4 arquivos
+novas revis§es 10ac5b965e78
+atualizando para o ramo default
+4 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] nexy
+[CLONE] nova - hg https://hg.sr.ht/~m15o/nova
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 7 revis§es com 22 mudanþas em 9 arquivos
+novas revis§es a66dbced855d:a0a8049d2e32
+atualizando para o ramo default
+8 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] nova
+[CLONE] piclog - hg https://hg.sr.ht/~m15o/piclog
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 6 revis§es com 144 mudanþas em 111 arquivos
+novas revis§es 7994d12ad235:6ebab2f97470
+atualizando para o ramo default
+105 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] piclog
+[CLONE] rex - hg https://hg.sr.ht/~m15o/rex
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 1 revis§es com 1 mudanþas em 1 arquivos
+novas revis§es 8e3870f81c0e
+atualizando para o ramo default
+1 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] rex
+[CLONE] tny - hg https://hg.sr.ht/~m15o/tny
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 11 revis§es com 24 mudanþas em 9 arquivos
+novas revis§es 858ca6b9a75c:4dcca1606979
+atualizando para o ramo default
+5 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] tny
+[CLONE] warp - hg https://hg.sr.ht/~m15o/warp
+pedindo todas as mudanþas
+adicionando revis§es
+adicionando manifestos
+adicionando mudanþas em arquivos
+adicionadas 4 revis§es com 4 mudanþas em 1 arquivos
+novas revis§es cecbe195331a:9460dd20665f
+atualizando para o ramo default
+1 arquivos atualizados, 0 arquivos mesclados, 0 arquivos removidos, 0 arquivos nÒo resolvidos
+[OK] warp
+
+=== Resumo ===
+Total: 49 | OK: 38 | SKIP: 0 | FAIL: 11
+
+Falharam:
+  - ichi.city
+  - merp
+  - merp-feed-embed
+  - midnight.pub
+  - nex
+  - netspeed
+  - nightfall.city
+  - nps
+  - speakeasy
+  - status.cafe
+  - wobble.town
