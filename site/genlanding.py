@@ -57,6 +57,10 @@ APACHE_CONF_AVAILABLE: Final[Path] = Path("/etc/apache2/conf-available")
 # Snippet global: MIME do feed em todos os vhosts (:80 e :443), sem tocar no SSL do Certbot.
 RSS_MIME_CONF_FILE: Final[str] = "runv-landing-rss-mime.conf"
 RSS_MIME_CONF_STEM: Final[str] = "runv-landing-rss-mime"
+# Snippet global do gateway Nex (/nex → kinex): tem de valer também para :443 (Certbot),
+# por isso vai em conf-available (escopo de servidor), não só no vhost :80.
+NEX_PROXY_CONF_FILE: Final[str] = "runv-nex-proxy.conf"
+NEX_PROXY_CONF_STEM: Final[str] = "runv-nex-proxy"
 APACHE_CTL: Final[str] = "/usr/sbin/apache2ctl"
 DEFAULT_SITE: Final[str] = "000-default.conf"
 
@@ -100,6 +104,23 @@ def render_rss_mime_conf_contents(document_root: Path) -> str:
 """
 
 
+def render_nex_proxy_conf_contents() -> str:
+    """
+    Proxy /nex → kinex (127.0.0.1:1971) em escopo de servidor: aplica-se a TODOS os
+    vhosts, incluindo o :443 gerado pelo Certbot (que não conhece este ProxyPass).
+    Requer mod_proxy + mod_proxy_http (a2enmod proxy proxy_http).
+    """
+    return f"""# Gerado por genlanding.py v{VERSION} — runv.club
+# Gateway Nex → HTML (kinex). Global ao servidor para valer em :80 e :443 sem
+# editar o vhost SSL do Certbot. Se o kinex mudar de porta, volte a correr genlanding.
+<IfModule mod_proxy.c>
+    ProxyPreserveHost On
+    ProxyPass /nex http://127.0.0.1:1971/nex
+    ProxyPassReverse /nex http://127.0.0.1:1971/nex
+</IfModule>
+"""
+
+
 def render_vhost(
     *,
     server_name: str,
@@ -127,11 +148,9 @@ def render_vhost(
         Require all granted
     </Directory>
 
-    # Gateway Nex → HTML (kinex em 127.0.0.1:1971); ver scripts/admin/setup_nex.py.
-    # Requer mod_proxy + mod_proxy_http (a2enmod proxy proxy_http).
-    ProxyPreserveHost On
-    ProxyPass /nex http://127.0.0.1:1971/nex
-    ProxyPassReverse /nex http://127.0.0.1:1971/nex
+    # Gateway Nex → HTML (kinex): o ProxyPass fica num snippet GLOBAL em
+    # conf-available/{NEX_PROXY_CONF_FILE} (a2enconf {NEX_PROXY_CONF_STEM}), para
+    # valer também no :443 do Certbot. Ver scripts/admin/setup_nex.py.
 
     ErrorLog ${{APACHE_LOG_DIR}}/{log_tag}-error.log
     CustomLog ${{APACHE_LOG_DIR}}/{log_tag}-access.log combined
@@ -500,6 +519,25 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  [ok] RSS MIME: {rss_conf_path}")
         run_cmd_allow_fail(
             ["a2enconf", RSS_MIME_CONF_STEM],
+            dry_run=args.dry_run,
+            ok_hint="conf já activo",
+        )
+
+        # Snippet global do proxy Nex (/nex → kinex) — vale para :80 e :443 (Certbot).
+        nex_conf_path = APACHE_CONF_AVAILABLE / NEX_PROXY_CONF_FILE
+        nex_body = render_nex_proxy_conf_contents()
+        if args.dry_run:
+            print("--- conf-available (proxy Nex /nex, :80 e :443) ---")
+            print(nex_body)
+            print(f"  [dry-run] escreveria {nex_conf_path} ; a2enconf {NEX_PROXY_CONF_STEM}")
+        else:
+            if not APACHE_CONF_AVAILABLE.is_dir():
+                APACHE_CONF_AVAILABLE.mkdir(parents=True, exist_ok=True)
+            nex_conf_path.write_text(nex_body, encoding="utf-8")
+            os.chmod(nex_conf_path, 0o644)
+            print(f"  [ok] proxy Nex: {nex_conf_path}")
+        run_cmd_allow_fail(
+            ["a2enconf", NEX_PROXY_CONF_STEM],
             dry_run=args.dry_run,
             ok_hint="conf já activo",
         )
