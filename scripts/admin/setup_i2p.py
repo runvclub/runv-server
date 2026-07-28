@@ -527,6 +527,39 @@ def do_enable(
     return 0
 
 
+def enable_member(
+    username: str,
+    *,
+    i2pd_datadir: Path = I2PD_DATADIR,
+    force: bool = False,
+    log: logging.Logger,
+) -> str | None:
+    """
+    Activa o eepsite de **um** membro e devolve o ``.b32.i2p`` (ou ``None``).
+
+    Ponto de entrada reutilizável (usado por create_runv_user.py). **Não** instala
+    pacotes nem escreve o vhost Apache — pressupõe a infra base já instalada
+    (``setup_i2p.py`` sem argumentos). Se ``I2PD_TUNNELS_DIR`` não existir, cria só
+    ``~/public_i2p`` e devolve ``None`` (o admin ainda tem de correr a infra base).
+    """
+    ensure_user_public_i2p(username, force=force, dry_run=False, log=log)
+    if not I2PD_TUNNELS_DIR.is_dir():
+        log.warning(
+            "%s inexistente — túnel I2P não criado. Corra scripts/admin/setup_i2p.py "
+            "(infra base) e depois --enable %s.",
+            I2PD_TUNNELS_DIR,
+            username,
+        )
+        return None
+    write_tunnel_conf(username, force=force, dry_run=False, log=log)
+    reload_i2pd(dry_run=False, log=log)
+    store = load_address_store(log)
+    poll_keys_and_record([username], store, i2pd_datadir, dry_run=False, log=log)
+    save_address_store(store, dry_run=False, log=log)
+    consume_request_marker(username, dry_run=False, log=log)
+    return (store.get(username) or {}).get("b32")
+
+
 def do_disable(
     usernames: list[str],
     *,
@@ -594,6 +627,7 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
     p.add_argument("--force", action="store_true", help="reescreve vhost Apache e túneis existentes")
     p.add_argument("--skip-install", action="store_true", help="não instalar i2pd/apache2 via apt")
     p.add_argument("--enable", nargs="+", metavar="USER", help="activar eepsite para o(s) membro(s)")
+    p.add_argument("--enable-all", action="store_true", help="activar para todos os membros (exclui serviço/admin)")
     p.add_argument("--enable-requested", action="store_true", help="activar quem tem pedido pendente")
     p.add_argument("--disable", nargs="+", metavar="USER", help="remover o túnel do(s) membro(s)")
     p.add_argument("--list", action="store_true", help="listar eepsites activos + endereços")
@@ -632,11 +666,15 @@ def main(argv: list[str] | None = None) -> int:
         return do_list_requests(all_users, args.homes_root, log)
 
     # Sempre garante a infra base antes de activar/desactivar.
-    if args.enable or args.enable_requested or not args.disable:
+    if args.enable or args.enable_all or args.enable_requested or not args.disable:
         if not base_infra(args=args, log=log):
             return 1
 
     targets: list[str] = list(args.enable or [])
+    if args.enable_all:
+        targets.extend(
+            u for u in all_users if not _service_or_admin(u, skip) and _USERNAME_RE.match(u)
+        )
     if args.enable_requested:
         targets.extend(list_requesters(all_users, args.homes_root, log))
     targets = sorted(set(targets))
@@ -650,7 +688,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.disable:
         rc |= do_disable(args.disable, args=args, log=log)
 
-    if not targets and not args.disable and not args.enable_requested:
+    if not targets and not args.disable and not args.enable_requested and not args.enable_all:
         log.info(
             "Infra base pronta. Active membros com: sudo %s --enable <user>  "
             "(ou peça-lhes «runv-i2p request» e corra --enable-requested).",

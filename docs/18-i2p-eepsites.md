@@ -4,9 +4,14 @@
 
 ## Visão geral
 
-Além de HTTP, Gopher, Gemini e Nex, cada membro pode ter (opt-in) um **eepsite** —
-um site servido pela rede **I2P**, sem clearnet. É o quarto "espaço" pessoal da
-casa, no mesmo espírito small web.
+Além de HTTP, Gopher, Gemini e Nex, cada membro tem um **eepsite** — um site
+servido pela rede **I2P**, sem clearnet. É o quarto "espaço" pessoal da casa, no
+mesmo espírito small web.
+
+**Política:** por defeito, **ligado para todos**. Contas novas nascem com eepsite
+(via `create_runv_user.py`, salvo `--no-i2p`); as contas antigas activam-se em bloco
+com `setup_i2p.py --enable-all`. O fluxo opt-in por pedido (`runv-i2p request` +
+`--enable-requested`) continua a existir para casos avulsos.
 
 - Router: **i2pd** (C++, leve — pacote Debian), a correr como serviço `i2pd`.
 - Um **server tunnel HTTP** por membro activado, com chaves próprias → um
@@ -45,36 +50,45 @@ sudo python3 scripts/admin/setup_i2p.py
 ```
 
 Isto instala `i2pd` + `apache2`, activa `mod_vhost_alias`, escreve o vhost
-(`configtest` antes de recarregar) e faz `enable --now` do i2pd. Ainda **não**
-activa nenhum membro (é opt-in).
+(`configtest` antes de recarregar) e faz `enable --now` do i2pd. A infra base
+**não** activa membros por si só.
 
-## Ciclo opt-in
+## Activar os membros existentes (backfill)
 
-1. Membro pede na sua sessão SSH:
+```bash
+sudo python3 scripts/admin/setup_i2p.py --enable-all
+```
 
-   ```bash
-   runv-i2p request      # cria ~/.runv/i2p.request
-   runv-i2p show         # acompanha o estado
-   ```
+Activa o eepsite de **todos** os membros (exclui contas de serviço e `*-admin`).
+Idempotente: reexecutar não duplica túneis nem muda endereços já emitidos.
+Para um só membro: `--enable pablo willy`.
 
-2. Admin lista e activa:
+Ao activar (qualquer variante): cria `~/public_i2p` + `index.html`, escreve o
+túnel, faz `reload-or-restart` do i2pd, espera as chaves, calcula o `.b32` e
+regista-o.
 
-   ```bash
-   sudo python3 scripts/admin/setup_i2p.py --list-requests
-   sudo python3 scripts/admin/setup_i2p.py --enable-requested
-   # ou directamente:
-   sudo python3 scripts/admin/setup_i2p.py --enable pablo willy
-   ```
+## Membros novos (padrão)
 
-   Ao activar: cria `~/public_i2p`, escreve o túnel, faz `reload-or-restart` do
-   i2pd, espera as chaves, calcula o `.b32` e regista-o (consumindo o pedido).
+`create_runv_user.py` já activa o eepsite na criação da conta (fase 3b), a par de
+`public_html`/`gopher`/`gemini`/`nex`. Para criar sem I2P: `--no-i2p` (cria só
+`~/public_i2p`, sem túnel).
 
-3. Membro publica:
+## Ciclo por pedido (opcional)
 
-   ```bash
-   runv-i2p show                 # mostra http://<b32>.b32.i2p/
-   $EDITOR ~/public_i2p/index.html
-   ```
+Para activações avulsas ou se um dia a política voltar a opt-in:
+
+```bash
+runv-i2p request                                        # membro: cria ~/.runv/i2p.request
+sudo python3 scripts/admin/setup_i2p.py --list-requests # admin: lista pendentes
+sudo python3 scripts/admin/setup_i2p.py --enable-requested
+```
+
+## Publicar (membro)
+
+```bash
+runv-i2p show                 # mostra http://<b32>.b32.i2p/
+$EDITOR ~/public_i2p/index.html
+```
 
 ## Operação
 

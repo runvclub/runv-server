@@ -888,6 +888,35 @@ def ensure_gemini_user_symlink(
     )
 
 
+def prepare_public_i2p(
+    username: str,
+    home: Path,
+    log: logging.Logger,
+    *,
+    enable_tunnel: bool,
+) -> None:
+    """
+    Prepara ``~/public_i2p`` (eepsite I2P) e, por defeito, activa o túnel i2pd do
+    membro. Delega em ``setup_i2p`` (fonte única do modelo e da lógica de túnel):
+
+    - ``setup_i2p.enable_member`` cria a pasta + ``index.html``, escreve o túnel,
+      recarrega o i2pd e regista o endereço ``.b32.i2p``.
+    - Se a infra base do i2pd ainda não existir (``/etc/i2pd/tunnels.conf.d``), só se
+      cria ``~/public_i2p`` e avisa-se para correr ``scripts/admin/setup_i2p.py``.
+    - ``--no-i2p`` (``enable_tunnel=False``) cria só a pasta pública, sem túnel.
+    """
+    _ = home  # setup_i2p obtém a home via getpwnam; assinatura alinhada às outras fases
+    import setup_i2p
+
+    if enable_tunnel:
+        b32 = setup_i2p.enable_member(username, log=log)
+        if b32:
+            log.info("eepsite I2P: http://%s/", b32)
+    else:
+        log.info("eepsite I2P: túnel omitido (--no-i2p); só ~/public_i2p")
+        setup_i2p.ensure_user_public_i2p(username, force=False, dry_run=False, log=log)
+
+
 def prepare_user_readme(
     home: Path,
     username: str,
@@ -1104,6 +1133,7 @@ def apply_runv_permissions(home: Path, uid: int, gid: int) -> None:
         ("public_gopher", home / "public_gopher"),
         ("public_gemini", home / "public_gemini"),
         ("public_nex", home / "public_nex"),
+        ("public_i2p", home / "public_i2p"),
     ):
         if path.is_dir():
             try:
@@ -1118,6 +1148,13 @@ def apply_runv_permissions(home: Path, uid: int, gid: int) -> None:
             os.chown(nex_idx, uid, gid)
         except PermissionError as e:
             raise SystemProvisionError(f"não foi possível ajustar permissões de {nex_idx}: {e}") from e
+    i2p_idx = home / "public_i2p" / "index.html"
+    if i2p_idx.is_file():
+        try:
+            os.chmod(i2p_idx, 0o644)
+            os.chown(i2p_idx, uid, gid)
+        except PermissionError as e:
+            raise SystemProvisionError(f"não foi possível ajustar permissões de {i2p_idx}: {e}") from e
     gmap = home / "public_gopher" / "gophermap"
     if gmap.is_file():
         try:
@@ -1153,6 +1190,8 @@ def verify_user_artifact_permissions(
         (home / "public_gemini" / "index.gmi", 0o644, "index.gmi"),
         (home / "public_nex", 0o755, "public_nex"),
         (home / "public_nex" / "index", 0o644, "index (nex)"),
+        (home / "public_i2p", 0o755, "public_i2p"),
+        (home / "public_i2p" / "index.html", 0o644, "index.html (i2p)"),
     ]
     if expect_readme:
         checks.append((home / "README.md", 0o644, "README.md"))
@@ -1861,6 +1900,11 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         help="corrigir bind mount em /var/gemini/users (migra symlink; remount se necessário); não sobrescreve index.gmi existente",
     )
     p.add_argument(
+        "--no-i2p",
+        action="store_true",
+        help="não activar o eepsite I2P do membro (só cria ~/public_i2p, sem túnel i2pd)",
+    )
+    p.add_argument(
         "--metadata-file",
         type=Path,
         default=DEFAULT_METADATA_PATH,
@@ -2110,7 +2154,8 @@ def main(argv: list[str] | None = None) -> int:
             print(f"  pedido fila:  {queue_request.request_id} ({queue_request.queue_path})")
         print(
             "  ações: (1) adduser + skel  (2) authorized_keys  (3) public_html  "
-            "(4) public_gopher + public_gemini + bind Gemini + public_nex  (5) README só com --with-readme  "
+            "(4) public_gopher + public_gemini + bind Gemini + public_nex + public_i2p (eepsite)  "
+            "(5) README só com --with-readme  "
             "(6) permissões  (7) jail SSH só com --with-jail  "
             "(8) quota  (9) verificação + patch IRC (chat)  (10) metadados JSON"
         )
@@ -2153,11 +2198,12 @@ def main(argv: list[str] | None = None) -> int:
         log.info("=== fase 3: public_html e index.html estático")
         prepare_public_html(home, user, uid, gid, args.force_index, log)
 
-        log.info("=== fase 3b: public_gopher (gophermap), public_gemini (index.gmi) e public_nex (index)")
+        log.info("=== fase 3b: public_gopher (gophermap), public_gemini (index.gmi), public_nex (index) e public_i2p (eepsite)")
         prepare_public_gopher(home, user, uid, gid, args.force_gopher, log)
         prepare_public_gemini(home, user, uid, gid, log)
         ensure_gemini_user_symlink(user, home, log, force=args.force_gemini)
         prepare_public_nex(home, user, uid, gid, log)
+        prepare_public_i2p(user, home, log, enable_tunnel=not args.no_i2p)
 
         if args.with_readme:
             log.info("=== fase 4: README.md runv (--with-readme)")
@@ -2279,6 +2325,7 @@ def main(argv: list[str] | None = None) -> int:
         print("  public_gopher:     pronto (gophermap)")
         print("  public_gemini:     pronto (index.gmi)")
         print("  public_nex:        pronto (index) — nexd serve nex://.../users/<user>/")
+        print("  public_i2p:        pronto (index.html) — eepsite I2P (ver «runv-i2p show»)")
         print("  bind Gemini:       /var/gemini/users/<user> <- ~/public_gemini (se o diretório existir)")
         print("  IRC:               comando «chat» → irc.tilde.chat (TLS) #runv (patch_irc.py)")
         if args.with_readme:
