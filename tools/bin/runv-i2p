@@ -1,0 +1,119 @@
+#!/usr/bin/env python3
+"""runv.club — o teu eepsite (site I2P). Ver endereço, pedir activação, ajuda.
+
+Não precisa de root. O endereço .b32.i2p é público (podes partilhá-lo). A
+activação é feita por um administrador (opt-in) com scripts/admin/setup_i2p.py.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import pwd
+import sys
+from pathlib import Path
+
+sys.tracebacklimit = 0
+
+ADDRESS_STORE = Path("/var/lib/runv/i2p/addresses.json")
+REQUEST_MARKER_REL = ".runv/i2p.request"
+PUBLIC_I2P = "public_i2p"
+
+
+def current_user() -> str:
+    return pwd.getpwuid(os.getuid()).pw_name
+
+
+def load_store() -> dict:
+    try:
+        data = json.loads(ADDRESS_STORE.read_text(encoding="utf-8"))
+        return data if isinstance(data, dict) else {}
+    except (OSError, json.JSONDecodeError):
+        return {}
+
+
+def cmd_show(_args: argparse.Namespace) -> int:
+    user = current_user()
+    entry = load_store().get(user)
+    home = Path(pwd.getpwuid(os.getuid()).pw_dir)
+    pending = (home / REQUEST_MARKER_REL).is_file()
+
+    print(f"Eepsite I2P de {user}")
+    print("-" * 32)
+    if entry and entry.get("b32"):
+        print(f"  Endereço : http://{entry['b32']}/")
+        print(f"  Pasta    : ~/{PUBLIC_I2P}/  (edita o index.html e cria mais)")
+        print("  Estado   : activo")
+        print()
+        print("  Partilha esse endereço com quem usa I2P. Pode demorar uns")
+        print("  minutos após o arranque até ficar acessível na rede.")
+    elif pending:
+        print("  Estado   : pedido enviado, à espera de um administrador.")
+        print("  Verás o endereço aqui assim que for activado.")
+    else:
+        print("  Estado   : ainda sem eepsite.")
+        print("  Pede um com:  runv-i2p request")
+    return 0
+
+
+def cmd_request(_args: argparse.Namespace) -> int:
+    user = current_user()
+    if load_store().get(user, {}).get("b32"):
+        print("Já tens um eepsite activo. Vê:  runv-i2p show")
+        return 0
+    home = Path(pwd.getpwuid(os.getuid()).pw_dir)
+    marker = home / REQUEST_MARKER_REL
+    if marker.is_file():
+        print("Já havia um pedido pendente. Um administrador vai tratá-lo.")
+        return 0
+    try:
+        marker.parent.mkdir(parents=True, exist_ok=True)
+        os.chmod(marker.parent, 0o755)
+        marker.write_text("i2p-eepsite-request\n", encoding="utf-8")
+        os.chmod(marker, 0o644)
+    except OSError as e:
+        print(f"Não consegui gravar o pedido: {e}", file=sys.stderr)
+        return 1
+    print("Pedido registado. Um administrador vai activar o teu eepsite I2P.")
+    print("Acompanha com:  runv-i2p show")
+    return 0
+
+
+def cmd_guide(_args: argparse.Namespace) -> int:
+    print(
+        "Eepsite I2P no runv.club\n"
+        "------------------------\n"
+        "Um eepsite é um site servido pela rede I2P (small web, sem clearnet).\n"
+        "\n"
+        "1. Pede a activação:   runv-i2p request\n"
+        "2. Quando activo:      runv-i2p show   (mostra o teu endereço .b32.i2p)\n"
+        "3. Publica conteúdo:   edita ~/public_i2p/index.html e cria mais páginas\n"
+        "\n"
+        "O conteúdo é público. Para visitar eepsites precisas de um cliente I2P\n"
+        "(i2pd ou I2P) e abrir http://<endereço>.b32.i2p/ pelo proxy do I2P.\n"
+    )
+    return 0
+
+
+def main(argv: list[str] | None = None) -> int:
+    p = argparse.ArgumentParser(description="O teu eepsite (site I2P) no runv.club.")
+    sub = p.add_subparsers(dest="cmd")
+    sub.add_parser("show", help="mostra o teu endereço/estado (padrão)")
+    sub.add_parser("status", help="alias de show")
+    sub.add_parser("request", help="pede a activação do teu eepsite")
+    sub.add_parser("guide", help="como funciona")
+    args = p.parse_args(argv)
+
+    cmd = args.cmd or "show"
+    if cmd in ("show", "status"):
+        return cmd_show(args)
+    if cmd == "request":
+        return cmd_request(args)
+    if cmd == "guide":
+        return cmd_guide(args)
+    return cmd_show(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

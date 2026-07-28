@@ -28,6 +28,7 @@ printf '  %brunv-profile%b     Perfil local: runv-profile init | show | path\n' 
 printf '  %brunv-finger%b      Ver perfil público de outro membro (ex.: runv-finger pablo).\n' "${G}" "${R}"
 printf '  %brunv-who%b         Listar membros (--active, --json, --limit N).\n' "${G}" "${R}"
 printf '  %brunv-bulletin%b    Mural no terminal: list | post (mensagens curtas).\n' "${G}" "${R}"
+printf '  %brunv-i2p%b         Eepsite na rede I2P: request | show | guide (opt-in).\n' "${G}" "${R}"
 printf '  %brunv-email-alias%b  Alias user@runv.club: request | status | cancel\n' "${G}" "${R}"
 printf '                      (só membros no grupo runv-members; aprovação pelos admins).\n'
 printf '\n'

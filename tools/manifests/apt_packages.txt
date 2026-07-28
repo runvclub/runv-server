@@ -21,3 +21,6 @@ wget
 git
 # Nex: cliente de terminal «rex» usa netcat (variante OpenBSD).
 netcat-openbsd
+# I2P: router leve em C++ para os eepsites por membro (setup_i2p.py). Apache serve
+# o conteúdo; i2pd faz os túneis. Ver docs/18-i2p-eepsites.md.
+i2pd

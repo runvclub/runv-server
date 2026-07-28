@@ -231,6 +231,7 @@ def install_bin_scripts(
         "runv-finger",
         "runv-who",
         "runv-bulletin",
+        "runv-i2p",
         "runv-email-alias",
         "runv-admin-email-alias",
     ):

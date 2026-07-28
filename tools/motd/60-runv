@@ -101,6 +101,7 @@ printf '  %b%-16s%b %b—%b perfil local (.plan, .project).\n' "${G}" "runv-prof
 printf '  %b%-16s%b %b—%b ver perfil de outro membro.\n' "${G}" "runv-finger" "${R}" "${D}" "${R}"
 printf '  %b%-16s%b %b—%b listar membros da casa.\n' "${G}" "runv-who" "${R}" "${D}" "${R}"
 printf '  %b%-16s%b %b—%b mural comunitário no terminal.\n' "${G}" "runv-bulletin" "${R}" "${D}" "${R}"
+printf '  %b%-16s%b %b—%b o teu site na rede I2P (eepsite, opt-in).\n' "${G}" "runv-i2p" "${R}" "${D}" "${R}"
 printf '  %b%-16s%b %b—%b pedir ou ver alias user@runv.club.\n' "${G}" "runv-email-alias" "${R}" "${D}" "${R}"
 
 print_last_sessions_3x3

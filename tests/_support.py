@@ -83,3 +83,11 @@ try:
     nexd = importlib.import_module("nexd")
 except Exception:  # pragma: no cover
     nexd = None
+
+# setup_i2p importa setup_alt_protocols (grp/pwd), logo só carrega em Unix. Import
+# independente para que a sua ausência não faça pular os testes de outros módulos.
+setup_i2p = None
+try:
+    setup_i2p = importlib.import_module("setup_i2p")
+except Exception:  # pragma: no cover - depende de SO Unix
+    setup_i2p = None
