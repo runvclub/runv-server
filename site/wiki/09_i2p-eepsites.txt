@@ -1,0 +1,43 @@
+I2P - O SEU SITE NA REDE I2P (EEPSITE)
+
+Além de HTTP, Gemini, Gopher e Nex, a sua conta no runv.club também publica na rede I2P. É o quarto espaço público da casa: um "eepsite", ou seja, um site servido dentro da rede anónima I2P, fora da web comum.
+
+O QUE E UM EEPSITE
+
+Um eepsite é um site que só existe dentro da rede I2P. Em vez de um domínio comum, ele tem um endereço próprio que termina em .b32.i2p — uma sequência longa de letras e números. Para abrir um eepsite é preciso um cliente I2P a correr no seu computador; ele não aparece no navegador comum sem esse cliente.
+
+A SUA PASTA PUBLICA I2P
+
+Cada conta tem uma pasta public_i2p na sua home. Tudo o que colocar nela fica público na rede I2P; não guarde ali segredos. Ela já vem com um index.html de exemplo, pronto a editar.
+
+COMO VER O SEU ENDERECO
+
+O seu endereço .b32.i2p é gerado pelo servidor. Para o ver, entre por SSH e rode:
+
+- runv-i2p show — mostra o seu endereço e o estado do eepsite;
+- runv-i2p guide — uma explicação rápida;
+- runv-i2p request — se algum dia o seu não estiver activo, pede a activação.
+
+O endereço é público: pode partilhá-lo à vontade com quem usa I2P.
+
+COMO PUBLICAR
+
+O seu ponto de partida é o ficheiro index.html em public_i2p. Edite-o e crie as páginas que quiser, como faria num site HTML normal.
+
+- edite ~/public_i2p/index.html;
+- crie mais páginas e subpastas e ligue-as com links normais (href);
+- mantenha 755 nas pastas e 644 nos ficheiros, para o servidor conseguir ler.
+
+Depois de activado, o eepsite pode demorar alguns minutos a ficar acessível, enquanto a rede I2P publica os caminhos até ao seu site.
+
+COMO VISITAR EEPSITES
+
+Para visitar qualquer eepsite (o seu ou o de outro membro) precisa de um cliente I2P, como o i2pd ou o I2P oficial, a correr na sua máquina. Com o cliente activo, abra o endereço http://ENDERECO.b32.i2p/ pelo proxy do I2P.
+
+PRIVACIDADE
+
+O eepsite é servido dentro do I2P, uma rede pensada para privacidade e resistência à censura. Ainda assim, como fica alojado num servidor conhecido (o runv.club), pense nele como a sua presença no I2P, e não como hospedagem totalmente anónima: o conteúdo é público e o operador da casa sabe qual endereço é de quem.
+
+PERMISSOES
+
+A regra é a mesma dos outros protocolos: 755 na sua home e na pasta public_i2p, 644 nos ficheiros servidos. Se o site deixar de abrir, comece por repor estes valores.

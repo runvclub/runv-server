@@ -1,6 +1,6 @@
-SMALL WEB - GEMINI, GOPHER E NEX
+SMALL WEB - GEMINI, GOPHER, NEX E I2P
 
-O runv.club vive na "small web": uma internet mais leve, feita de texto, protocolos simples e páginas que abrem sem pressa. Além do site comum (HTTP), a sua conta publica em três protocolos alternativos ao mesmo tempo.
+O runv.club vive na "small web": uma internet mais leve, feita de texto, protocolos simples e páginas que abrem sem pressa. Além do site comum (HTTP), a sua conta publica em quatro protocolos alternativos ao mesmo tempo.
 
 AS SUAS PASTAS PÚBLICAS
 
@@ -9,7 +9,10 @@ Cada conta tem, na sua home, uma pasta por protocolo. Tudo o que colocar nelas f
 - public_html  — o seu site na web (HTTP), visto no navegador comum;
 - public_gemini — a sua cápsula Gemini (ficheiros .gmi);
 - public_gopher — o seu espaço Gopher (gophermap);
-- public_nex   — a sua cápsula Nex (ficheiro index em texto puro).
+- public_nex   — a sua cápsula Nex (ficheiro index em texto puro);
+- public_i2p   — o seu eepsite na rede I2P (site HTML dentro do I2P).
+
+O I2P tem uma página própria nesta wiki, com os detalhes de como ver o seu endereço e publicar.
 
 O PROTOCOLO NEX
 

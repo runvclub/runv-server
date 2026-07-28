@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>I2P - O SEU SITE NA REDE I2P (EEPSITE) — Wiki runv.club</title>
+  <meta name="description" content="I2P - O SEU SITE NA REDE I2P (EEPSITE) — wiki runv.club.">
+  <link rel="canonical" href="https://runv.club/wiki/i2p-eepsites.html">
+  <link rel="alternate" hreflang="pt-BR" href="https://runv.club/wiki/i2p-eepsites.html">
+  <link rel="alternate" hreflang="en" href="https://runv.club/en/wiki/i2p-eepsites.html">
+  <link rel="alternate" hreflang="x-default" href="https://runv.club/wiki/i2p-eepsites.html">
+
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0c0b0f">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://runv.club/wiki/i2p-eepsites.html">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="runv.club">
+  <meta property="og:title" content="I2P - O SEU SITE NA REDE I2P (EEPSITE) — Wiki runv.club">
+  <meta property="og:description" content="I2P - O SEU SITE NA REDE I2P (EEPSITE) — wiki runv.club.">
+  <meta property="og:image" content="https://runv.club/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="runv.club — comunidade brasileira em estilo tilde">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="I2P - O SEU SITE NA REDE I2P (EEPSITE) — Wiki runv.club">
+  <meta name="twitter:description" content="I2P - O SEU SITE NA REDE I2P (EEPSITE) — wiki runv.club.">
+  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+  <div class="wrap">
+    <nav class="top-nav"><a href="/">← runv.club</a></nav>
+
+    <header>
+      <p class="eyebrow">runv.club</p>
+      <nav class="hero-nav wiki-hero-nav" aria-label="Páginas da wiki">
+        <a href="/news/">Notícias</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/">Índice</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/visao-geral.html">Visão geral</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/contas-e-acesso.html">Contas e acesso</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/regras-da-comunidade.html">Regras</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/punicoes-e-moderacao.html">Punições</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/privacidade-e-seguranca.html">Privacidade</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/faq.html">FAQ wiki</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/wiki/small-web-nex.html">Small web</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <span class="hero-nav-current" aria-current="page">I2P</span>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/junte-se/">Junte-se</a>
+        <span class="hero-nav-sep" aria-hidden="true">·</span>
+        <a href="/en/wiki/i2p-eepsites.html" class="lang-switch">English</a>
+      </nav>
+    </header>
+
+    <main class="section prose-block subpage-main wiki-main">
+<h1 class="hero-title subpage-title wiki-page-title">I2P - O SEU SITE NA REDE I2P (EEPSITE)</h1>
+
+<p>Além de HTTP, Gemini, Gopher e Nex, a sua conta no runv.club também publica na rede I2P. É o quarto espaço público da casa: um &quot;eepsite&quot;, ou seja, um site servido dentro da rede anónima I2P, fora da web comum.</p>
+
+<h2>O QUE E UM EEPSITE</h2>
+
+<p>Um eepsite é um site que só existe dentro da rede I2P. Em vez de um domínio comum, ele tem um endereço próprio que termina em .b32.i2p — uma sequência longa de letras e números. Para abrir um eepsite é preciso um cliente I2P a correr no seu computador; ele não aparece no navegador comum sem esse cliente.</p>
+
+<h2>A SUA PASTA PUBLICA I2P</h2>
+
+<p>Cada conta tem uma pasta public_i2p na sua home. Tudo o que colocar nela fica público na rede I2P; não guarde ali segredos. Ela já vem com um index.html de exemplo, pronto a editar.</p>
+
+<h2>COMO VER O SEU ENDERECO</h2>
+
+<p>O seu endereço .b32.i2p é gerado pelo servidor. Para o ver, entre por SSH e rode:</p>
+
+<ul><li>runv-i2p show — mostra o seu endereço e o estado do eepsite;</li><li>runv-i2p guide — uma explicação rápida;</li><li>runv-i2p request — se algum dia o seu não estiver activo, pede a activação.</li></ul>
+
+<p>O endereço é público: pode partilhá-lo à vontade com quem usa I2P.</p>
+
+<h2>COMO PUBLICAR</h2>
+
+<p>O seu ponto de partida é o ficheiro index.html em public_i2p. Edite-o e crie as páginas que quiser, como faria num site HTML normal.</p>
+
+<ul><li>edite ~/public_i2p/index.html;</li><li>crie mais páginas e subpastas e ligue-as com links normais (href);</li><li>mantenha 755 nas pastas e 644 nos ficheiros, para o servidor conseguir ler.</li></ul>
+
+<p>Depois de activado, o eepsite pode demorar alguns minutos a ficar acessível, enquanto a rede I2P publica os caminhos até ao seu site.</p>
+
+<h2>COMO VISITAR EEPSITES</h2>
+
+<p>Para visitar qualquer eepsite (o seu ou o de outro membro) precisa de um cliente I2P, como o i2pd ou o I2P oficial, a correr na sua máquina. Com o cliente activo, abra o endereço http://ENDERECO.b32.i2p/ pelo proxy do I2P.</p>
+
+<h2>PRIVACIDADE</h2>
+
+<p>O eepsite é servido dentro do I2P, uma rede pensada para privacidade e resistência à censura. Ainda assim, como fica alojado num servidor conhecido (o runv.club), pense nele como a sua presença no I2P, e não como hospedagem totalmente anónima: o conteúdo é público e o operador da casa sabe qual endereço é de quem.</p>
+
+<h2>PERMISSOES</h2>
+
+<p>A regra é a mesma dos outros protocolos: 755 na sua home e na pasta public_i2p, 644 nos ficheiros servidos. Se o site deixar de abrir, comece por repor estes valores.</p>
+    </main>
+
+    <footer class="site-footer">
+      <p>Administração: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/faq/" class="footer-link-discrete">FAQ</a></p>
+    </footer>
+  </div>
+</body>
+</html>
