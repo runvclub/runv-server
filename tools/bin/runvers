@@ -34,6 +34,10 @@ printf '  %b%-12s%b %b—%b espaço digital de encontro, conversa e comunidade.\
 printf '  %b%-12s%b %b—%b jardim compartilhado para acompanhar e cuidar de plantas.\n' "${G}" "plantit" "${R}" "${D}" "${R}"
 printf '\n'
 
+printf '%b%bO teu espaço na small web%b\n' "${Y}" "${B}" "${R}"
+printf '  %b%-12s%b %b—%b o teu site na rede I2P (eepsite); vê o endereço com %brunv-i2p show%b.\n' "${G}" "i2p" "${R}" "${D}" "${R}" "${C}" "${R}"
+printf '\n'
+
 printf '%b%bVoltar%b\n' "${Y}" "${B}" "${R}"
 printf '  Pressione %bEnter%b para voltar ao terminal.\n' "${C}" "${R}"
 printf '\n%s\n' '→ Explore quando quiser e volte com calma.'
