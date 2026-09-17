@@ -49,4 +49,8 @@ sudo python3 REPO/scripts/admin/repair_user.py --user USER
 - Sessão fecha de imediato: rever PAM / modo `empty-password` / logs em `/var/log/runv/entre.log`.
 - `/usr/bin/python3: can't open file '/opt/runv/terminal/entre_app.py': [Errno 13] Permission denied`: permissões da instalação em `/opt/runv/terminal` ficaram restritivas ou inconsistentes. Reexecute `sudo python3 REPO/terminal/setup_entre.py --yes` (com as mesmas flags de `--auth-mode` usadas em produção, se não forem as padrão) para reaplicar dono e modos: `/opt/runv` atravessável, árvore do módulo `root:entre` com diretórios `0750` e ficheiros `0640`.
 
+## Manutenção
+
+- Membro com conta aprovada e `authorized_keys` ausente sem intervenção humana: causa por identificar; hipótese e testes na Parte 3 de [relatorio-manutencao-2026-09-17.md](relatorio-manutencao-2026-09-17.md).
+
 Próximo: [14-smoke-tests-and-validation.md](14-smoke-tests-and-validation.md).

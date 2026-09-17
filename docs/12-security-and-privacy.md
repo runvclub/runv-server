@@ -22,4 +22,8 @@
 - Firewall, `sshd_config` global, desactivar root login, etc. — política do operador.
 - Modo `empty-password` do `entre` é **deliberadamente fraco** para onboarding; docstring de `setup_entre.py` descreve riscos.
 
+## Manutenção
+
+- [relatorio-manutencao-2026-09-17.md](relatorio-manutencao-2026-09-17.md) — auditoria de acessos, fail2ban configurado com `nftables` sem o comando `nft` instalado, `logrotate` ausente, retenção do journald e vhost `garden` a responder `200 OK` a qualquer caminho.
+
 Próximo: [13-troubleshooting.md](13-troubleshooting.md).
