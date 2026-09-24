@@ -3,113 +3,87 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Junte-se — runv.club</title>
-  <meta name="description" content="Como gerar uma chave SSH no Linux, macOS ou Windows e pedir entrada na runv.club via ssh entre@runv.club.">
+  <title>Solicitar conta — runv.club</title>
+  <meta name="description" content="Como pedir uma conta no runv.club: gerar chave SSH Ed25519, conectar em entre@runv.club e aguardar a revisão manual.">
   <link rel="canonical" href="https://runv.club/junte-se/">
   <link rel="alternate" hreflang="pt-BR" href="https://runv.club/junte-se/">
   <link rel="alternate" hreflang="en" href="https://runv.club/en/join/">
   <link rel="alternate" hreflang="x-default" href="https://runv.club/junte-se/">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0c0b0f">
+  <meta name="theme-color" content="#8a8f84">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://runv.club/junte-se/">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="runv.club">
-  <meta property="og:title" content="Junte-se — runv.club">
-  <meta property="og:description" content="Como gerar uma chave SSH no Linux, macOS ou Windows e pedir entrada na runv.club via ssh entre@runv.club.">
+  <meta property="og:title" content="Solicitar conta — runv.club">
+  <meta property="og:description" content="Como pedir uma conta no runv.club: gerar chave SSH Ed25519, conectar em entre@runv.club e aguardar a revisão manual.">
   <meta property="og:image" content="https://runv.club/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="runv.club — comunidade brasileira em estilo tilde">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Junte-se — runv.club">
-  <meta name="twitter:description" content="Como gerar uma chave SSH no Linux, macOS ou Windows e pedir entrada na runv.club via ssh entre@runv.club.">
-  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="alternate" type="application/rss+xml" title="runv.club — notícias" href="/news/feed.rss">
+  <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-  <div class="wrap">
-    <nav class="top-nav"><a href="/">← runv.club</a></nav>
+<div class="sheet">
+  <header class="job">
+    <span>srv1.runv.club</span>
+    <span class="stamp">/junte-se/</span>
+    <a href="/en/join/" hreflang="en" lang="en" class="lang">english</a>
+  </header>
+  <nav class="menu" aria-label="Páginas">
+    <a href="/">início</a>
+    <a href="/junte-se/" aria-current="page">junte-se</a>
+    <a href="/wiki/">wiki</a>
+    <a href="/news/">notícias</a>
+    <a href="/recentes/">recentes</a>
+    <a href="/now/">agora</a>
+  </nav>
+  <main id="conteudo">
+    <p class="cmd">man entre</p>
+    <h1 class="title">Solicitar conta</h1>
+    <p>Acesso somente por chave SSH. Não há cadastro web nem senha. O pedido leva cerca de 5 minutos; depois vem a revisão manual.</p>
 
-    <header>
-      <p class="eyebrow">runv.club</p>
-      <nav class="hero-nav" aria-label="Outras páginas">
-        <a href="/news/">Notícias</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/">Wiki</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <span class="hero-nav-current" aria-current="page">Junte-se</span>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/en/join/" class="lang-switch">English</a>
-      </nav>
-      <h1 class="hero-title subpage-title">Junte-se</h1>
-      <p class="subpage-intro">Uma chave SSH no seu computador e um primeiro contato com <span class="ssh-identity">entre@runv.club</span> — de um jeito simples, em qualquer sistema.</p>
-    </header>
-
-    <div class="entre-callout" role="status">
-      <span class="entre-callout-label">Pedido de entrada</span>
-      <span class="ssh-identity ssh-identity-lg">entre@runv.club</span>
-    </div>
-
-    <section class="mini-cards" aria-label="Antes de começar">
-      <article class="mini-card">
-        <p class="mini-card-kicker">O que você precisa</p>
-        <h2>Um computador e alguns minutos</h2>
-        <p>Você só precisa gerar uma chave SSH, copiar a parte pública e seguir o fluxo guiado do <span class="ssh-identity">entre@runv.club</span>.</p>
-      </article>
-      <article class="mini-card">
-        <p class="mini-card-kicker">Sem pressa</p>
-        <h2>Não precisa saber tudo agora</h2>
-        <p>Se esta for sua primeira vez com SSH, tudo bem. A ideia aqui é justamente tornar esse começo mais simples e amigável.</p>
-      </article>
-    </section>
-
-    <main class="section prose-block subpage-main join-main">
-      <h2>Em resumo</h2>
-      <ol class="checklist join-summary">
-        <li><strong>Gere</strong> um par de chaves SSH no seu computador. Você vai usar só a <em>chave pública</em> no pedido.</li>
-        <li><strong>Conecte-se</strong> com <code>ssh</code> a <span class="ssh-identity">entre@runv.club</span> e siga o que aparecer na tela.</li>
-        <li><strong>Aguarde</strong> a revisão. O processo é manual e não há cadastro instantâneo.</li>
-      </ol>
-
-      <p>
-        Se esta é a sua primeira vez usando SSH, tudo bem: esta página foi pensada justamente para ajudar você a dar esse primeiro passo com calma.
-      </p>
-
-      <h2>Linux</h2>
-      <p>No terminal, gere uma chave Ed25519 e copie a linha da <strong>chave pública</strong> (<code>.pub</code>).</p>
-      <pre class="code-block" tabindex="0"><code>ssh-keygen -t ed25519 -C "seu-email-ou-pc" -f ~/.ssh/id_ed25519_runv
+    <h2>1. Gerar o par de chaves</h2>
+    <p>Linux e macOS:</p>
+    <pre class="shell" tabindex="0"><code>ssh-keygen -t ed25519 -C "your-email-or-host" -f ~/.ssh/id_ed25519_runv
 cat ~/.ssh/id_ed25519_runv.pub</code></pre>
-
-      <h2>macOS</h2>
-      <p>No <strong>Terminal</strong> (Spotlight: “Terminal”), use os mesmos comandos do Linux. O OpenSSH já vem no sistema; se quiser, pode adicionar a chave com <code>ssh-add ~/.ssh/id_ed25519_runv</code>.</p>
-      <pre class="code-block" tabindex="0"><code>ssh-keygen -t ed25519 -C "seu-email-ou-pc" -f ~/.ssh/id_ed25519_runv
-cat ~/.ssh/id_ed25519_runv.pub</code></pre>
-
-      <h2>Windows</h2>
-      <p>No <strong>PowerShell</strong> ou Terminal do Windows, confirme primeiro se o cliente existe com <code>ssh -V</code>. Se faltar, instale o <em>Cliente OpenSSH</em> em Configurações → Aplicativos → Recursos opcionais.</p>
-      <pre class="code-block" tabindex="0"><code>ssh-keygen -t ed25519 -C "seu-email-ou-pc" -f $env:USERPROFILE\.ssh\id_ed25519_runv
+    <p>Windows (PowerShell). Se <code>ssh -V</code> falhar, instale o Cliente OpenSSH em Configurações &gt; Aplicativos &gt; Recursos opcionais.</p>
+    <pre class="shell" tabindex="0"><code>ssh-keygen -t ed25519 -C "your-email-or-host" -f $env:USERPROFILE\.ssh\id_ed25519_runv
 Get-Content $env:USERPROFILE\.ssh\id_ed25519_runv.pub</code></pre>
-      <p class="join-note">Nunca compartilhe o arquivo <strong>sem</strong> <code>.pub</code>. Esse é o arquivo privado e deve ficar só com você.</p>
+    <p class="rem">o arquivo sem .pub é a chave privada: não envie, não compartilhe</p>
 
-      <h2>Ligar ao <span class="ssh-identity">entre@runv.club</span></h2>
-      <p>Linux / macOS:</p>
-      <pre class="code-block" tabindex="0"><code>ssh -i ~/.ssh/id_ed25519_runv entre@runv.club</code></pre>
-      <p>Windows (PowerShell):</p>
-      <pre class="code-block" tabindex="0"><code>ssh -i $env:USERPROFILE\.ssh\id_ed25519_runv entre@runv.club</code></pre>
-      <p>Na primeira vez, aceite a fingerprint se estiver conectando ao servidor certo. Se a sua chave tiver outro nome ou estiver no caminho padrão, você pode omitir <code>-i</code>.</p>
-      <p>
-        Dúvidas ou bloqueios: <a href="mailto:admin@runv.club">admin@runv.club</a>. A preferência é por chaves <strong>Ed25519</strong>; ECDSA e RSA também podem ser aceitas conforme a política do servidor.
-      </p>
-      <p>
-        Depois que a conta for aprovada, você poderá entrar na pubnix, criar sua página pessoal, explorar o ambiente e conversar com a comunidade no IRC.
-      </p>
-    </main>
+    <h2>2. Conectar ao entre</h2>
+    <pre class="shell" tabindex="0"><code>ssh -i ~/.ssh/id_ed25519_runv entre@runv.club</code></pre>
+    <p>Na primeira conexão, confira o host e aceite a fingerprint. O formulário no terminal pede nome de usuário, e-mail, presença online (opcional) e a chave pública (conteúdo do <code>.pub</code>).</p>
 
-    <footer class="site-footer">
-      <p>Administração: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/faq/" class="footer-link-discrete">FAQ</a></p>
-    </footer>
-  </div>
+    <h2>3. Revisão</h2>
+    <p>A fila é revisada manualmente. Aprovado o pedido, a conta é criada e a confirmação chega por e-mail. Acesso a partir daí:</p>
+    <pre class="shell" tabindex="0"><code>ssh -i ~/.ssh/id_ed25519_runv USUARIO@runv.club</code></pre>
+
+    <h2>Requisitos</h2>
+    <ul>
+      <li>Nome de usuário: 2 a 32 caracteres, minúsculas, dígitos, <code>_</code> e <code>-</code>, começando por letra.</li>
+      <li>Chave Ed25519 (preferida). ECDSA e RSA são aceitas conforme a política do servidor.</li>
+      <li>E-mail válido para a confirmação.</li>
+      <li>Concordância com as <a href="/wiki/regras-da-comunidade.html">regras</a>.</li>
+    </ul>
+    <p>Problemas com o pedido: <a href="mailto:admin@runv.club">admin@runv.club</a>. Perguntas frequentes em <a href="/faq/">/faq</a>.</p>
+  </main>
+  <div class="tear" role="separator"></div>
+  <footer class="foot">
+    <p class="h-card">contato: <a class="u-email" href="mailto:admin@runv.club">admin@runv.club</a> <a class="p-name u-url" href="https://runv.club/" hidden>runv.club</a>
+      <br><a href="/news/feed.rss">RSS</a>  <a href="https://tildeverse.org/">tildeverse</a></p>
+    <div class="badges">
+      <img src="/assets/88x31/runv-club.svg" width="88" height="31" alt="runv.club">
+      <img src="/assets/88x31/debian.svg" width="88" height="31" alt="Debian">
+      <img src="/assets/88x31/feito-no-brasil.svg" width="88" height="31" alt="feito no Brasil">
+      <img src="/assets/88x31/rss.svg" width="88" height="31" alt="RSS">
+    </div>
+    <details class="snippet">
+      <summary>botão 88x31 para linkar o runv.club</summary>
+      <pre><code>&lt;a href=&quot;https://runv.club/&quot;&gt;&lt;img src=&quot;https://runv.club/assets/88x31/runv-club.svg&quot; width=&quot;88&quot; height=&quot;31&quot; alt=&quot;runv.club&quot;&gt;&lt;/a&gt;</code></pre>
+    </details>
+  </footer>
+</div>
 </body>
 </html>

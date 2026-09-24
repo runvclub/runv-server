@@ -1,21 +1,21 @@
-RUNV.CLUB - PRIVACIDADE E SEGURANÇA
+Privacidade e segurança
 
-PRINCÍPIO GERAL
+## Princípio geral
 
 Privacidade e segurança fazem parte da operação básica de qualquer sistema minimamente sério.
 
-DADOS E RESPONSABILIDADE
+## Dados e responsabilidade
 
 O usuário deve fornecer apenas os dados necessários para uso do sistema e manter suas informações atualizadas quando isso for relevante para acesso, suporte e segurança.
 
 A administração deve tratar os dados com cuidado, limitar acessos internos e reduzir exposição desnecessária.
 
-O USUÁRIO TAMBÉM TEM RESPONSABILIDADE
+## O usuário também tem responsabilidade
 
 A plataforma tem deveres de proteção, mas o usuário também precisa cuidar da própria conta, da chave privada, do dispositivo usado para acesso e dos sinais de comprometimento.
 Segurança é responsabilidade dividida.
 
-O QUE O USUÁRIO DEVE EVITAR
+## O que o usuário deve evitar
 
 - compartilhar chaves ou credenciais;
 - publicar dados pessoais de terceiros;
@@ -23,7 +23,7 @@ O QUE O USUÁRIO DEVE EVITAR
 - ignorar indícios de invasão ou comprometimento;
 - instalar extensões suspeitas ou software duvidoso no dispositivo usado para SSH ou e-mail.
 
-INCIDENTES DE SEGURANÇA
+## Incidentes de segurança
 
 Qualquer suspeita de:
 - acesso indevido;
@@ -36,16 +36,16 @@ Qualquer suspeita de:
 deve ser comunicada imediatamente para:
 admin@runv.club
 
-ANÁLISE DE EVENTOS
+## Análise de eventos
 
 Para proteger a plataforma, a administração pode analisar registros técnicos, padrões de uso, histórico de acesso e evidências relacionadas a incidentes, abuso e moderação.
 
-LIMITAÇÃO IMPORTANTE
+## Limitação importante
 
 Nenhum sistema online é invulnerável.
 O que importa é reduzir risco, responder rápido, registrar incidentes relevantes e corrigir o que for confirmado.
 
-BOAS PRÁTICAS OPERACIONAIS
+## Boas práticas operacionais
 
 - revisar acessos suspeitos;
 - registrar incidentes relevantes;
@@ -53,11 +53,11 @@ BOAS PRÁTICAS OPERACIONAIS
 - corrigir falhas confirmadas;
 - orientar usuários afetados quando necessário.
 
-PRIVACIDADE DE TERCEIROS
+## Privacidade de terceiros
 
 É proibido usar o sistema para coletar, copiar, divulgar ou explorar dados de outros usuários sem base legítima e sem autorização.
 
-CONTATO OFICIAL
+## Contato oficial
 
 Dúvidas sobre segurança, privacidade ou incidente:
 admin@runv.club

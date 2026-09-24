@@ -5,7 +5,33 @@
 ## Conteúdo estático
 
 - **`site/public/`:** HTML, CSS, JS servidos como DocumentRoot após `genlanding.py`.
-- A landing faz `fetch("data/members.json")` **relativo à URL** — o ficheiro efectivo é **`DocumentRoot/data/members.json`** (ver `site/public/assets/app.js`).
+- **Visual "formulário contínuo":** um único `assets/style.css` (tokens em `:root`, fonte Courier Prime auto-hospedada em `assets/fonts/`). A moldura comum (head, cabeçalho, navegação, rodapé com botões 88x31) vive em **`site/chrome.py`**, usada por `build_home.py`, `wiki/build_wiki.py` e `kiosk.py`. As páginas escritas à mão (`junte-se`, `faq`, `news`, `now` e equivalentes em `en/`) copiam a mesma marcação: ao mudar `chrome.py`, actualize-as.
+- **Tom dos textos:** impessoal, directo e técnico. Sem primeira pessoa.
+
+## Home gerada: `site/build_home.py`
+
+A home (`index.html` e `en/index.html`) é gerada, não editada à mão. Fontes:
+
+| Ficheiro | Conteúdo |
+|---|---|
+| `DocumentRoot/data/members.json` | lista `ls -lt` (já filtrada por `build_directory.py`; o script não lê `users.json`) |
+| `--homes-root /home` | data do `public_html/index.html` e contagem de ficheiros |
+| `/etc/os-release`, `/proc/meminfo`, disco | linha `uname`/status |
+| `site/home.pt.txt`, `site/home.en.txt` | texto do `cat /etc/motd` |
+| `site/diario.txt` | changelog (`AAAA-MM-DD \| pt \| en`, 8 mais recentes) |
+
+- **`genlanding.py`** (completo e `--sync-public-only`) corre `build_home.py` **depois** de copiar `site/public/` e regenerar `members.json`, porque a cópia apaga o DocumentRoot. `--no-build-home` desliga.
+- **`--members-homes-root`** passa a `/home` por omissão quando a pasta existe.
+- **Timer horário:** `site/systemd/runv-home.{service,timer}` regenera `members.json` e a home sem recopiar o resto. Instalação no cabeçalho do `.service` (ajustar `RUNV_REPO` se o checkout não estiver em `/opt/runv-server`):
+
+```bash
+sudo install -m 644 site/systemd/runv-home.service site/systemd/runv-home.timer /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now runv-home.timer
+sudo systemctl start runv-home.service && journalctl -u runv-home.service -n 20
+```
+
+- A `site/public/index.html` versionada é só o fallback (gerada localmente com `--facts-json`).
 
 ## Script: `site/genlanding.py`
 
@@ -22,9 +48,9 @@
 
 - **Recomendação:** DNS a apontar para o servidor antes de Certbot (documentado historicamente).
 
-## Constelação (bolhas)
+## Lista de membros na home
 
-- Depende de `members.json` no DocumentRoot.
-- Após **`create_runv_user.py`:** se `--landing-document-root` existir como directório, o script corre **`genlanding.py --sync-public-only`** (cópia de `site/public/` + `members.json`) e imprime **`landing (public + bolhas)`** ou **AVISO** se faltar path ou falhar (**evidência:** `create_runv_user.py`).
+- A constelação (`app.js`) foi removida; a lista `ls -lt` da home ocupa o lugar dela.
+- Após **`create_runv_user.py`:** se `--landing-document-root` existir como directório, o script corre **`genlanding.py --sync-public-only`** (cópia de `site/public/` + `members.json` + home) e imprime **`landing (public + bolhas)`** ou **AVISO** se faltar path ou falhar (**evidência:** `create_runv_user.py`).
 
 Próximo: [07-public-members-directory.md](07-public-members-directory.md).

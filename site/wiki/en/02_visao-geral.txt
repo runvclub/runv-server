@@ -1,14 +1,14 @@
-RUNV.CLUB - OVERVIEW
+Overview
 
-WHAT IS RUNV.CLUB
+## What is runv.club
 
 runv.club is a Brazilian community in the tilde style: an online space with a Unix/Linux shell account, personal page, terminal, wiki, news, and community life around technology, digital culture, and learning.
 
-PURPOSE
+## Purpose
 
 The purpose of runv.club is to offer a more human, more personal, and calmer place to study, publish, chat, and explore the internet with less noise and more autonomy.
 
-BASIC PRINCIPLES
+## Basic principles
 
 1. Clarity
    People need to understand how to join, how to ask for help, and how to use the system without guesswork.
@@ -25,13 +25,13 @@ BASIC PRINCIPLES
 5. Good faith
    The system was built for learning, community, creation, and exchange — not for fraud, abuse, or sabotage.
 
-WHO IT'S FOR
+## Who it's for
 
 runv.club is for beginners, the curious, students, professionals, and enthusiasts who want to learn more about Unix/Linux, publish a personal page, use classic tools, and take part in a Brazilian technology community.
 
 You don't need to arrive already knowing everything.
 
-WHAT YOU'LL FIND HERE
+## What you'll find here
 
 - shell access in a Unix/Linux environment;
 - space for a personal page;
@@ -40,15 +40,15 @@ WHAT YOU'LL FIND HERE
 - the community's IRC channel;
 - rules, support, and guidance.
 
-WHAT THE SYSTEM IS NOT
+## What the system is not
 
 runv.club is not a rules-free space, and it wasn't built for spam, fraud, harassment, intrusion, malicious exploitation, abusive data collection, or any use that harms other people or the platform's operation.
 
-SUPPORT
+## Support
 
 If a question, technical issue, access problem, or need for guidance comes up, the official contact is:
 admin@runv.club
 
-FINAL GUIDELINE
+## Final guideline
 
 If something isn't explicitly covered, that doesn't mean anything goes. Using the system depends on good faith, respect for the published rules, and preserving the safety of the platform and the community.

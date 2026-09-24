@@ -41,6 +41,10 @@ from urllib.parse import urljoin, urlparse
 VERSION: Final[str] = "0.01"
 
 _SITE_DIR: Final[Path] = Path(__file__).resolve().parent
+if str(_SITE_DIR) not in sys.path:
+    sys.path.insert(0, str(_SITE_DIR))
+import chrome  # noqa: E402
+
 DEFAULT_SOURCES: Final[Path] = _SITE_DIR / "kiosk-sources.txt"
 DEFAULT_OUT_DIR: Final[Path] = _SITE_DIR / "public" / "recentes"
 DEFAULT_DAYS: Final[int] = 45
@@ -266,57 +270,39 @@ def render_page(entries: list[Entry], *, generated_at: datetime) -> str:
     for e in entries:
         d = e.date.strftime("%Y-%m-%d")
         rows.append(
-            '        <li class="kiosk-item">\n'
-            f'          <time datetime="{html.escape(d, quote=True)}">{html.escape(d)}</time>\n'
-            f'          <a href="{html.escape(e.url, quote=True)}">{html.escape(e.title)}</a>\n'
-            f'          <span class="kiosk-src">— {html.escape(e.source_title)}</span>\n'
-            "        </li>"
+            f'      <li><time datetime="{html.escape(d, quote=True)}">{html.escape(d)}</time>'
+            f'<span><a href="{html.escape(e.url, quote=True)}">{html.escape(e.title)}</a>'
+            f' <span class="muted">({html.escape(e.source_title)})</span></span></li>'
         )
-    listing = "\n".join(rows) if rows else '        <li class="kiosk-empty">Ainda sem entradas recentes. Publique um blog ou journal e peça para entrar na lista.</li>'
+    if rows:
+        listing = '<ul class="kiosk">\n' + "\n".join(rows) + "\n    </ul>"
+    else:
+        listing = (
+            '<p class="rem">nenhuma fonte cadastrada</p>\n'
+            '    <p>Inclusão por pedido: publique no formato HTML Blog ou HTML Journal e envie a URL para '
+            '<a href="mailto:admin@runv.club">admin@runv.club</a>. '
+            'Especificação em <a href="/wiki/small-web-nex.html">/wiki/small-web-nex</a>.</p>'
+        )
     gen = generated_at.strftime("%Y-%m-%d %H:%M UTC")
-    return f"""<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Recentes — blogs e journals — runv.club</title>
-  <meta name="description" content="Entradas recentes de blogs e journals dos membros do runv.club, no formato HTML Blog/Journal da small web.">
-  <link rel="canonical" href="https://runv.club/recentes/">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0c0b0f">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/assets/style.css">
-</head>
-<body>
-  <div class="page-root">
-  <div class="wrap">
-    <header class="hero">
-      <nav class="hero-nav" aria-label="Outras páginas">
-        <a href="/">Início</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/news/">Notícias</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/">Wiki</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/nex/">Nex</a>
-      </nav>
-      <h1 class="hero-title">Recentes</h1>
-      <p class="hero-subtitle">Blogs e journals dos membros, no formato HTML Blog/Journal da small web. Publique o seu e peça para entrar na lista.</p>
-    </header>
-    <section class="section">
-      <ul class="kiosk-list">
-{listing}
-      </ul>
-      <p class="section-kicker" style="margin-top:2rem">Gerado em {gen} · {len(entries)} entrada(s)</p>
-    </section>
-    <footer class="site-footer">
-      <p>Administração: <a href="mailto:admin@runv.club">admin@runv.club</a></p>
-    </footer>
-  </div>
-  </div>
-</body>
-</html>
-"""
+    head_html = chrome.head(
+        locale="pt",
+        title="Recentes: blogs e journals da casa — runv.club",
+        description="Entradas recentes de blogs e journals dos membros do runv.club, no formato HTML Blog/Journal da small web.",
+        canonical="/recentes/",
+    )
+    body = f"""    <p class="cmd">kiosk --days 45</p>
+    <h1 class="title">Recentes</h1>
+    <p>Entradas recentes de blogs dos membros no formato HTML Blog/Journal, ordenadas por data. Fontes opt-in.</p>
+    {listing}
+    <p class="muted">Gerado em {gen}. {len(entries)} entrada(s).</p>"""
+    return chrome.document(
+        locale="pt",
+        head_html=head_html,
+        current="recentes",
+        stamp=f"gerado em {gen}",
+        other_href=None,
+        body=body,
+    )
 
 
 def main(argv: list[str] | None = None) -> int:

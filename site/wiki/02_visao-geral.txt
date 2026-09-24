@@ -1,14 +1,14 @@
-RUNV.CLUB - VISÃO GERAL
+Visão geral
 
-O QUE É O RUNV.CLUB
+## O que é o runv.club
 
 O runv.club é uma comunidade brasileira em estilo tilde: um espaço online com conta shell Unix/Linux, página pessoal, terminal, wiki, notícias e convivência em torno de tecnologia, cultura digital e aprendizado.
 
-OBJETIVO
+## Objetivo
 
 O objetivo do runv.club é oferecer um lugar mais humano, mais autoral e mais tranquilo para estudar, publicar, conversar e explorar a internet com menos ruído e mais autonomia.
 
-PRINCÍPIOS BÁSICOS
+## Princípios básicos
 
 1. Clareza
    A pessoa precisa entender como entrar, como pedir ajuda e como usar o sistema sem adivinhação.
@@ -25,13 +25,13 @@ PRINCÍPIOS BÁSICOS
 5. Boa-fé
    O sistema foi feito para estudo, convivência, criação e troca, não para fraude, abuso ou sabotagem.
 
-PARA QUEM É
+## Para quem é
 
 O runv.club é para iniciantes, curiosos, estudantes, profissionais e entusiastas que queiram aprender mais sobre Unix/Linux, publicar uma página pessoal, usar ferramentas clássicas e participar de uma comunidade brasileira de tecnologia.
 
 Você não precisa chegar sabendo tudo.
 
-O QUE VOCÊ ENCONTRA AQUI
+## O que você encontra aqui
 
 - acesso shell em ambiente Unix/Linux;
 - espaço para página pessoal;
@@ -40,15 +40,15 @@ O QUE VOCÊ ENCONTRA AQUI
 - canal de IRC da comunidade;
 - regras, suporte e orientação.
 
-O QUE O SISTEMA NÃO É
+## O que o sistema não é
 
 O runv.club não é um espaço sem regras e não foi feito para spam, fraude, assédio, invasão, exploração maliciosa, coleta abusiva de dados ou uso que prejudique outras pessoas e a operação da plataforma.
 
-SUPORTE
+## Suporte
 
 Se surgir dúvida, problema técnico, questão de acesso ou necessidade de orientação, o contato oficial é:
 admin@runv.club
 
-DIRETRIZ FINAL
+## Diretriz final
 
 Se algo não estiver detalhado, isso não significa que vale tudo. O uso do sistema depende de boa-fé, respeito às regras publicadas e preservação da segurança da plataforma e da comunidade.

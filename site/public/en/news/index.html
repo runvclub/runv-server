@@ -4,60 +4,61 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>News — runv.club</title>
-  <meta name="description" content="Official announcements, server changes, and updates from the runv.club community — a Brazilian Unix/Linux pubnix.">
+  <meta name="description" content="runv.club announcements are published in Portuguese; RSS feed available.">
   <link rel="canonical" href="https://runv.club/en/news/">
   <link rel="alternate" hreflang="pt-BR" href="https://runv.club/news/">
   <link rel="alternate" hreflang="en" href="https://runv.club/en/news/">
   <link rel="alternate" hreflang="x-default" href="https://runv.club/news/">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0c0b0f">
-  <link rel="alternate" type="application/rss+xml" title="runv.club news" href="https://runv.club/news/feed.rss">
+  <meta name="theme-color" content="#8a8f84">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://runv.club/en/news/">
   <meta property="og:locale" content="en_US">
   <meta property="og:site_name" content="runv.club">
   <meta property="og:title" content="News — runv.club">
-  <meta property="og:description" content="Official announcements and updates from the runv.club community.">
+  <meta property="og:description" content="runv.club announcements are published in Portuguese; RSS feed available.">
   <meta property="og:image" content="https://runv.club/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="runv.club — a Brazilian tilde-style community">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="News — runv.club">
-  <meta name="twitter:description" content="Official announcements and updates from the runv.club community.">
-  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/style.css">
+  <link rel="alternate" type="application/rss+xml" title="runv.club — notícias" href="/news/feed.rss">
+  <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-  <div class="wrap">
-    <nav class="top-nav"><a href="/en/">← runv.club</a></nav>
-
-    <header>
-      <p class="eyebrow">runv.club</p>
-      <nav class="hero-nav" aria-label="Other pages">
-        <span class="hero-nav-current" aria-current="page">News</span>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/en/wiki/">Wiki</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/en/join/">Join</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/news/" class="lang-switch">Português</a>
-      </nav>
-      <h1 class="hero-title subpage-title">News</h1>
-      <p class="subpage-intro">Official announcements, server changes, and community updates.</p>
-    </header>
-
-    <main class="section subpage-main news-main">
-      <p class="placeholder-block">
-        News posts are currently written in Portuguese only, since they cover operational details for the runv.club server and community.
-        Read them on the <a href="/news/">Portuguese news page</a>, or subscribe to the <a href="/news/feed.rss">RSS feed</a> to follow updates.
-      </p>
-    </main>
-
-    <footer class="site-footer">
-      <p>Admin: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/en/faq/" class="footer-link-discrete">FAQ</a></p>
-    </footer>
-  </div>
+<div class="sheet">
+  <header class="job">
+    <span>srv1.runv.club</span>
+    <span class="stamp">/en/news/</span>
+    <a href="/news/" hreflang="pt-BR" lang="pt-BR" class="lang">português</a>
+  </header>
+  <nav class="menu" aria-label="Pages">
+    <a href="/en/">home</a>
+    <a href="/en/join/">join</a>
+    <a href="/en/wiki/">wiki</a>
+    <a href="/en/news/" aria-current="page">news</a>
+    <a href="/recentes/">recent (pt)</a>
+    <a href="/en/now/">now</a>
+  </nav>
+  <main id="conteudo">
+    <p class="cmd">tail -f /news</p>
+    <h1 class="title">News</h1>
+    <p>Announcements are written in Portuguese only: they cover server operations and community notices.</p>
+    <p>Read them at <a href="/news/" hreflang="pt-BR">/news</a> or subscribe to <a href="/news/feed.rss" type="application/rss+xml">/news/feed.rss</a>. Server changes are also summarized in English in the changelog on the <a href="/en/">home page</a>.</p>
+  </main>
+  <div class="tear" role="separator"></div>
+  <footer class="foot">
+    <p class="h-card">contact: <a class="u-email" href="mailto:admin@runv.club">admin@runv.club</a> <a class="p-name u-url" href="https://runv.club/" hidden>runv.club</a>
+      <br><a href="/news/feed.rss">RSS</a>  <a href="https://tildeverse.org/">tildeverse</a></p>
+    <div class="badges">
+      <img src="/assets/88x31/runv-club.svg" width="88" height="31" alt="runv.club">
+      <img src="/assets/88x31/debian.svg" width="88" height="31" alt="Debian">
+      <img src="/assets/88x31/feito-no-brasil.svg" width="88" height="31" alt="feito no Brasil">
+      <img src="/assets/88x31/rss.svg" width="88" height="31" alt="RSS">
+    </div>
+    <details class="snippet">
+      <summary>88x31 button for linking to runv.club</summary>
+      <pre><code>&lt;a href=&quot;https://runv.club/&quot;&gt;&lt;img src=&quot;https://runv.club/assets/88x31/runv-club.svg&quot; width=&quot;88&quot; height=&quot;31&quot; alt=&quot;runv.club&quot;&gt;&lt;/a&gt;</code></pre>
+    </details>
+  </footer>
+</div>
 </body>
 </html>

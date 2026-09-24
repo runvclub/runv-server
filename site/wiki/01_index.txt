@@ -1,4 +1,4 @@
-RUNV.CLUB - WIKI
+Wiki do runv.club
 
 Bem-vindo à wiki do runv.club.
 
@@ -11,11 +11,11 @@ Se você acabou de chegar, o melhor caminho costuma ser:
 - conferir a FAQ;
 - guardar o contato oficial.
 
-CONTATO OFICIAL
+## Contato oficial
 
 E-mail: admin@runv.club
 
-AJUDA RÁPIDA
+## Ajuda rápida
 
 Se você precisa de uma resposta curta:
 
@@ -23,6 +23,6 @@ Se você precisa de uma resposta curta:
 - para suporte ou questões sensíveis, use admin@runv.club;
 - para conversa e dúvidas rápidas, entre por SSH e rode chat; ele abre o WeeChat direto no canal #runv.
 
-OBJETIVO DESTA WIKI
+## Objetivo desta wiki
 
 Esta wiki existe para reduzir confusão, deixar expectativas claras e ajudar cada pessoa a usar o sistema com mais tranquilidade.

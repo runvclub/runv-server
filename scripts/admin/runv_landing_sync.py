@@ -83,7 +83,7 @@ def try_sync_landing_via_genlanding(
             parsed = json.loads(raw)
             if isinstance(parsed, list):
                 n_public = len(parsed)
-                log.info("constelação: %s membro(s) no dataset público (%s)", n_public, out)
+                log.info("members.json: %s membro(s) no dataset público (%s)", n_public, out)
         except (OSError, json.JSONDecodeError, TypeError) as ex:
             log.warning("members.json após sync não foi possível validar: %s", ex)
         return True, n_public

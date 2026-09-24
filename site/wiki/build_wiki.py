@@ -36,7 +36,11 @@ if str(ADMIN_DIR) not in sys.path:
 
 from admin_guard import ensure_admin_cli
 
-BASE_URL: Final[str] = "https://runv.club"
+if str(SITE_DIR) not in sys.path:
+    sys.path.insert(0, str(SITE_DIR))
+import chrome  # noqa: E402
+
+BASE_URL: Final[str] = chrome.BASE_URL
 SITEMAP_PATH = SITE_DIR / "public" / "sitemap.xml"
 
 TXT_GLOB = "[0-9][0-9]_*.txt"
@@ -88,7 +92,8 @@ LOCALES: Final[dict[str, dict[str, Any]]] = {
         "index_title": "Wiki — runv.club",
         "sub_desc_suffix": " — wiki runv.club.",
         "sub_title_suffix": " — Wiki runv.club",
-        "lang_switch_label": "English",
+        "nav_label": "Páginas da wiki",
+        "stamp": "wiki",
     },
     "en": {
         "src_dir": "wiki/en",
@@ -110,7 +115,8 @@ LOCALES: Final[dict[str, dict[str, Any]]] = {
         "index_title": "Wiki — runv.club",
         "sub_desc_suffix": " — runv.club wiki.",
         "sub_title_suffix": " — runv.club Wiki",
-        "lang_switch_label": "Português",
+        "nav_label": "Wiki pages",
+        "stamp": "wiki",
     },
 }
 OTHER_LOCALE: Final[dict[str, str]] = {"pt": "en", "en": "pt"}
@@ -150,7 +156,9 @@ def block_to_html(block: list[str], *, is_first: bool) -> str:
     if len(block) == 1:
         line = block[0].strip()
         if is_first:
-            return f'<h1 class="hero-title subpage-title wiki-page-title">{html.escape(line)}</h1>'
+            return f'<h1 class="title">{html.escape(line)}</h1>'
+        if line.startswith("## "):
+            return f"<h2>{html.escape(line[3:].strip())}</h2>"
         if is_heading_line(line):
             return f"<h2>{html.escape(line)}</h2>"
         return f"<p>{html.escape(line)}</p>"
@@ -198,106 +206,50 @@ def page_shell(
     available_locales: set[str],
 ) -> str:
     cfg = LOCALES[locale_key]
-    nav_items = []
+    slug_for_url = current_slug or "index"
+
+    items = []
     for slug, label in nav_pages:
-        if current_slug is not None and slug == current_slug:
-            nav_items.append(
-                f'<span class="hero-nav-current" aria-current="page">{html.escape(label)}</span>'
-            )
-        else:
-            href = cfg["url_prefix"] if slug == "index" else f'{cfg["url_prefix"]}{slug}.html'
-            nav_items.append(f'<a href="{html.escape(href, quote=True)}">{html.escape(label)}</a>')
-    nav_inner = '\n        <span class="hero-nav-sep" aria-hidden="true">·</span>\n        '.join(
-        nav_items
+        href = cfg["url_prefix"] if slug == "index" else f'{cfg["url_prefix"]}{slug}.html'
+        cur = ' aria-current="page"' if slug == slug_for_url else ""
+        items.append(f'<li><a href="{html.escape(href, quote=True)}"{cur}>{html.escape(label)}</a></li>')
+    wiki_nav = (
+        f'<nav class="wiki-nav" aria-label="{html.escape(cfg["nav_label"], quote=True)}">\n'
+        f'      <p class="cmd">ls {html.escape(cfg["url_prefix"])}</p>\n'
+        '      <ul>' + "".join(items) + "</ul>\n    </nav>"
     )
 
-    slug_for_url = current_slug or "index"
-    canonical = wiki_url(locale_key, slug_for_url)
+    def path_for(loc: str) -> str:
+        prefix = LOCALES[loc]["url_prefix"]
+        return prefix if slug_for_url == "index" else f"{prefix}{slug_for_url}.html"
 
-    # Só emite hreflang quando as duas variantes existem de fato — evita
-    # apontar para uma versão que ainda não foi gerada.
-    hreflang_block = ""
+    alternates = None
     if {"pt", "en"} <= available_locales:
-        hreflang_map = {
-            "pt-BR": wiki_url("pt", slug_for_url),
-            "en": wiki_url("en", slug_for_url),
-            "x-default": wiki_url("pt", slug_for_url),
-        }
-        hreflang_block = (
-            "\n".join(
-                f'  <link rel="alternate" hreflang="{code}" href="{html.escape(url, quote=True)}">'
-                for code, url in hreflang_map.items()
-            )
-            + "\n"
-        )
-
-    lang_switch = ""
+        alternates = {"pt-BR": path_for("pt"), "en": path_for("en"), "x-default": path_for("pt")}
     other = OTHER_LOCALE[locale_key]
-    if other in available_locales:
-        other_href = (
-            LOCALES[other]["url_prefix"]
-            if slug_for_url == "index"
-            else f'{LOCALES[other]["url_prefix"]}{slug_for_url}.html'
-        )
-        lang_switch = (
-            f'\n        <span class="hero-nav-sep" aria-hidden="true">·</span>\n'
-            f'        <a href="{html.escape(other_href, quote=True)}" class="lang-switch">{html.escape(cfg["lang_switch_label"])}</a>'
-        )
+    other_href = path_for(other) if other in available_locales else None
 
-    return f"""<!DOCTYPE html>
-<html lang="{cfg['lang']}">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{html.escape(title)}</title>
-  <meta name="description" content="{html.escape(description)}">
-  <link rel="canonical" href="{html.escape(canonical, quote=True)}">
-{hreflang_block}
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0c0b0f">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="{html.escape(canonical, quote=True)}">
-  <meta property="og:locale" content="{cfg['og_locale']}">
-  <meta property="og:site_name" content="runv.club">
-  <meta property="og:title" content="{html.escape(title)}">
-  <meta property="og:description" content="{html.escape(description)}">
-  <meta property="og:image" content="{BASE_URL}/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="{html.escape(cfg['og_alt'])}">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{html.escape(title)}">
-  <meta name="twitter:description" content="{html.escape(description)}">
-  <meta name="twitter:image" content="{BASE_URL}/assets/og-image.png">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css">
-</head>
-<body>
-  <div class="wrap">
-    <nav class="top-nav"><a href="{html.escape(cfg['home_href'], quote=True)}">← runv.club</a></nav>
-
-    <header>
-      <p class="eyebrow">runv.club</p>
-      <nav class="hero-nav wiki-hero-nav" aria-label="Páginas da wiki">
-        <a href="{html.escape(cfg['news_href'], quote=True)}">{html.escape(cfg['news_label'])}</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        {nav_inner}
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="{html.escape(cfg['join_href'], quote=True)}">{html.escape(cfg['join_label'])}</a>{lang_switch}
-      </nav>
-    </header>
-
-    <main class="section prose-block subpage-main wiki-main">
+    head_html = chrome.head(
+        locale=locale_key,
+        title=title,
+        description=description,
+        canonical=path_for(locale_key),
+        alternates=alternates,
+    )
+    body = f"""    <p class="cmd">less {html.escape(path_for(locale_key))}</p>
+    <article class="prose">
 {body_main}
-    </main>
+    </article>
 
-    <footer class="site-footer">
-      <p>{html.escape(cfg['admin_label'])} <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="{html.escape(cfg['faq_href'], quote=True)}" class="footer-link-discrete">{html.escape(cfg['faq_label'])}</a></p>
-    </footer>
-  </div>
-</body>
-</html>
-"""
+    {wiki_nav}"""
+    return chrome.document(
+        locale=locale_key,
+        head_html=head_html,
+        current="wiki",
+        stamp=cfg["stamp"],
+        other_href=other_href,
+        body=body,
+    )
 
 
 def slug_and_label(path: Path, labels: dict[str, str]) -> tuple[str, str] | None:

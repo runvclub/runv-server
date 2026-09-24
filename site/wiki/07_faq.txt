@@ -1,4 +1,4 @@
-RUNV.CLUB - FAQ
+FAQ
 
 1. O que é o runv.club?
 O runv.club é uma comunidade brasileira em estilo tilde, com conta SSH, terminal, página pessoal, wiki, notícias e espaço para aprender, publicar e conviver.

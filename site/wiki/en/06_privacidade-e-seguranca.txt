@@ -1,21 +1,21 @@
-RUNV.CLUB - PRIVACY AND SECURITY
+Privacy and security
 
-GENERAL PRINCIPLE
+## General principle
 
 Privacy and security are part of the basic operation of any minimally serious system.
 
-DATA AND RESPONSIBILITY
+## Data and responsibility
 
 Users should only provide the data necessary to use the system and keep their information up to date when relevant for access, support, and security.
 
 The administration must handle data carefully, limit internal access, and reduce unnecessary exposure.
 
-USERS ALSO HAVE RESPONSIBILITY
+## Users also have responsibility
 
 The platform has protection duties, but users also need to take care of their own account, their private key, the device used for access, and signs of compromise.
 Security is a shared responsibility.
 
-WHAT USERS SHOULD AVOID
+## What users should avoid
 
 - sharing keys or credentials;
 - publishing other people's personal data;
@@ -23,7 +23,7 @@ WHAT USERS SHOULD AVOID
 - ignoring signs of intrusion or compromise;
 - installing suspicious extensions or dubious software on the device used for SSH or email.
 
-SECURITY INCIDENTS
+## Security incidents
 
 Any suspicion of:
 - unauthorized access;
@@ -36,16 +36,16 @@ Any suspicion of:
 must be reported immediately to:
 admin@runv.club
 
-REVIEW OF EVENTS
+## Review of events
 
 To protect the platform, the administration may review technical logs, usage patterns, access history, and evidence related to incidents, abuse, and moderation.
 
-IMPORTANT LIMITATION
+## Important limitation
 
 No online system is invulnerable.
 What matters is reducing risk, responding quickly, logging relevant incidents, and fixing what's confirmed.
 
-OPERATIONAL GOOD PRACTICES
+## Operational good practices
 
 - reviewing suspicious access;
 - logging relevant incidents;
@@ -53,11 +53,11 @@ OPERATIONAL GOOD PRACTICES
 - fixing confirmed flaws;
 - guiding affected users when necessary.
 
-THIRD-PARTY PRIVACY
+## Third-party privacy
 
 Using the system to collect, copy, disclose, or exploit other users' data without a legitimate basis and without authorization is prohibited.
 
-OFFICIAL CONTACT
+## Official contact
 
 Questions about security, privacy, or an incident:
 admin@runv.club

@@ -1,0 +1,10 @@
+# Diário de mudanças da home (build_home.py mostra as 8 mais recentes).
+# Uma linha por entrada:  AAAA-MM-DD | texto em português | text in English
+# Aceita [texto](/caminho ou https://...), `código` e ~usuario.
+2026-03-22 | Servidor aberto para testes. | Server opened for testing.
+2026-05-19 | Comandos `runv-who`, `runv-finger` e `runv-bulletin`. | Added `runv-who`, `runv-finger` and `runv-bulletin`.
+2026-07-02 | Nex na porta 1900 (`nexd`), gateway HTTP em [/nex](/nex/), cliente `rex`. | Nex on port 1900 (`nexd`), HTTP gateway at [/nex](/nex/), `rex` client.
+2026-07-02 | Agregador de blogs e journals em [/recentes](/recentes/). | Blog and journal aggregator at [/recentes](/recentes/).
+2026-07-28 | Eepsites I2P por conta. | Per-account I2P eepsites.
+2026-09-17 | fail2ban corrigido (backend nftables ausente); logrotate instalado; retenção do journald em 90 dias. | Fixed fail2ban (missing nftables backend); installed logrotate; journald retention set to 90 days.
+2026-09-24 | Novo site. | New site.

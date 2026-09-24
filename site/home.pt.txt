@@ -1,0 +1,8 @@
+# Texto do "cat /etc/motd" da home (build_home.py).
+# Parágrafos separados por linha em branco; o primeiro sai maior.
+
+runv.club é um servidor Debian compartilhado.
+
+Quem entra ganha uma conta shell, uma pasta `public_html` publicada na web, no Gemini, no Gopher e no Nex, e acesso ao canal #runv.
+
+Não precisa saber Unix para pedir entrada.

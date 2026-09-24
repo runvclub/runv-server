@@ -9,9 +9,8 @@
   <link rel="alternate" hreflang="pt-BR" href="https://runv.club/wiki/">
   <link rel="alternate" hreflang="en" href="https://runv.club/en/wiki/">
   <link rel="alternate" hreflang="x-default" href="https://runv.club/wiki/">
-
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0c0b0f">
+  <meta name="theme-color" content="#8a8f84">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://runv.club/wiki/">
   <meta property="og:locale" content="pt_BR">
@@ -19,51 +18,30 @@
   <meta property="og:title" content="Wiki — runv.club">
   <meta property="og:description" content="Início da wiki runv.club: regras, contas, privacidade e FAQ.">
   <meta property="og:image" content="https://runv.club/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="runv.club — comunidade brasileira em estilo tilde">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Wiki — runv.club">
-  <meta name="twitter:description" content="Início da wiki runv.club: regras, contas, privacidade e FAQ.">
-  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="alternate" type="application/rss+xml" title="runv.club — notícias" href="/news/feed.rss">
+  <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
-  <div class="wrap">
-    <nav class="top-nav"><a href="/">← runv.club</a></nav>
-
-    <header>
-      <p class="eyebrow">runv.club</p>
-      <nav class="hero-nav wiki-hero-nav" aria-label="Páginas da wiki">
-        <a href="/news/">Notícias</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <span class="hero-nav-current" aria-current="page">Índice</span>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/visao-geral.html">Visão geral</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/contas-e-acesso.html">Contas e acesso</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/regras-da-comunidade.html">Regras</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/punicoes-e-moderacao.html">Punições</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/privacidade-e-seguranca.html">Privacidade</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/faq.html">FAQ wiki</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/small-web-nex.html">Small web</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/i2p-eepsites.html">I2P</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/junte-se/">Junte-se</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/en/wiki/" class="lang-switch">English</a>
-      </nav>
-    </header>
-
-    <main class="section prose-block subpage-main wiki-main">
-<h1 class="hero-title subpage-title wiki-page-title">RUNV.CLUB - WIKI</h1>
+<div class="sheet">
+  <header class="job">
+    <span>srv1.runv.club</span>
+    <span class="stamp">wiki</span>
+    <a href="/en/wiki/" hreflang="en" lang="en" class="lang">english</a>
+  </header>
+  <nav class="menu" aria-label="Páginas">
+    <a href="/">início</a>
+    <a href="/junte-se/">junte-se</a>
+    <a href="/wiki/" aria-current="page">wiki</a>
+    <a href="/news/">notícias</a>
+    <a href="/recentes/">recentes</a>
+    <a href="/now/">agora</a>
+  </nav>
+  <main id="conteudo">
+    <p class="cmd">less /wiki/</p>
+    <article class="prose">
+<h1 class="title">Wiki do runv.club</h1>
 
 <p>Bem-vindo à wiki do runv.club.</p>
 
@@ -73,24 +51,41 @@
 
 <ul><li>ler a visão geral;</li><li>ver a página de contas e acesso;</li><li>conferir a FAQ;</li><li>guardar o contato oficial.</li></ul>
 
-<h2>CONTATO OFICIAL</h2>
+<h2>Contato oficial</h2>
 
 <p>E-mail: admin@runv.club</p>
 
-<h2>AJUDA RÁPIDA</h2>
+<h2>Ajuda rápida</h2>
 
 <p>Se você precisa de uma resposta curta:</p>
 
 <ul><li>para entrar, veja a página “Junte-se” no site;</li><li>para suporte ou questões sensíveis, use admin@runv.club;</li><li>para conversa e dúvidas rápidas, entre por SSH e rode chat; ele abre o WeeChat direto no canal #runv.</li></ul>
 
-<h2>OBJETIVO DESTA WIKI</h2>
+<h2>Objetivo desta wiki</h2>
 
 <p>Esta wiki existe para reduzir confusão, deixar expectativas claras e ajudar cada pessoa a usar o sistema com mais tranquilidade.</p>
-    </main>
+    </article>
 
-    <footer class="site-footer">
-      <p>Administração: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/faq/" class="footer-link-discrete">FAQ</a></p>
-    </footer>
-  </div>
+    <nav class="wiki-nav" aria-label="Páginas da wiki">
+      <p class="cmd">ls /wiki/</p>
+      <ul><li><a href="/wiki/" aria-current="page">Índice</a></li><li><a href="/wiki/visao-geral.html">Visão geral</a></li><li><a href="/wiki/contas-e-acesso.html">Contas e acesso</a></li><li><a href="/wiki/regras-da-comunidade.html">Regras</a></li><li><a href="/wiki/punicoes-e-moderacao.html">Punições</a></li><li><a href="/wiki/privacidade-e-seguranca.html">Privacidade</a></li><li><a href="/wiki/faq.html">FAQ wiki</a></li><li><a href="/wiki/small-web-nex.html">Small web</a></li><li><a href="/wiki/i2p-eepsites.html">I2P</a></li></ul>
+    </nav>
+  </main>
+  <div class="tear" role="separator"></div>
+  <footer class="foot">
+    <p class="h-card">contato: <a class="u-email" href="mailto:admin@runv.club">admin@runv.club</a> <a class="p-name u-url" href="https://runv.club/" hidden>runv.club</a>
+      <br><a href="/news/feed.rss">RSS</a>  <a href="https://tildeverse.org/">tildeverse</a></p>
+    <div class="badges">
+      <img src="/assets/88x31/runv-club.svg" width="88" height="31" alt="runv.club">
+      <img src="/assets/88x31/debian.svg" width="88" height="31" alt="Debian">
+      <img src="/assets/88x31/feito-no-brasil.svg" width="88" height="31" alt="feito no Brasil">
+      <img src="/assets/88x31/rss.svg" width="88" height="31" alt="RSS">
+    </div>
+    <details class="snippet">
+      <summary>botão 88x31 para linkar o runv.club</summary>
+      <pre><code>&lt;a href=&quot;https://runv.club/&quot;&gt;&lt;img src=&quot;https://runv.club/assets/88x31/runv-club.svg&quot; width=&quot;88&quot; height=&quot;31&quot; alt=&quot;runv.club&quot;&gt;&lt;/a&gt;</code></pre>
+    </details>
+  </footer>
+</div>
 </body>
 </html>

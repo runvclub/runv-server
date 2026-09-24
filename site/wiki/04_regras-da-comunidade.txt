@@ -1,53 +1,53 @@
-RUNV.CLUB - REGRAS DA COMUNIDADE
+Regras da comunidade
 
 Estas regras existem para manter a comunidade acolhedora, utilizável e segura. O objetivo não é controlar conversa à toa, e sim proteger o espaço para que as pessoas possam aprender, publicar e conviver bem.
 
-REGRA 1 - RESPEITO BÁSICO
+## Regra 1: respeito básico
 
 É proibido atacar, humilhar, ameaçar, perseguir ou intimidar outros usuários.
 Discussão não é desculpa para assédio.
 Discordância é normal. Comportamento abusivo não é.
 
-REGRA 2 - NADA DE DISCURSO DE ÓDIO
+## Regra 2: nada de discurso de ódio
 
 É proibido conteúdo que promova discriminação, desumanização, hostilidade ou exclusão com base em raça, cor, origem, etnia, nacionalidade, religião, deficiência, sexo, identidade de gênero ou orientação sexual.
 
-REGRA 3 - NADA DE FRAUDE
+## Regra 3: nada de fraude
 
 É proibido mentir sobre identidade, cargo, vínculo, autorização, resultado, certificado, permissão, propriedade de conta ou qualquer outro elemento usado para enganar terceiros.
 
-REGRA 4 - NADA DE SPAM
+## Regra 4: nada de spam
 
 É proibido flood, propaganda repetitiva, envio massivo de mensagens, links enganosos, automação não autorizada e publicação insistente de conteúdo irrelevante.
 
-REGRA 5 - NADA DE CONTEÚDO ILEGAL OU PERIGOSO
+## Regra 5: nada de conteúdo ilegal ou perigoso
 
 É proibido usar o sistema para distribuir conteúdo ilegal, instruções maliciosas, golpe, phishing, malware, material de exploração, ameaça real ou incentivo a prática criminosa.
 
-REGRA 6 - PRIVACIDADE IMPORTA
+## Regra 6: privacidade importa
 
 É proibido expor dados pessoais de terceiros sem autorização.
 Também é proibido publicar prints, e-mails, contatos, documentos, dados privados ou informações sensíveis com intenção de constranger, punir ou atacar alguém.
 
-REGRA 7 - NADA DE BURLAR MODERAÇÃO
+## Regra 7: nada de burlar moderação
 
 É proibido criar conta alternativa para escapar de advertência, suspensão, limitação ou banimento.
 Também é proibido usar terceiros para contornar punições.
 
-REGRA 8 - USO TÉCNICO RESPONSÁVEL
+## Regra 8: uso técnico responsável
 
 É proibido explorar falhas do sistema, testar vulnerabilidades sem autorização, automatizar ações de forma agressiva, fazer scraping abusivo ou degradar a operação.
 
-REGRA 9 - BOA-FÉ
+## Regra 9: boa-fé
 
 Se o comportamento de um usuário não estiver literalmente listado, mas for claramente malicioso, manipulador, abusivo ou prejudicial ao sistema, a administração poderá agir.
 
-REGRA 10 - CUMPRIMENTO DAS DECISÕES ADMINISTRATIVAS
+## Regra 10: cumprimento das decisões administrativas
 
 Discussão e recurso são permitidos.
 Tumultuar, ameaçar staff, pressionar outros usuários ou espalhar desinformação sobre ações de moderação não ajuda em nada e pode piorar a situação.
 
-CONDUTA ESPERADA
+## Conduta esperada
 
 - comunicar problemas com clareza;
 - respeitar usuários e equipe;
@@ -55,7 +55,7 @@ CONDUTA ESPERADA
 - manter o foco no uso legítimo do sistema;
 - agir com maturidade e boa-fé.
 
-CANAL DE CONTATO
+## Canal de contato
 
 Para suporte, denúncia ou recurso:
 admin@runv.club

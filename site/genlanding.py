@@ -11,7 +11,7 @@ a :80 e :443 sem editar o vhost SSL do Certbot.
 
 Executar como root (excepto --dry-run). Apenas biblioteca padrão Python 3.
 
-Versão 0.08 — runv.club
+Versão 0.09 — runv.club
 """
 
 from __future__ import annotations
@@ -29,7 +29,7 @@ import tempfile
 from pathlib import Path
 from typing import Final
 
-VERSION: Final[str] = "0.08"
+VERSION: Final[str] = "0.09"
 EXIT_OK: Final[int] = 0
 EXIT_USAGE: Final[int] = 1
 EXIT_ERROR: Final[int] = 2
@@ -204,7 +204,7 @@ def copy_landing(source: Path, dest: Path, *, dry_run: bool) -> None:
 
 
 def preserve_existing_members_json(document_root: Path, *, dry_run: bool) -> Path | None:
-    """Guarda uma cópia temporária do members.json actual para rollback seguro da constelação."""
+    """Guarda uma cópia temporária do members.json actual para rollback seguro."""
     current = document_root / "data" / "members.json"
     if dry_run or not current.is_file():
         return None
@@ -288,8 +288,8 @@ def refresh_members_json_in_document_root(
             data = json.loads(out.read_text(encoding="utf-8"))
             if isinstance(data, list):
                 print(
-                    f"  [ok] constelação (bolhas): {len(data)} membro(s) — "
-                    "o index.html faz fetch a data/members.json (relativo ao DocumentRoot)."
+                    f"  [ok] members.json: {len(data)} membro(s) — "
+                    "fonte da lista ls -lt da home (build_home.py)."
                 )
             else:
                 eprint("Aviso: members.json não é uma lista JSON; verifique build_directory.py.")
@@ -297,6 +297,53 @@ def refresh_members_json_in_document_root(
         except (OSError, json.JSONDecodeError, TypeError) as e:
             eprint(f"Aviso: não foi possível confirmar o conteúdo de members.json: {e}")
             return False
+    return True
+
+
+DEFAULT_HOMES_ROOT: Final[Path] = Path("/home")
+
+
+def resolve_members_homes_root(value: Path | None) -> Path | None:
+    """--members-homes-root explícito, ou /home quando existe (datas reais na home e no members.json)."""
+    if value is not None:
+        return value.resolve()
+    return DEFAULT_HOMES_ROOT if DEFAULT_HOMES_ROOT.is_dir() else None
+
+
+def build_home_in_document_root(
+    document_root: Path,
+    *,
+    homes_root: Path | None,
+    dry_run: bool,
+) -> bool:
+    """Regenera index.html e en/index.html no DocumentRoot com site/build_home.py.
+
+    Tem de correr depois de copy_landing (que apaga o DocumentRoot) e depois do
+    members.json, que é a fonte da lista de membros.
+    """
+    script = SCRIPT_DIR / "build_home.py"
+    cmd = [
+        sys.executable,
+        str(script),
+        "--out-dir",
+        str(document_root),
+        "--members-json",
+        str(document_root / "data" / "members.json"),
+    ]
+    if homes_root is not None:
+        cmd.extend(["--homes-root", str(homes_root)])
+    print(f"  $ {' '.join(cmd)}")
+    if dry_run:
+        return True
+    if not script.is_file():
+        eprint(f"Aviso: {script} não encontrado; a home fica com a versão de site/public.")
+        return False
+    r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
+    if r.returncode != 0:
+        tail = (r.stderr or r.stdout or "").strip()
+        eprint(f"Aviso: build_home.py terminou com código {r.returncode}; a home fica com a versão de site/public. {tail[:800]}")
+        return False
+    print("  [ok] home regenerada (build_home.py)")
     return True
 
 
@@ -377,7 +424,12 @@ def parse_args(argv: list[str] | None) -> argparse.Namespace:
         "--members-homes-root",
         type=Path,
         default=None,
-        help="opcional: --homes-root para build_directory.py (ex. /home)",
+        help="--homes-root para build_directory.py e build_home.py (default: /home quando existe)",
+    )
+    p.add_argument(
+        "--no-build-home",
+        action="store_true",
+        help="não regenerar a home com site/build_home.py após copiar public/",
     )
     p.add_argument("--version", action="version", version=f"%(prog)s {VERSION} — runv.club")
     return p.parse_args(argv)
@@ -418,13 +470,12 @@ def sync_public_only_main(args: argparse.Namespace) -> int:
         if not args.dry_run:
             chown_www_data(document_root, dry_run=False)
 
+        homes_root = resolve_members_homes_root(args.members_homes_root)
         if not args.no_refresh_members:
             refreshed = refresh_members_json_in_document_root(
                 document_root,
                 users_json=args.members_users_json,
-                homes_root=args.members_homes_root.resolve()
-                if args.members_homes_root
-                else None,
+                homes_root=homes_root,
                 dry_run=args.dry_run,
             )
             if not refreshed and restore_members_json_backup(
@@ -432,9 +483,13 @@ def sync_public_only_main(args: argparse.Namespace) -> int:
                 members_backup,
                 dry_run=args.dry_run,
             ):
-                print("  [ok] members.json anterior restaurado; constelação preservada.")
+                print("  [ok] members.json anterior restaurado.")
         elif restore_members_json_backup(document_root, members_backup, dry_run=args.dry_run):
             print("  [ok] members.json anterior preservado (--no-refresh-members).")
+        if not args.no_build_home:
+            build_home_in_document_root(document_root, homes_root=homes_root, dry_run=args.dry_run)
+            if not args.dry_run:
+                chown_www_data(document_root, dry_run=False)
     except (FileNotFoundError, OSError, RuntimeError) as e:
         eprint(f"Erro: {e}")
         cleanup_members_json_backup(members_backup)
@@ -546,13 +601,12 @@ def main(argv: list[str] | None = None) -> int:
         if not args.dry_run:
             chown_www_data(document_root, dry_run=False)
 
+        homes_root = resolve_members_homes_root(args.members_homes_root)
         if not args.no_refresh_members:
             refreshed = refresh_members_json_in_document_root(
                 document_root,
                 users_json=args.members_users_json,
-                homes_root=args.members_homes_root.resolve()
-                if args.members_homes_root
-                else None,
+                homes_root=homes_root,
                 dry_run=args.dry_run,
             )
             if not refreshed and restore_members_json_backup(
@@ -560,9 +614,14 @@ def main(argv: list[str] | None = None) -> int:
                 members_backup,
                 dry_run=args.dry_run,
             ):
-                print("  [ok] members.json anterior restaurado; constelação preservada.")
+                print("  [ok] members.json anterior restaurado.")
         elif restore_members_json_backup(document_root, members_backup, dry_run=args.dry_run):
             print("  [ok] members.json anterior preservado (--no-refresh-members).")
+
+        if not args.no_build_home:
+            build_home_in_document_root(document_root, homes_root=homes_root, dry_run=args.dry_run)
+            if not args.dry_run:
+                chown_www_data(document_root, dry_run=False)
 
         if args.dry_run:
             print(f"  [dry-run] escreveria {conf_path}")
@@ -626,9 +685,9 @@ def main(argv: list[str] | None = None) -> int:
     if args.dev:
         print("  - Em /etc/hosts (cliente ou VM): 127.0.0.1  runv.local  www.runv.local")
     print(
-        "  - Membros na constelação: regenerado com build_directory após esta cópia "
-        "(fonte: /var/lib/runv/users.json). Novas contas: create_runv_user.py corre "
-        "genlanding.py --sync-public-only (public + members). Use --no-refresh-members para omitir."
+        "  - Membros: data/members.json regenerado com build_directory e home com build_home "
+        "após esta cópia (fonte: /var/lib/runv/users.json). Novas contas: create_runv_user.py corre "
+        "genlanding.py --sync-public-only. Use --no-refresh-members / --no-build-home para omitir."
     )
     return EXIT_OK
 

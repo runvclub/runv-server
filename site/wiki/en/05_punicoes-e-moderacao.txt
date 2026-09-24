@@ -1,12 +1,12 @@
-RUNV.CLUB - MODERATION AND SANCTIONS
+Moderation and sanctions
 
-PURPOSE OF MODERATION
+## Purpose of moderation
 
 Moderation exists to protect users, preserve the system's operation, and prevent a minority from destroying the environment's usefulness for everyone else.
 
 The purpose of moderation isn't to punish for sport. It's to keep the space safe, predictable, and usable for the community.
 
-TYPES OF ACTION
+## Types of action
 
 1. Informal guidance
    Used for a minor, isolated mistake with no meaningful harm.
@@ -23,14 +23,14 @@ TYPES OF ACTION
 5. Permanent ban
    Final termination of access, used when the risk is high or trust has been broken.
 
-COMMON CAUSES FOR A WARNING
+## Common causes for a warning
 
 - hostile language without an explicit threat;
 - minor flooding;
 - recurring disorganization despite guidance;
 - occasional disregard for usage rules.
 
-COMMON CAUSES FOR SUSPENSION
+## Common causes for suspension
 
 - repeat offense after a warning;
 - continued harassment;
@@ -40,7 +40,7 @@ COMMON CAUSES FOR SUSPENSION
 - abusive use of platform resources;
 - behavior that harms operation or support.
 
-COMMON CAUSES FOR A BAN
+## Common causes for a ban
 
 - fraud;
 - phishing, scams, or social engineering;
@@ -50,7 +50,7 @@ COMMON CAUSES FOR A BAN
 - evading a penalty with alternate accounts;
 - serious repeat offenses showing a total lack of good faith.
 
-REVIEW CRITERIA
+## Review criteria
 
 The administration may consider:
 - severity of the conduct;
@@ -60,12 +60,12 @@ The administration may consider:
 - risk of repetition;
 - cooperation or bad faith during the investigation.
 
-NOT EVERYTHING FOLLOWS A LINEAR LADDER
+## Not everything follows a linear ladder
 
 Not every violation starts with a warning.
 Minor cases can be resolved with guidance. Serious cases — such as serious fraud, real threats, scams, or technical attacks — can justify immediate suspension or a direct ban.
 
-APPEAL
+## Appeal
 
 A user can contest an applied measure through the official channel:
 admin@runv.club
@@ -76,17 +76,17 @@ The appeal must include:
 - the reason for the appeal;
 - evidence, if any exists.
 
-APPEAL RULES
+## Appeal rules
 
 - an appeal without objectivity gets in the way;
 - lying makes things worse;
 - emotional pressure doesn't substitute for evidence;
 - aggressiveness toward the team can lead to a new penalty.
 
-FINAL DECISION
+## Final decision
 
 The administration may review, uphold, reduce, or increase the applied measure based on the available evidence.
 
-CONSISTENCY
+## Consistency
 
 A rule applied inconsistently becomes just text. That's why the administration may act whenever there's a real need to protect users, staff, and operations.

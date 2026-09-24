@@ -1,4 +1,4 @@
-RUNV.CLUB - FAQ
+FAQ
 
 1. What is runv.club?
 runv.club is a Brazilian community in the tilde style, with an SSH account, terminal, personal page, wiki, news, and a space to learn, publish, and connect with others.

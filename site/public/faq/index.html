@@ -10,7 +10,7 @@
   <link rel="alternate" hreflang="en" href="https://runv.club/en/faq/">
   <link rel="alternate" hreflang="x-default" href="https://runv.club/faq/">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0c0b0f">
+  <meta name="theme-color" content="#8a8f84">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://runv.club/faq/">
   <meta property="og:locale" content="pt_BR">
@@ -18,147 +18,79 @@
   <meta property="og:title" content="FAQ — runv.club">
   <meta property="og:description" content="Perguntas frequentes sobre o runv.club: acesso SSH, pedido de conta, suporte e contato.">
   <meta property="og:image" content="https://runv.club/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="runv.club — comunidade brasileira em estilo tilde">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="FAQ — runv.club">
-  <meta name="twitter:description" content="Perguntas frequentes sobre o runv.club: acesso SSH, pedido de conta, suporte e contato.">
-  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"O que é o runv.club?","acceptedAnswer":{"@type":"Answer","text":"O runv.club é uma comunidade brasileira em estilo tilde: um espaço com conta SSH, terminal, página pessoal, wiki, notícias e convívio para quem quer aprender, publicar e explorar uma internet mais calma."}},
-    {"@type":"Question","name":"O sistema é só para alunos do Portal IDEA?","acceptedAnswer":{"@type":"Answer","text":"Não. O runv.club não é exclusivo para alunos do Portal IDEA. A comunidade é aberta a diferentes perfis, desde que a pessoa concorde com a proposta, as regras e a disponibilidade de vagas."}},
-    {"@type":"Question","name":"Como faço meu cadastro?","acceptedAnswer":{"@type":"Answer","text":"Não há formulário web automático. Siga a página Junte-se: gere um par de chaves SSH, conecte-se a entre@runv.club e envie a sua chave pública quando o sistema pedir. A equipe revisa a fila manualmente e cria a conta Unix no servidor. Como somos uma equipe pequena, o prazo de aprovação pode chegar a 21 dias corridos."}},
-    {"@type":"Question","name":"Já tenho conta. Como entro no servidor?","acceptedAnswer":{"@type":"Answer","text":"O acesso à pubnix é por SSH com chave e não por senha SSH. No seu computador, use algo como ssh -i ~/.ssh/sua_chave_runv seuusuario@runv.club, ajustando o usuário e o caminho da chave. O site em navegador é a parte pública; a shell fica no SSH."}},
-    {"@type":"Question","name":"Perdi a chave SSH ou não consigo entrar. E agora?","acceptedAnswer":{"@type":"Answer","text":"Não existe “esqueci a senha” no SSH. Guarde sua chave privada com cuidado. Se você a perdeu ou precisa trocar a chave pública cadastrada no servidor, escreva para admin@runv.club explicando o caso."}},
-    {"@type":"Question","name":"Posso entrar com conta Google?","acceptedAnswer":{"@type":"Answer","text":"Não. A autenticação na pubnix é feita com o par de chaves SSH que você gera no seu equipamento, não com login social."}},
-    {"@type":"Question","name":"Não recebi resposta por e-mail. E agora?","acceptedAnswer":{"@type":"Answer","text":"Confira spam, promoções e lixo eletrônico. Confirme também se o endereço informado no pedido estava correto. Se continuar sem resposta ou se o assunto for urgente, escreva para admin@runv.club."}},
-    {"@type":"Question","name":"O site e o servidor funcionam no celular?","acceptedAnswer":{"@type":"Answer","text":"As páginas do runv.club funcionam em navegador atualizado no celular e no computador. Já a shell da pubnix precisa de um cliente SSH. Se uma página não carregar, atualize, teste outra rede ou outro navegador."}},
-    {"@type":"Question","name":"O que fazer se o site estiver lento, fora do ar ou se o SSH falhar?","acceptedAnswer":{"@type":"Answer","text":"Para o site, atualize a página, limpe cache e teste outra rede ou dispositivo. Para o SSH, confira o usuário, a chave usada com -i, a rede e a mensagem de erro completa. Se o problema persistir, envie detalhes para admin@runv.club."}},
-    {"@type":"Question","name":"Como pedir suporte de forma eficiente?","acceptedAnswer":{"@type":"Answer","text":"Envie uma mensagem objetiva com o seu usuário Unix no runv.club, email de contato, descrição do problema, horário aproximado e, se for SSH, o texto de erro completo ou uma captura. Quanto mais concreto o relato, mais fácil fica ajudar."}},
-    {"@type":"Question","name":"Meus dados ficam protegidos?","acceptedAnswer":{"@type":"Answer","text":"A operação busca segurança e controle de acesso, mas a sua parte também importa: proteja a chave privada SSH, não a compartilhe, não a envie por chat e evite redes ou dispositivos em que você não confie para acesso sensível."}},
-    {"@type":"Question","name":"Posso usar mais de um dispositivo?","acceptedAnswer":{"@type":"Answer","text":"Em geral, sim. Você pode usar o mesmo par de chaves em mais de um equipamento ou chaves diferentes, se a política e a administração permitirem. O importante é não expor a chave privada e manter a conta sob seu controle."}},
-    {"@type":"Question","name":"Onde acompanho avisos, mudanças ou instabilidades?","acceptedAnswer":{"@type":"Answer","text":"Consulte Notícias, a wiki e o próprio site. Se ainda ficar em dúvida, escreva para admin@runv.club."}},
-    {"@type":"Question","name":"Qual é o canal oficial de contato?","acceptedAnswer":{"@type":"Answer","text":"O canal oficial para dúvidas, suporte e contato geral é admin@runv.club."}},
-    {"@type":"Question","name":"Onde há suporte em IRC?","acceptedAnswer":{"@type":"Answer","text":"Depois de entrar por SSH, rode chat. O WeeChat abre a rede da casa, entra automaticamente no #runv e mostra a lista lateral de nicks quando o terminal tiver espaço. Para clientes IRC externos, o backend continua em irc.tilde.chat, porta 6697, com TLS/SSL. Para assuntos sensíveis da conta ou dados pessoais, prefira admin@runv.club."}}
-  ]}
-  </script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/style.css">
+  <link rel="alternate" type="application/rss+xml" title="runv.club — notícias" href="/news/feed.rss">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "O que é o runv.club?", "acceptedAnswer": {"@type": "Answer", "text": "O runv.club é um pubnix brasileiro: um servidor Debian compartilhado com contas shell, páginas pessoais servidas em HTTP, Gemini, Gopher e Nex, wiki, notícias e IRC."}}, {"@type": "Question", "name": "O sistema é só para alunos do Portal IDEA?", "acceptedAnswer": {"@type": "Answer", "text": "Não. O runv.club não é exclusivo para alunos do Portal IDEA. A comunidade é aberta a diferentes perfis, desde que a pessoa concorde com a proposta, as regras e a disponibilidade de vagas."}}, {"@type": "Question", "name": "Como faço meu cadastro?", "acceptedAnswer": {"@type": "Answer", "text": "Não há formulário web automático. Siga a página Junte-se: gere um par de chaves SSH, conecte-se a entre@runv.club e envie a sua chave pública quando o sistema pedir. A equipe revisa a fila manualmente e cria a conta Unix no servidor. Como somos uma equipe pequena, o prazo de aprovação pode chegar a 21 dias corridos."}}, {"@type": "Question", "name": "Já tenho conta. Como entro no servidor?", "acceptedAnswer": {"@type": "Answer", "text": "O acesso à pubnix é por SSH com chave e não por senha SSH. No seu computador, use algo como ssh -i ~/.ssh/sua_chave_runv seuusuario@runv.club, ajustando o usuário e o caminho da chave. O site em navegador é a parte pública; a shell fica no SSH."}}, {"@type": "Question", "name": "Perdi a chave SSH ou não consigo entrar. E agora?", "acceptedAnswer": {"@type": "Answer", "text": "Não existe “esqueci a senha” no SSH. Guarde sua chave privada com cuidado. Se você a perdeu ou precisa trocar a chave pública cadastrada no servidor, escreva para admin@runv.club explicando o caso."}}, {"@type": "Question", "name": "Posso entrar com conta Google?", "acceptedAnswer": {"@type": "Answer", "text": "Não. A autenticação na pubnix é feita com o par de chaves SSH que você gera no seu equipamento, não com login social."}}, {"@type": "Question", "name": "Não recebi resposta por e-mail. E agora?", "acceptedAnswer": {"@type": "Answer", "text": "Confira spam, promoções e lixo eletrônico. Confirme também se o endereço informado no pedido estava correto. Se continuar sem resposta ou se o assunto for urgente, escreva para admin@runv.club."}}, {"@type": "Question", "name": "O site e o servidor funcionam no celular?", "acceptedAnswer": {"@type": "Answer", "text": "As páginas do runv.club funcionam em navegador atualizado no celular e no computador. Já a shell da pubnix precisa de um cliente SSH. Se uma página não carregar, atualize, teste outra rede ou outro navegador."}}, {"@type": "Question", "name": "O que fazer se o site estiver lento, fora do ar ou se o SSH falhar?", "acceptedAnswer": {"@type": "Answer", "text": "Para o site, atualize a página, limpe cache e teste outra rede ou dispositivo. Para o SSH, confira o usuário, a chave usada com -i, a rede e a mensagem de erro completa. Se o problema persistir, envie detalhes para admin@runv.club."}}, {"@type": "Question", "name": "Como pedir suporte de forma eficiente?", "acceptedAnswer": {"@type": "Answer", "text": "Envie uma mensagem objetiva com o seu usuário Unix no runv.club, email de contato, descrição do problema, horário aproximado e, se for SSH, o texto de erro completo ou uma captura. Quanto mais concreto o relato, mais fácil fica ajudar."}}, {"@type": "Question", "name": "Meus dados ficam protegidos?", "acceptedAnswer": {"@type": "Answer", "text": "A operação busca segurança e controle de acesso, mas a sua parte também importa: proteja a chave privada SSH, não a compartilhe, não a envie por chat e evite redes ou dispositivos em que você não confie para acesso sensível."}}, {"@type": "Question", "name": "Posso usar mais de um dispositivo?", "acceptedAnswer": {"@type": "Answer", "text": "Em geral, sim. Você pode usar o mesmo par de chaves em mais de um equipamento ou chaves diferentes, se a política e a administração permitirem. O importante é não expor a chave privada e manter a conta sob seu controle."}}, {"@type": "Question", "name": "Onde acompanho avisos, mudanças ou instabilidades?", "acceptedAnswer": {"@type": "Answer", "text": "Consulte Notícias, a wiki e o próprio site. Se ainda ficar em dúvida, escreva para admin@runv.club."}}, {"@type": "Question", "name": "Qual é o canal oficial de contato?", "acceptedAnswer": {"@type": "Answer", "text": "O canal oficial para dúvidas, suporte e contato geral é admin@runv.club."}}, {"@type": "Question", "name": "Onde há suporte em IRC?", "acceptedAnswer": {"@type": "Answer", "text": "Depois de entrar por SSH, rode chat. O WeeChat abre a rede da casa, entra automaticamente no #runv e mostra a lista lateral de nicks quando o terminal tiver espaço. Para clientes IRC externos, o backend continua em irc.tilde.chat, porta 6697, com TLS/SSL. Para assuntos sensíveis da conta ou dados pessoais, prefira admin@runv.club."}}]}</script>
 </head>
 <body>
-  <div class="wrap">
-    <nav class="top-nav"><a href="/">← runv.club</a></nav>
-
-    <header>
-      <p class="eyebrow">runv.club</p>
-      <nav class="hero-nav" aria-label="Outras páginas">
-        <a href="/news/">Notícias</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/">Wiki</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/junte-se/">Junte-se</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/en/faq/" class="lang-switch">English</a>
-      </nav>
-      <h1 class="hero-title subpage-title">FAQ</h1>
-      <p class="subpage-intro">Perguntas frequentes sobre acesso, conta, suporte e vida na comunidade.</p>
-    </header>
-
-    <section class="mini-cards" aria-label="Atalhos úteis">
-      <article class="mini-card">
-        <p class="mini-card-kicker">Primeiro passo</p>
-        <h2>Quer entrar?</h2>
-        <p>Vá direto para <a href="/junte-se/">Junte-se</a> e siga o fluxo com <span class="ssh-identity">entre@runv.club</span>.</p>
-      </article>
-      <article class="mini-card">
-        <p class="mini-card-kicker">Suporte rápido</p>
-        <h2>Precisa falar com alguém?</h2>
-        <p>Use <a href="mailto:admin@runv.club">admin@runv.club</a> para assuntos sensíveis e rode <strong>chat</strong> no servidor para dúvidas rápidas no <strong>#runv</strong>.</p>
-      </article>
-    </section>
-
-    <main class="section prose-block subpage-main faq-main">
-      <section class="faq-item" aria-labelledby="faq-1">
-        <h2 id="faq-1" class="faq-q">1. O que é o runv.club?</h2>
-        <p>O runv.club é uma comunidade brasileira em estilo tilde: um espaço com conta SSH, terminal, página pessoal, wiki, notícias e convívio para quem quer aprender, publicar e explorar uma internet mais calma.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-2">
-        <h2 id="faq-2" class="faq-q">2. O sistema é só para alunos do Portal IDEA?</h2>
-        <p>Não. O runv.club não é exclusivo para alunos do Portal IDEA. A comunidade é aberta a diferentes perfis, desde que a pessoa concorde com a proposta, as regras e a disponibilidade de vagas.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-3">
-        <h2 id="faq-3" class="faq-q">3. Como faço meu cadastro?</h2>
-        <p>Não há formulário web automático. Siga a página <a href="/junte-se/">Junte-se</a>: gere um par de chaves SSH, conecte-se a <span class="ssh-identity">entre@runv.club</span> e envie a sua chave <strong>pública</strong> quando o sistema pedir. A equipe revisa a fila manualmente e cria a conta Unix no servidor. Como somos uma equipe pequena, o prazo de aprovação pode chegar a <strong>21 dias corridos</strong>.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-4">
-        <h2 id="faq-4" class="faq-q">4. Já tenho conta. Como entro no servidor?</h2>
-        <p>O acesso à pubnix é por <strong>SSH com chave</strong> e não por senha SSH. No seu computador, use algo como <code>ssh -i ~/.ssh/sua_chave_runv <em>seuusuario</em>@runv.club</code>, ajustando o usuário e o caminho da chave. O site em navegador é a parte pública; a shell fica no SSH.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-5">
-        <h2 id="faq-5" class="faq-q">5. Perdi a chave SSH ou não consigo entrar. E agora?</h2>
-        <p>Não existe “esqueci a senha” no SSH. Guarde sua chave privada com cuidado. Se você a perdeu ou precisa trocar a chave pública cadastrada no servidor, escreva para <a href="mailto:admin@runv.club">admin@runv.club</a> explicando o caso.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-6">
-        <h2 id="faq-6" class="faq-q">6. Posso entrar com conta Google?</h2>
-        <p>Não. A autenticação na pubnix é feita com o par de chaves SSH que você gera no seu equipamento, não com login social.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-7">
-        <h2 id="faq-7" class="faq-q">7. Não recebi resposta por e-mail. E agora?</h2>
-        <p>Confira spam, promoções e lixo eletrônico. Confirme também se o endereço informado no pedido estava correto. Se continuar sem resposta ou se o assunto for urgente, escreva para <a href="mailto:admin@runv.club">admin@runv.club</a>.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-8">
-        <h2 id="faq-8" class="faq-q">8. O site e o servidor funcionam no celular?</h2>
-        <p>As páginas do runv.club funcionam em navegador atualizado no celular e no computador. Já a shell da pubnix precisa de um cliente SSH. Se uma página não carregar, atualize, teste outra rede ou outro navegador.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-9">
-        <h2 id="faq-9" class="faq-q">9. O que fazer se o site estiver lento, fora do ar ou se o SSH falhar?</h2>
-        <p>Para o <strong>site</strong>, atualize a página, limpe cache e teste outra rede ou dispositivo. Para o <strong>SSH</strong>, confira o usuário, a chave usada com <code>-i</code>, a rede e a mensagem de erro completa. Se o problema persistir, envie detalhes para <a href="mailto:admin@runv.club">admin@runv.club</a>.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-10">
-        <h2 id="faq-10" class="faq-q">10. Como pedir suporte de forma eficiente?</h2>
-        <p>Envie uma mensagem objetiva com o seu usuário Unix no runv.club, email de contato, descrição do problema, horário aproximado e, se for SSH, o texto de erro completo ou uma captura. Quanto mais concreto o relato, mais fácil fica ajudar.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-11">
-        <h2 id="faq-11" class="faq-q">11. Meus dados ficam protegidos?</h2>
-        <p>A operação busca segurança e controle de acesso, mas a sua parte também importa: proteja a <strong>chave privada</strong> SSH, não a compartilhe, não a envie por chat e evite redes ou dispositivos em que você não confie para acesso sensível.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-12">
-        <h2 id="faq-12" class="faq-q">12. Posso usar mais de um dispositivo?</h2>
-        <p>Em geral, sim. Você pode usar o mesmo par de chaves em mais de um equipamento ou chaves diferentes, se a política e a administração permitirem. O importante é não expor a chave privada e manter a conta sob seu controle.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-13">
-        <h2 id="faq-13" class="faq-q">13. Onde acompanho avisos, mudanças ou instabilidades?</h2>
-        <p>Consulte <a href="/news/">Notícias</a>, a <a href="/wiki/">wiki</a> e o próprio site. Se ainda ficar em dúvida, escreva para <a href="mailto:admin@runv.club">admin@runv.club</a>.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-14">
-        <h2 id="faq-14" class="faq-q">14. Qual é o canal oficial de contato?</h2>
-        <p>O canal oficial para dúvidas, suporte e contato geral é <a href="mailto:admin@runv.club">admin@runv.club</a>.</p>
-      </section>
-
-      <section class="faq-item" aria-labelledby="faq-15">
-        <h2 id="faq-15" class="faq-q">15. Onde há suporte em IRC?</h2>
-        <p>Depois de entrar por SSH, rode <strong>chat</strong>. O WeeChat abre a rede da casa, entra automaticamente no <strong>#runv</strong> e mostra a lista lateral de nicks quando o terminal tiver espaço. Para clientes IRC externos, o backend continua em <strong>irc.tilde.chat</strong>, porta <strong>6697</strong>, com <strong>TLS/SSL</strong>. Para assuntos sensíveis da conta ou dados pessoais, prefira <a href="mailto:admin@runv.club">admin@runv.club</a>.</p>
-      </section>
-    </main>
-
-    <footer class="site-footer">
-      <p>Administração: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/faq/" class="footer-link-discrete" aria-current="page">FAQ</a></p>
-    </footer>
-  </div>
+<div class="sheet">
+  <header class="job">
+    <span>srv1.runv.club</span>
+    <span class="stamp">/faq/</span>
+    <a href="/en/faq/" hreflang="en" lang="en" class="lang">english</a>
+  </header>
+  <nav class="menu" aria-label="Páginas">
+    <a href="/">início</a>
+    <a href="/junte-se/">junte-se</a>
+    <a href="/wiki/">wiki</a>
+    <a href="/news/">notícias</a>
+    <a href="/recentes/">recentes</a>
+    <a href="/now/">agora</a>
+  </nav>
+  <main id="conteudo">
+    <p class="cmd">man runv-faq</p>
+    <h1 class="title">Perguntas frequentes</h1>
+    <p>Pedido de conta: <a href="/junte-se/">/junte-se</a>. Suporte: <a href="mailto:admin@runv.club">admin@runv.club</a> ou <code>chat</code> no servidor (#runv).</p>
+    <dl class="faq prose">
+      <dt id="q1">O que é o runv.club?</dt>
+      <dd><p>O runv.club é um pubnix brasileiro: um servidor Debian compartilhado com contas shell, páginas pessoais servidas em HTTP, Gemini, Gopher e Nex, wiki, notícias e IRC.</p></dd>
+      <dt id="q2">O sistema é só para alunos do Portal IDEA?</dt>
+      <dd><p>Não. O runv.club não é exclusivo para alunos do Portal IDEA. A comunidade é aberta a diferentes perfis, desde que a pessoa concorde com a proposta, as regras e a disponibilidade de vagas.</p></dd>
+      <dt id="q3">Como faço meu cadastro?</dt>
+      <dd><p>Não há formulário web automático. Siga a página <a href="/junte-se/">Junte-se</a>: gere um par de chaves SSH, conecte-se a <code>entre@runv.club</code> e envie a sua chave <strong>pública</strong> quando o sistema pedir. A equipe revisa a fila manualmente e cria a conta Unix no servidor. Como somos uma equipe pequena, o prazo de aprovação pode chegar a <strong>21 dias corridos</strong>.</p></dd>
+      <dt id="q4">Já tenho conta. Como entro no servidor?</dt>
+      <dd><p>O acesso à pubnix é por <strong>SSH com chave</strong> e não por senha SSH. No seu computador, use algo como <code>ssh -i ~/.ssh/sua_chave_runv <em>seuusuario</em>@runv.club</code>, ajustando o usuário e o caminho da chave. O site em navegador é a parte pública; a shell fica no SSH.</p></dd>
+      <dt id="q5">Perdi a chave SSH ou não consigo entrar. E agora?</dt>
+      <dd><p>Não existe “esqueci a senha” no SSH. Guarde sua chave privada com cuidado. Se você a perdeu ou precisa trocar a chave pública cadastrada no servidor, escreva para <a href="mailto:admin@runv.club">admin@runv.club</a> explicando o caso.</p></dd>
+      <dt id="q6">Posso entrar com conta Google?</dt>
+      <dd><p>Não. A autenticação na pubnix é feita com o par de chaves SSH que você gera no seu equipamento, não com login social.</p></dd>
+      <dt id="q7">Não recebi resposta por e-mail. E agora?</dt>
+      <dd><p>Confira spam, promoções e lixo eletrônico. Confirme também se o endereço informado no pedido estava correto. Se continuar sem resposta ou se o assunto for urgente, escreva para <a href="mailto:admin@runv.club">admin@runv.club</a>.</p></dd>
+      <dt id="q8">O site e o servidor funcionam no celular?</dt>
+      <dd><p>As páginas do runv.club funcionam em navegador atualizado no celular e no computador. Já a shell da pubnix precisa de um cliente SSH. Se uma página não carregar, atualize, teste outra rede ou outro navegador.</p></dd>
+      <dt id="q9">O que fazer se o site estiver lento, fora do ar ou se o SSH falhar?</dt>
+      <dd><p>Para o <strong>site</strong>, atualize a página, limpe cache e teste outra rede ou dispositivo. Para o <strong>SSH</strong>, confira o usuário, a chave usada com <code>-i</code>, a rede e a mensagem de erro completa. Se o problema persistir, envie detalhes para <a href="mailto:admin@runv.club">admin@runv.club</a>.</p></dd>
+      <dt id="q10">Como pedir suporte de forma eficiente?</dt>
+      <dd><p>Envie uma mensagem objetiva com o seu usuário Unix no runv.club, email de contato, descrição do problema, horário aproximado e, se for SSH, o texto de erro completo ou uma captura. Quanto mais concreto o relato, mais fácil fica ajudar.</p></dd>
+      <dt id="q11">Meus dados ficam protegidos?</dt>
+      <dd><p>A operação busca segurança e controle de acesso, mas a sua parte também importa: proteja a <strong>chave privada</strong> SSH, não a compartilhe, não a envie por chat e evite redes ou dispositivos em que você não confie para acesso sensível.</p></dd>
+      <dt id="q12">Posso usar mais de um dispositivo?</dt>
+      <dd><p>Em geral, sim. Você pode usar o mesmo par de chaves em mais de um equipamento ou chaves diferentes, se a política e a administração permitirem. O importante é não expor a chave privada e manter a conta sob seu controle.</p></dd>
+      <dt id="q13">Onde acompanho avisos, mudanças ou instabilidades?</dt>
+      <dd><p>Consulte <a href="/news/">Notícias</a>, a <a href="/wiki/">wiki</a> e o próprio site. Se ainda ficar em dúvida, escreva para <a href="mailto:admin@runv.club">admin@runv.club</a>.</p></dd>
+      <dt id="q14">Qual é o canal oficial de contato?</dt>
+      <dd><p>O canal oficial para dúvidas, suporte e contato geral é <a href="mailto:admin@runv.club">admin@runv.club</a>.</p></dd>
+      <dt id="q15">Onde há suporte em IRC?</dt>
+      <dd><p>Depois de entrar por SSH, rode <strong>chat</strong>. O WeeChat abre a rede da casa, entra automaticamente no <strong>#runv</strong> e mostra a lista lateral de nicks quando o terminal tiver espaço. Para clientes IRC externos, o backend continua em <strong>irc.tilde.chat</strong>, porta <strong>6697</strong>, com <strong>TLS/SSL</strong>. Para assuntos sensíveis da conta ou dados pessoais, prefira <a href="mailto:admin@runv.club">admin@runv.club</a>.</p></dd>
+    </dl>
+  </main>
+  <div class="tear" role="separator"></div>
+  <footer class="foot">
+    <p class="h-card">contato: <a class="u-email" href="mailto:admin@runv.club">admin@runv.club</a> <a class="p-name u-url" href="https://runv.club/" hidden>runv.club</a>
+      <br><a href="/news/feed.rss">RSS</a>  <a href="https://tildeverse.org/">tildeverse</a></p>
+    <div class="badges">
+      <img src="/assets/88x31/runv-club.svg" width="88" height="31" alt="runv.club">
+      <img src="/assets/88x31/debian.svg" width="88" height="31" alt="Debian">
+      <img src="/assets/88x31/feito-no-brasil.svg" width="88" height="31" alt="feito no Brasil">
+      <img src="/assets/88x31/rss.svg" width="88" height="31" alt="RSS">
+    </div>
+    <details class="snippet">
+      <summary>botão 88x31 para linkar o runv.club</summary>
+      <pre><code>&lt;a href=&quot;https://runv.club/&quot;&gt;&lt;img src=&quot;https://runv.club/assets/88x31/runv-club.svg&quot; width=&quot;88&quot; height=&quot;31&quot; alt=&quot;runv.club&quot;&gt;&lt;/a&gt;</code></pre>
+    </details>
+  </footer>
+</div>
 </body>
 </html>

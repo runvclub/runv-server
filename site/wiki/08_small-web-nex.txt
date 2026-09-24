@@ -1,8 +1,8 @@
-SMALL WEB - GEMINI, GOPHER, NEX E I2P
+Small web: Gemini, Gopher, Nex e I2P
 
 O runv.club vive na "small web": uma internet mais leve, feita de texto, protocolos simples e páginas que abrem sem pressa. Além do site comum (HTTP), a sua conta publica em quatro protocolos alternativos ao mesmo tempo.
 
-AS SUAS PASTAS PÚBLICAS
+## As suas pastas públicas
 
 Cada conta tem, na sua home, uma pasta por protocolo. Tudo o que colocar nelas fica público; não guarde ali segredos.
 
@@ -14,7 +14,7 @@ Cada conta tem, na sua home, uma pasta por protocolo. Tudo o que colocar nelas f
 
 O I2P tem uma página própria nesta wiki, com os detalhes de como ver o seu endereço e publicar.
 
-O PROTOCOLO NEX
+## O protocolo Nex
 
 Nex é o protocolo mais minimalista da small web, criado na Nightfall City. Funciona na porta 1900: o cliente envia uma linha (o caminho) e o servidor devolve texto puro, sem cabeçalhos, sem estado e sem rastreio. É Gopher e Gemini levados ao essencial.
 
@@ -23,7 +23,7 @@ Os links são linhas que começam com uma seta. Por exemplo:
 => /users/ outros membros
 => notas.txt as minhas notas
 
-COMO PUBLICAR NO NEX
+## Como publicar no Nex
 
 O seu ponto de partida é o ficheiro index em public_nex. Edite-o e crie os ficheiros que quiser.
 
@@ -34,18 +34,18 @@ O seu ponto de partida é o ficheiro index em public_nex. Edite-o e crie os fich
 
 O endereço da sua cápsula é nex://runv.club/users/SEU_UTILIZADOR/.
 
-COMO NAVEGAR NO NEX
+## Como navegar no Nex
 
 Há duas formas simples de explorar o Nex da casa:
 
 - no terminal, use o comando rex (ex.: rex para a raiz, ou rex /users/ para a lista de membros);
 - no navegador, abra https://runv.club/nex/ (a mesma árvore, convertida para HTML).
 
-A PAGINA RECENTES (BLOGS E JOURNALS)
+## A página Recentes (blogs e journals)
 
 A página https://runv.club/recentes reúne, num só lugar, as entradas mais recentes dos blogs e journals dos membros. É uma camada de descoberta que completa a constelação da página inicial: a constelação mostra quem existe; a página Recentes mostra o que há de novo. A entrada é opcional: só aparece quem pedir.
 
-FORMATO HTML BLOG
+## Formato HTML Blog
 
 Um "HTML Blog" é uma página HTML simples, sem framework. Tem um título e, por entrada, uma data e um link. A estrutura mínima de cada entrada é uma etiqueta de tempo seguida de um link:
 
@@ -55,14 +55,14 @@ Um "HTML Blog" é uma página HTML simples, sem framework. Tem um título e, por
 
 A data em datetime deve estar no formato ano-mes-dia (2026-06-20).
 
-FORMATO HTML JOURNAL
+## Formato HTML Journal
 
 Um "HTML Journal" é uma página só, com um título e uma sequência de entradas, cada uma dentro de uma etiqueta de artigo com um cabeçalho de data:
 
 <h1>O meu journal</h1>
 <article><h2>2026-06-22</h2><p>Escrevi no Nex hoje.</p></article>
 
-COMO ENTRAR NA PAGINA RECENTES
+## Como entrar na página Recentes
 
 O processo é simples e seguro. O conteúdo que a casa lê é sempre tratado como texto (nunca executado), por isso não há risco para os outros membros.
 
@@ -70,6 +70,6 @@ O processo é simples e seguro. O conteúdo que a casa lê é sempre tratado com
 - envie o endereço para admin@runv.club a pedir para entrar na lista;
 - a partir daí, as suas entradas recentes passam a aparecer em Recentes.
 
-PERMISSOES
+## Permissões
 
 Para qualquer destes protocolos, a regra de permissões é a mesma: 755 na sua home e nas pastas públicas, 644 nos ficheiros servidos. Se algo deixar de abrir, comece por repor estes valores.

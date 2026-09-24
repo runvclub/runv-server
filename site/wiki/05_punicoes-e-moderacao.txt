@@ -1,12 +1,12 @@
-RUNV.CLUB - PUNIÇÕES E MODERAÇÃO
+Punições e moderação
 
-OBJETIVO DA MODERAÇÃO
+## Objetivo da moderação
 
 A moderação existe para proteger usuários, preservar a operação do sistema e impedir que uma minoria destrua a utilidade do ambiente para todos os outros.
 
 O objetivo da moderação não é punir por esporte. É manter o espaço seguro, previsível e utilizável para a comunidade.
 
-TIPOS DE MEDIDA
+## Tipos de medida
 
 1. Orientação informal
    Usada em erro leve, isolado e sem dano relevante.
@@ -23,14 +23,14 @@ TIPOS DE MEDIDA
 5. Banimento permanente
    Encerramento definitivo do acesso, usado quando o risco é alto ou a confiança foi quebrada.
 
-CAUSAS COMUNS DE ADVERTÊNCIA
+## Causas comuns de advertência
 
 - linguagem hostil sem ameaça explícita;
 - flood leve;
 - desorganização recorrente apesar de orientação;
 - desrespeito pontual às regras de uso.
 
-CAUSAS COMUNS DE SUSPENSÃO
+## Causas comuns de suspensão
 
 - reincidência após advertência;
 - assédio continuado;
@@ -40,7 +40,7 @@ CAUSAS COMUNS DE SUSPENSÃO
 - uso abusivo de recursos da plataforma;
 - comportamento que prejudique a operação ou o suporte.
 
-CAUSAS COMUNS DE BANIMENTO
+## Causas comuns de banimento
 
 - fraude;
 - phishing, golpe ou engenharia social;
@@ -50,7 +50,7 @@ CAUSAS COMUNS DE BANIMENTO
 - evasão de punição com contas alternativas;
 - reincidência grave que demonstre ausência total de boa-fé.
 
-CRITÉRIOS DE ANÁLISE
+## Critérios de análise
 
 A administração pode considerar:
 - gravidade da conduta;
@@ -60,12 +60,12 @@ A administração pode considerar:
 - risco de repetição;
 - cooperação ou má-fé durante a apuração.
 
-NEM TUDO PRECISA SEGUIR ESCADA LINEAR
+## Nem tudo precisa seguir escada linear
 
 Nem toda infração começa em aviso.
 Casos leves podem ser resolvidos com orientação. Casos graves, como fraude séria, ameaça real, golpe ou ataque técnico, podem justificar suspensão imediata ou banimento direto.
 
-RECURSO
+## Recurso
 
 O usuário pode contestar medida aplicada por meio do canal oficial:
 admin@runv.club
@@ -76,17 +76,17 @@ O recurso deve conter:
 - motivo da contestação;
 - provas, se existirem.
 
-REGRAS DO RECURSO
+## Regras do recurso
 
 - recurso sem objetividade atrapalha;
 - mentira piora a situação;
 - pressão emocional não substitui evidência;
 - agressividade contra a equipe pode gerar nova penalidade.
 
-DECISÃO FINAL
+## Decisão final
 
 A administração pode revisar, manter, reduzir ou ampliar a medida aplicada com base nos elementos disponíveis.
 
-CONSISTÊNCIA
+## Consistência
 
 Regra sem aplicação consistente vira só texto. Por isso, a administração pode agir quando houver necessidade real de proteger usuários, equipe e operação.

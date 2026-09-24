@@ -3,247 +3,116 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>runv.club — pubnix brasileira, Unix/Linux e página pessoal</title>
-  <meta name="description" content="Comunidade brasileira em servidor compartilhado Unix/Linux: conta SSH, página pessoal, terminal, IRC e convivência calma para aprender, publicar e explorar.">
+  <title>runv.club — servidor Debian compartilhado</title>
+  <meta name="description" content="Pubnix brasileira. Conta shell, public_html servida em HTTP, Gemini, Gopher e Nex, IRC #runv. Entrada via ssh entre@runv.club.">
   <link rel="canonical" href="https://runv.club/">
   <link rel="alternate" hreflang="pt-BR" href="https://runv.club/">
   <link rel="alternate" hreflang="en" href="https://runv.club/en/">
   <link rel="alternate" hreflang="x-default" href="https://runv.club/">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0c0b0f">
+  <meta name="theme-color" content="#8a8f84">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://runv.club/">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="runv.club">
-  <meta property="og:title" content="runv.club — pubnix brasileira, Unix/Linux e página pessoal">
-  <meta property="og:description" content="Comunidade brasileira em servidor compartilhado Unix/Linux: conta SSH, página pessoal, terminal, IRC e convivência para aprender, publicar e explorar.">
+  <meta property="og:title" content="runv.club — servidor Debian compartilhado">
+  <meta property="og:description" content="Pubnix brasileira. Conta shell, public_html servida em HTTP, Gemini, Gopher e Nex, IRC #runv. Entrada via ssh entre@runv.club.">
   <meta property="og:image" content="https://runv.club/assets/og-image.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="runv.club — comunidade brasileira em estilo tilde">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="runv.club — pubnix brasileira, Unix/Linux e página pessoal">
-  <meta name="twitter:description" content="Comunidade brasileira em servidor compartilhado Unix/Linux: conta SSH, página pessoal, terminal, IRC e convivência para aprender, publicar e explorar.">
-  <meta name="twitter:image" content="https://runv.club/assets/og-image.png">
-  <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[
-    {"@type":"WebSite","@id":"https://runv.club/#website","name":"runv.club","url":"https://runv.club/","description":"Comunidade brasileira em pubnix Unix/Linux: conta SSH, página pessoal, terminal, estudo e convívio. Projeto do Portal IDEA.","inLanguage":"pt-BR","publisher":{"@id":"https://runv.club/#organization"}},
-    {"@type":"Organization","@id":"https://runv.club/#organization","name":"runv.club","url":"https://runv.club/","description":"Comunidade brasileira em estilo tilde/pubnix: contas SSH, páginas pessoais, terminal e IRC para aprender Unix/Linux.","email":"admin@runv.club","parentOrganization":{"@type":"Organization","name":"Portal IDEA"},"foundingLocation":{"@type":"Country","name":"BR"}}
-  ]}
-  </script>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css">
+  <link rel="alternate" type="application/rss+xml" title="runv.club — notícias" href="/news/feed.rss">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "runv.club", "url": "https://runv.club/", "inLanguage": "pt-BR", "description": "Pubnix brasileira. Conta shell, public_html servida em HTTP, Gemini, Gopher e Nex, IRC #runv. Entrada via ssh entre@runv.club.", "publisher": {"@type": "Organization", "name": "runv.club", "email": "admin@runv.club", "parentOrganization": {"@type": "Organization", "name": "Portal IDEA"}}}</script>
 </head>
 <body>
-  <div class="page-root">
-  <div id="starfield" class="starfield-root" aria-hidden="true"></div>
-  <div class="wrap">
-    <header class="hero">
-      <div class="ascii-block">
-        <div class="ascii-inner">
-          <pre class="ascii" role="img" aria-label="Letras RUNV em arte ASCII">██████╗ ██╗   ██╗███╗   ██╗██╗   ██╗
+<div class="sheet">
+  <header class="job">
+    <span>srv1.runv.club</span>
+    <span class="stamp">2026-09-24 14:02 -03</span>
+    <a href="/en/" hreflang="en" lang="en" class="lang">english</a>
+  </header>
+  <nav class="menu" aria-label="Páginas">
+    <a href="/" aria-current="page">início</a>
+    <a href="/junte-se/">junte-se</a>
+    <a href="/wiki/">wiki</a>
+    <a href="/news/">notícias</a>
+    <a href="/recentes/">recentes</a>
+    <a href="/now/">agora</a>
+  </nav>
+  <main id="conteudo">
+<pre class="art" role="img" aria-label="RUNV">██████╗ ██╗   ██╗███╗   ██╗██╗   ██╗
 ██╔══██╗██║   ██║████╗  ██║██║   ██║
 ██████╔╝██║   ██║██╔██╗ ██║██║   ██║
 ██╔══██╗╚██╗ ██╔╝██║╚██╗██║╚██╗ ██╔╝
 ██║  ██║ ╚████╔╝ ██║ ╚████║ ╚████╔╝
 ╚═╝  ╚═╝  ╚═══╝  ╚═╝  ╚═══╝  ╚═══╝</pre>
-          <p class="ascii-tagline">.club — um computador para compartilhar</p>
-        </div>
-      </div>
 
-      <p class="eyebrow">Comunidade brasileira · estilo tilde · pubnix</p>
-      <nav class="hero-nav" aria-label="Outras páginas">
-        <a href="/news/">Notícias</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/wiki/">Wiki</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/junte-se/">Junte-se</a>
-        <span class="hero-nav-sep" aria-hidden="true">·</span>
-        <a href="/en/" class="lang-switch">English</a>
-      </nav>
-      <h1 class="hero-title">runv.club</h1>
-      <p class="hero-subtitle">
-        Uma comunidade brasileira para aprender Unix/Linux, criar sua página pessoal, conversar com calma e redescobrir a internet como espaço de criação.
-      </p>
+    <p class="cmd">cat /etc/motd</p>
+    <p class="lede">runv.club é um servidor Debian compartilhado.</p>
+    <p>Quem entra ganha uma conta shell, uma pasta <code>public_html</code> publicada na web, no Gemini, no Gopher e no Nex, e acesso ao canal #runv.</p>
+    <p>Não precisa saber Unix para pedir entrada.</p>
 
-      <p class="hero-lead">
-        runv.club é <strong>uma comunidade brasileira em estilo tilde</strong>: um espaço calmo, humano e acessível para aprender Unix e Linux, criar páginas pessoais, experimentar ferramentas clássicas, trocar ideias e construir presença online sem a pressa da web moderna.
-      </p>
-      <p class="hero-lead">
-        Inspirada no espírito dos antigos pubnixes e dos sistemas Unix públicos de comunidade, a runv valoriza curiosidade, autonomia, texto, terminal, IRC, cultura hacker e convivência respeitosa.
-      </p>
+    <p class="cmd">uname -a &amp;&amp; runv-status</p>
+    <pre>Linux srv1, Debian GNU/Linux 13 (trixie)
+6 vCPUs, 12 GB RAM, 394 GB disco
+5 contas ativas. Serviços: HTTP, Gemini, Gopher, Nex, I2P.
+IRC: #runv, irc.tilde.chat:6697/tls (no servidor: chat)</pre>
 
-      <ul class="chips" aria-label="Em uma frase">
-        <li>Uma comunidade brasileira para aprender, criar e conviver em Unix/Linux.</li>
-        <li>Seu espaço pessoal na web, com terminal, IRC, estudo e comunidade.</li>
-        <li>Menos algoritmo. Mais aprendizado, autonomia, texto e presença.</li>
-      </ul>
+    <p class="cmd">ls -lt /home/*/public_html</p>
+    <table class="ls">
+      <tr><td class="perm">drwxr-xr-x</td><td><time datetime="2026-05-16">16 mai</time></td><td><a href="/~kirihito/">~kirihito</a></td><td>desde mai/2026</td></tr>
+      <tr><td class="perm">drwxr-xr-x</td><td><time datetime="2026-03-30">30 mar</time></td><td><a href="/~willy/">~willy</a></td><td>desde mar/2026</td></tr>
+      <tr><td class="perm">drwxr-xr-x</td><td><time datetime="2026-03-27">27 mar</time></td><td><a href="/~pmurad/">~pmurad</a></td><td>desde mar/2026</td></tr>
+      <tr><td class="perm">drwxr-xr-x</td><td><time datetime="2026-03-23">23 mar</time></td><td><a href="/~marcelo/">~marcelo</a></td><td>página padrão</td></tr>
+      <tr><td class="perm">drwxr-xr-x</td><td><time datetime="2026-03-23">23 mar</time></td><td><a href="/~will/">~will</a></td><td>página padrão</td></tr>
+    </table>
+    <p><button class="btn" id="aleatorio" type="button" hidden>página aleatória</button> <span class="rem">vagas abertas: <a href="/junte-se/">solicitar conta</a></span></p>
 
-      <div class="hero-actions" role="group" aria-label="Próximos passos">
-        <a class="button-primary" href="/junte-se/">Pedir entrada</a>
-        <a class="button-secondary" href="/wiki/">Ler a wiki</a>
-      </div>
-      <p class="hero-ssh-hint">Já tem uma chave SSH? Conecte-se com <span class="ssh-identity">ssh entre@runv.club</span></p>
+    <div class="tear" role="separator"></div>
 
-      <p class="smallweb-strip">
-        small web aqui também:
-        <a href="/nex/">Nex</a> (nex://runv.club/)
-        <span class="sw-sep" aria-hidden="true">·</span>
-        <a href="/recentes/">Recentes</a> (blogs e journals da casa)
-        <span class="sw-sep" aria-hidden="true">·</span>
-        no terminal: <span class="ssh-identity">rex</span>
-      </p>
-    </header>
+    <h2 class="cmd">ssh entre@runv.club</h2>
+    <ol>
+      <li>Gere um par de chaves Ed25519. Comandos para Linux, macOS e Windows em <a href="/junte-se/">/junte-se</a>.</li>
+      <li>Conecte em <b>ssh entre@runv.club</b> e envie a chave pública pelo formulário do terminal.</li>
+      <li>A fila é revisada manualmente. Aprovado o pedido, a conta é criada e a confirmação chega por e-mail.</li>
+    </ol>
 
-    <section class="section feature-grid" aria-label="O que você encontra aqui">
-      <article class="feature-card">
-        <p class="feature-kicker">Aprenda no terminal</p>
-        <h2>Uma conta shell para explorar com calma</h2>
-        <p>Use comandos clássicos, organize arquivos, teste ferramentas, aprenda SSH e descubra o ambiente Unix/Linux de forma prática.</p>
-      </article>
-      <article class="feature-card">
-        <p class="feature-kicker">Publique sua página</p>
-        <h2>Seu espaço pessoal na web</h2>
-        <p>Monte uma home simples, publique textos, links, projetos e deixe sua presença online com a sua cara, sem depender de plataformas fechadas.</p>
-      </article>
-      <article class="feature-card">
-        <p class="feature-kicker">Converse no IRC</p>
-        <h2>Comunidade viva no <span class="inline-accent">#runv</span></h2>
-        <p>Depois de entrar por SSH, rode <strong>chat</strong> para abrir o WeeChat direto no canal da casa, tirar dúvidas rápidas e conhecer outras pessoas.</p>
-      </article>
-    </section>
+    <h2 class="cmd">tail /var/log/runv/changelog</h2>
+    <ul class="log">
+      <li><time datetime="2026-09-24">2026-09-24</time><span>Novo site.</span></li>
+      <li><time datetime="2026-09-17">2026-09-17</time><span>fail2ban corrigido (backend nftables ausente); logrotate instalado; retenção do journald em 90 dias.</span></li>
+      <li><time datetime="2026-07-28">2026-07-28</time><span>Eepsites I2P por conta.</span></li>
+      <li><time datetime="2026-07-02">2026-07-02</time><span>Nex na porta 1900 (<code>nexd</code>), gateway HTTP em <a href="/nex/">/nex</a>, cliente <code>rex</code>.</span></li>
+      <li><time datetime="2026-07-02">2026-07-02</time><span>Agregador de blogs e journals em <a href="/recentes/">/recentes</a>.</span></li>
+      <li><time datetime="2026-05-19">2026-05-19</time><span>Comandos <code>runv-who</code>, <code>runv-finger</code> e <code>runv-bulletin</code>.</span></li>
+      <li><time datetime="2026-03-22">2026-03-22</time><span>Servidor aberto para testes.</span></li>
+    </ul>
+    <p>Em andamento: <a href="/now/">/now</a>. Avisos: <a href="/news/">/news</a> e <a href="/news/feed.rss">RSS</a>.</p>
 
-    <section class="section prose-block" aria-labelledby="what-h">
-      <p class="section-kicker">MANIFESTO</p>
-      <h2 id="what-h">O que é a runv?</h2>
-      <p>
-        A runv.club é uma comunidade online em estilo tilde voltada ao público brasileiro. Em vez de depender só de redes sociais, feeds infinitos e plataformas fechadas, a proposta é voltar ao essencial: contas em um servidor compartilhado, páginas pessoais, terminal, IRC, aprendizado prático e convivência entre pessoas que gostam de tecnologia, cultura digital e conhecimento livre.
-      </p>
-      <p>
-        A runv nasce para ser um lugar acolhedor para iniciantes, curiosos, estudantes, profissionais e entusiastas que queiram conhecer melhor o universo Unix/Linux sem pressão, sem elitismo e sem a sensação de que é preciso chegar pronto.
-      </p>
-    </section>
-
-    <section class="section prose-block accent-b" aria-labelledby="who-h">
-      <p class="section-kicker">PARA QUEM É</p>
-      <h2 id="who-h">Para quem é</h2>
-      <p>A runv é para quem quer:</p>
-      <ul class="checklist">
-        <li>aprender Unix e Linux na prática;</li>
-        <li>entender melhor shell, terminal, SSH, arquivos e servidores;</li>
-        <li>criar sua própria página pessoal;</li>
-        <li>estudar programação, automação e administração de sistemas;</li>
-        <li>conhecer gente com interesses parecidos;</li>
-        <li>participar de uma comunidade tranquila, amigável e colaborativa;</li>
-        <li>experimentar uma internet mais artesanal, criativa e humana.</li>
-      </ul>
-      <p class="pull-soft">Você não precisa ser especialista. Não precisa saber tudo. Não precisa chegar pronto.</p>
-      <p class="pull-accent"><strong>Todos são bem-vindos.</strong></p>
-    </section>
-
-    <section class="section prose-block" aria-labelledby="spirit-h">
-      <p class="section-kicker">VALORES</p>
-      <h2 id="spirit-h">O espírito da comunidade</h2>
-      <p>
-        A runv.club foi pensada para lembrar os antigos ambientes Unix públicos e comunitários — os chamados pubnixes — em que pessoas se encontravam para aprender, explorar, conversar, publicar e criar juntas.
-      </p>
-      <p>É uma proposta que valoriza:</p>
-      <ul class="pillars">
-        <li>curiosidade</li>
-        <li>estudo constante</li>
-        <li>autonomia</li>
-        <li>gentileza</li>
-        <li>troca de conhecimento</li>
-        <li>criatividade</li>
-        <li>convivência respeitosa</li>
-      </ul>
-      <p class="pull-soft">Aqui, aprender e conviver andam juntos.</p>
-    </section>
-
-    <section class="section prose-block accent-b" aria-labelledby="can-h">
-      <p class="section-kicker">NO DIA A DIA</p>
-      <h2 id="can-h">O que você pode fazer aqui</h2>
-      <p>Na runv, você pode:</p>
-      <ul class="checklist">
-        <li>acessar uma conta em ambiente Unix/Linux;</li>
-        <li>publicar sua página pessoal;</li>
-        <li>aprender comandos, organização de arquivos e ferramentas clássicas;</li>
-        <li>conversar no IRC da comunidade e pedir ajuda em tempo real;</li>
-        <li>estudar programação e automação;</li>
-        <li>trocar ideias com outras pessoas;</li>
-        <li>acompanhar projetos e experiências da comunidade;</li>
-        <li>construir seu espaço online de forma simples e autoral.</li>
-      </ul>
-    </section>
-
-    <section class="section prose-block" aria-labelledby="first-steps-h">
-      <p class="section-kicker">PRIMEIROS PASSOS</p>
-      <h2 id="first-steps-h">Como costuma ser o começo</h2>
-      <p>
-        O primeiro passo costuma ser simples: você gera sua chave SSH, faz o pedido pela página <a href="/junte-se/">Junte-se</a>, espera a revisão da equipe e, quando a conta for aprovada, entra no servidor para explorar com calma.
-      </p>
-      <p>
-        Depois disso, muita gente começa editando a própria página, testando comandos, lendo a wiki, rodando <strong>chat</strong> para entrar no <strong>#runv</strong> e conhecendo aos poucos as ferramentas e as pessoas da comunidade.
-      </p>
-    </section>
-
-    <section class="section quick-paths" aria-label="Comece por aqui">
-      <article class="quick-path-card">
-        <h2>Se você está chegando agora</h2>
-        <p>Comece pela página <a href="/junte-se/">Junte-se</a>, depois leia a <a href="/wiki/">wiki</a> e guarde o endereço <span class="ssh-identity">entre@runv.club</span>.</p>
-      </article>
-      <article class="quick-path-card">
-        <h2>Se você quer entender a proposta</h2>
-        <p>Leia a <a href="/wiki/visao-geral.html">visão geral</a>, passe pela <a href="/faq/">FAQ</a> e veja as <a href="/news/">notícias</a> para acompanhar o projeto.</p>
-      </article>
-    </section>
-
-    <section class="section prose-block accent-b" aria-labelledby="idea-h">
-      <p class="section-kicker">PARCERIA</p>
-      <h2 id="idea-h">Mantida pelo Portal IDEA</h2>
-      <p>
-        A runv.club é totalmente mantida pelo <strong>Portal IDEA</strong>, instituição dedicada à ampliação do acesso ao conhecimento e à formação de pessoas por meio da educação online.
-      </p>
-      <p>
-        Essa parceria dá base e propósito ao projeto: criar uma comunidade que una tecnologia, aprendizado, autonomia digital e troca real entre pessoas.
-      </p>
-    </section>
-
-    <section class="section prose-block" aria-labelledby="origin-h">
-      <p class="section-kicker">HISTÓRIA</p>
-      <h2 id="origin-h">Sobre a origem</h2>
-      <p>
-        A comunidade foi desenvolvida por <strong>Pablo Murad</strong> (<a href="/~pmurad/">~pmurad</a>) como uma forma de resgatar a memória dos antigos sistemas Unix públicos e trazer essa experiência para o contexto brasileiro de hoje.
-      </p>
-      <p>
-        A ideia da runv é simples e poderosa: oferecer um espaço onde a tecnologia volte a ser também encontro, descoberta, estudo e expressão pessoal.
-      </p>
-    </section>
-
-    <section class="section section-invite" aria-labelledby="invite-h">
-      <h2 id="invite-h" class="visually-hidden">Convite</h2>
-      <p>
-        Se você sente falta de uma internet mais próxima, mais criativa e menos descartável, a runv.club é para você.
-      </p>
-      <p>
-        Se você quer aprender, explorar, construir, conversar e fazer parte de algo com mais identidade e mais calma, seja muito bem-vindo.
-      </p>
-      <p class="invite-line">Entre. Experimente. Aprenda. Publique. Converse. Fique à vontade.</p>
-    </section>
-
-    <div class="cta-panel" role="group" aria-labelledby="cta-title">
-      <p class="cta-brand" id="cta-title">runv.club</p>
-      <p class="cta-tagline">Aprenda. Publique. Explore. Converse. Compartilhe.</p>
-      <p class="cta-join"><a href="/junte-se/">Como pedir entrada — chave SSH e <span class="ssh-identity">entre@runv.club</span></a></p>
-      <p class="cta-subline">Wiki, notícias e IRC para seguir aprendendo depois do primeiro login.</p>
+    <h2 class="cmd">ls /small-web</h2>
+    <pre>gemini   <a href="gemini://runv.club/">gemini://runv.club/</a>
+gopher   <a href="gopher://runv.club/">gopher://runv.club/</a>
+nex      <a href="nex://runv.club/">nex://runv.club/</a>
+nex/web  <a href="/nex/">/nex/</a>  (no terminal: rex)
+i2p      <a href="/wiki/i2p-eepsites.html">eepsite por conta</a>
+feeds    <a href="/recentes/">/recentes</a>  (blogs dos membros)</pre>
+  </main>
+  <div class="tear" role="separator"></div>
+  <footer class="foot">
+    <p class="h-card">contato: <a class="u-email" href="mailto:admin@runv.club">admin@runv.club</a> <a class="p-name u-url" href="https://runv.club/" hidden>runv.club</a>
+      <br><a href="/news/feed.rss">RSS</a>  <a href="https://tildeverse.org/">tildeverse</a></p>
+    <div class="badges">
+      <img src="/assets/88x31/runv-club.svg" width="88" height="31" alt="runv.club">
+      <img src="/assets/88x31/debian.svg" width="88" height="31" alt="Debian">
+      <img src="/assets/88x31/feito-no-brasil.svg" width="88" height="31" alt="feito no Brasil">
+      <img src="/assets/88x31/rss.svg" width="88" height="31" alt="RSS">
     </div>
-
-    <footer class="site-footer">
-      <p>Administração: <a href="mailto:admin@runv.club">admin@runv.club</a><span class="footer-sep" aria-hidden="true"> · </span><a href="/faq/" class="footer-link-discrete">FAQ</a></p>
-    </footer>
-  </div>
-  </div>
-
-  <script src="assets/app.js" defer></script>
+    <details class="snippet">
+      <summary>botão 88x31 para linkar o runv.club</summary>
+      <pre><code>&lt;a href=&quot;https://runv.club/&quot;&gt;&lt;img src=&quot;https://runv.club/assets/88x31/runv-club.svg&quot; width=&quot;88&quot; height=&quot;31&quot; alt=&quot;runv.club&quot;&gt;&lt;/a&gt;</code></pre>
+    </details>
+  </footer>
+</div>
+<script src="/assets/home.js" defer></script>
 </body>
 </html>
