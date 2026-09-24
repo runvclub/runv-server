@@ -332,7 +332,7 @@ def main(argv: list[str] | None = None) -> int:
 
     sources = load_sources(args.sources)
     if not sources:
-        print(f"kiosk: nenhuma fonte em {args.sources} (uma URL por linha). Nada a gerar.", file=sys.stderr)
+        print(f"kiosk: nenhuma fonte em {args.sources} (uma URL por linha); a página sai com a lista vazia.", file=sys.stderr)
 
     all_entries: list[Entry] = []
     skipped: list[str] = []

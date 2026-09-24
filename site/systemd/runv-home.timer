@@ -1,6 +1,6 @@
 # Ver runv-home.service para instalação.
 [Unit]
-Description=runv.club: regenerar a home de hora em hora
+Description=runv.club: regenerar a home e /recentes de hora em hora
 
 [Timer]
 OnBootSec=2min

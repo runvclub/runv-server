@@ -22,7 +22,9 @@ A home (`index.html` e `en/index.html`) é gerada, não editada à mão. Fontes:
 
 - **`genlanding.py`** (completo e `--sync-public-only`) corre `build_home.py` **depois** de copiar `site/public/` e regenerar `members.json`, porque a cópia apaga o DocumentRoot. `--no-build-home` desliga.
 - **`--members-homes-root`** passa a `/home` por omissão quando a pasta existe.
-- **Timer horário:** `site/systemd/runv-home.{service,timer}` regenera `members.json` e a home sem recopiar o resto. Instalação no cabeçalho do `.service` (ajustar `RUNV_REPO` se o checkout não estiver em `/opt/runv-server`):
+- **Timer horário:** `site/systemd/runv-home.{service,timer}` regenera `members.json`, a home e `/recentes` (kiosk, como `www-data`, com as fontes de `site/kiosk-sources.txt`) sem recopiar o resto.
+- **Páginas geradas no servidor:** `genlanding.py` guarda `recentes/index.html` do DocumentRoot antes da cópia e repõe depois (`GENERATED_PAGES`). A versão em `site/public/recentes/` é só o fallback versionado; no servidor, rode o kiosk sempre com `--out-dir` apontando para o DocumentRoot, para não sujar o checkout.
+- **Instalação do timer:** instruções no cabeçalho do `.service` (ajustar `RUNV_REPO` se o checkout não estiver em `/opt/runv-server`):
 
 ```bash
 sudo install -m 644 site/systemd/runv-home.service site/systemd/runv-home.timer /etc/systemd/system/

@@ -15,8 +15,6 @@ terminal/config.toml
 # Gerados no servidor / localmente (evita conflitos em git pull)
 site/public/news/data/news.json
 site/public/news/feed.rss
-# Página do kiosk (agregador de blogs/journals) é gerada por site/kiosk.py
-site/public/recentes/index.html
 
 # Wiki: bytecode do gerador local
 site/wiki/__pycache__/

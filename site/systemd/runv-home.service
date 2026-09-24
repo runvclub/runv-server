@@ -1,5 +1,5 @@
-# Regenera data/members.json e a home (pt/en) do runv.club a partir do estado real
-# do servidor. Disparado por runv-home.timer (de hora em hora).
+# Regenera data/members.json, a home (pt/en) e /recentes do runv.club a partir do
+# estado real do servidor. Disparado por runv-home.timer (de hora em hora).
 #
 # Instalação (root):
 #   install -m 644 site/systemd/runv-home.service site/systemd/runv-home.timer /etc/systemd/system/
@@ -8,12 +8,14 @@
 #   systemctl enable --now runv-home.timer
 #   systemctl start runv-home.service && journalctl -u runv-home.service -n 20
 #
-# Corre como root porque build_directory.py lê /var/lib/runv/users.json (privado).
+# build_directory.py corre como root porque lê /var/lib/runv/users.json (privado).
+# kiosk.py busca os blogs opt-in pela rede e corre como www-data (runuser).
 # A escrita fica limitada ao DocumentRoot; as homes são só leitura.
 
 [Unit]
-Description=runv.club: regenerar members.json e a home
-After=local-fs.target
+Description=runv.club: regenerar members.json, a home e /recentes
+After=local-fs.target network-online.target
+Wants=network-online.target
 
 [Service]
 Type=oneshot
@@ -21,13 +23,14 @@ Environment=RUNV_REPO=/opt/runv-server
 Environment=RUNV_DOCROOT=/var/www/runv.club/html
 ExecStart=/usr/bin/python3 ${RUNV_REPO}/site/build_directory.py --users-json /var/lib/runv/users.json --homes-root /home -o ${RUNV_DOCROOT}/data/members.json
 ExecStart=/usr/bin/python3 ${RUNV_REPO}/site/build_home.py --out-dir ${RUNV_DOCROOT} --members-json ${RUNV_DOCROOT}/data/members.json --homes-root /home --diary ${RUNV_REPO}/site/diario.txt --manifesto-dir ${RUNV_REPO}/site
-ExecStartPost=/bin/chown -R www-data:www-data ${RUNV_DOCROOT}/index.html ${RUNV_DOCROOT}/en/index.html ${RUNV_DOCROOT}/data/members.json
+ExecStartPost=/bin/chown www-data:www-data ${RUNV_DOCROOT}/index.html ${RUNV_DOCROOT}/en/index.html ${RUNV_DOCROOT}/data/members.json
+ExecStartPost=/usr/sbin/runuser -u www-data -- /usr/bin/python3 ${RUNV_REPO}/site/kiosk.py --sources ${RUNV_REPO}/site/kiosk-sources.txt --out-dir ${RUNV_DOCROOT}/recentes --days 45
 NoNewPrivileges=true
 ProtectSystem=strict
 ReadWritePaths=/var/www/runv.club/html
 ProtectHome=read-only
 PrivateTmp=true
-PrivateNetwork=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 ProtectControlGroups=true
 ProtectKernelTunables=true
 ProtectKernelModules=true

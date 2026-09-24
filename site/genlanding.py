@@ -236,6 +236,47 @@ def cleanup_members_json_backup(backup: Path | None) -> None:
     backup.unlink(missing_ok=True)
 
 
+# Páginas geradas no servidor (timer runv-home) e que copy_landing apagaria.
+# site/public traz uma versão de reserva de cada uma; a do DocumentRoot é mais nova.
+GENERATED_PAGES: Final[tuple[str, ...]] = ("recentes/index.html",)
+
+
+def preserve_generated_pages(document_root: Path, *, dry_run: bool) -> dict[str, Path]:
+    """Guarda cópias temporárias das páginas geradas no servidor antes do rmtree."""
+    saved: dict[str, Path] = {}
+    if dry_run:
+        return saved
+    for rel in GENERATED_PAGES:
+        current = document_root / rel
+        if not current.is_file():
+            continue
+        fd, tmp_name = tempfile.mkstemp(prefix="runv-page-backup-", suffix=".html")
+        os.close(fd)
+        shutil.copy2(current, tmp_name)
+        saved[rel] = Path(tmp_name)
+    return saved
+
+
+def restore_generated_pages(document_root: Path, saved: dict[str, Path], *, dry_run: bool) -> None:
+    """Repõe as páginas geradas guardadas por preserve_generated_pages e apaga as cópias."""
+    for rel, backup in saved.items():
+        if not dry_run and backup.is_file():
+            out = document_root / rel
+            out.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(backup, out)
+            print(f"  [ok] {rel} preservado (gerado no servidor)")
+        backup.unlink(missing_ok=True)
+
+
+def copy_landing_keeping_generated(source: Path, document_root: Path, *, dry_run: bool) -> None:
+    """copy_landing, mas mantém as GENERATED_PAGES que já estavam no DocumentRoot."""
+    saved = preserve_generated_pages(document_root, dry_run=dry_run)
+    try:
+        copy_landing(source, document_root, dry_run=dry_run)
+    finally:
+        restore_generated_pages(document_root, saved, dry_run=dry_run)
+
+
 def refresh_members_json_in_document_root(
     document_root: Path,
     *,
@@ -466,7 +507,7 @@ def sync_public_only_main(args: argparse.Namespace) -> int:
 
     members_backup = preserve_existing_members_json(document_root, dry_run=args.dry_run)
     try:
-        copy_landing(source, document_root, dry_run=args.dry_run)
+        copy_landing_keeping_generated(source, document_root, dry_run=args.dry_run)
         if not args.dry_run:
             chown_www_data(document_root, dry_run=False)
 
@@ -597,7 +638,7 @@ def main(argv: list[str] | None = None) -> int:
             ok_hint="conf já activo",
         )
 
-        copy_landing(source, document_root, dry_run=args.dry_run)
+        copy_landing_keeping_generated(source, document_root, dry_run=args.dry_run)
         if not args.dry_run:
             chown_www_data(document_root, dry_run=False)
 

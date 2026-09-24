@@ -254,7 +254,8 @@ def read_mem_gb() -> int | None:
 
 def read_disk_gb(path: str = "/") -> int | None:
     try:
-        return round(shutil.disk_usage(path).total / 1000**3)
+        # GiB, igual ao "df -h" (que mostra 394G); a RAM também é calculada em GiB.
+        return round(shutil.disk_usage(path).total / 1024**3)
     except OSError:
         return None
 
