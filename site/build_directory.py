@@ -115,6 +115,9 @@ def main() -> None:
                 file=sys.stderr,
             )
             continue
+        # contas suspensas/removidas não aparecem no diretório público
+        if row.get("status", "active") != "active":
+            continue
         created = row.get("created_at")
         since = created if isinstance(created, str) else ""
         entry: dict = {
