@@ -135,6 +135,12 @@ Listen {I2P_APACHE_ADDR}:{I2P_APACHE_PORT}
         AllowOverride None
         Require all granted
     </Directory>
+    # mod_status/mod_info não são para visitantes I2P: o i2pd entrega as conexões
+    # como 127.0.0.1 e o "Require local" global deixaria qualquer eepsite ler o
+    # /server-status (IPs e URLs de quem visita a web normal).
+    <LocationMatch "^/server-(status|info)">
+        Require all denied
+    </LocationMatch>
 </VirtualHost>
 """
 
